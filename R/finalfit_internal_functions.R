@@ -184,6 +184,22 @@ extract_fit.stanfit = function(.data, explanatory_name="explanatory", estimate_n
   return(df.out)
 }
 
+#' Extract variable labels from dataframe
+#'
+#' Internal function, not called directly.
+#'
+#' @param .data Dataframe containing labelled variables.
+#'
+#' @keywords internal
+#' @export
+
+extract_variable_label = function(.data){
+  sapply(colnames(.data), function(x){
+    label = attr(.data[,x], "label")
+    ifelse(is.null(label), x, label)
+  })
+}
+
 #' Condense model output dataframe for final tables
 #'
 #' Internal function, not called directly. Can only be used in conjunction with
@@ -408,7 +424,7 @@ plot_title = function(.data, dependent, dependent_label, prefix = "", suffix="")
 }
 
 # Specify global variables
-globalVariables(c("L95", "U95", "fit_id", "Total", "OR", "HR"))
+globalVariables(c("L95", "U95", "fit_id", "Total", "OR", "HR", "."))
 
 
 

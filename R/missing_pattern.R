@@ -20,9 +20,9 @@
 #' dependent = "mort_5yr"
 #'
 #' colon_s %>%
-#' 	finalfit_missing(dependent, explanatory)
+#' 	missing_pattern(dependent, explanatory)
 #'
-ff_missing = function(.data, dependent=NULL, explanatory=NULL){
+missing_pattern = function(.data, dependent=NULL, explanatory=NULL){
   if(is.null(dependent) && is.null(explanatory)){
     df.in = .data
   }else{
@@ -31,7 +31,3 @@ ff_missing = function(.data, dependent=NULL, explanatory=NULL){
   }
   mice::md.pattern(df.in)
 }
-
-#' @rdname ff_missing
-#' @export
-finalfit_missing = ff_missing

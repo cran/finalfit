@@ -2,7 +2,7 @@ Package: finalfit
 Type: Package
 Title: Quickly Create Elegant Regression Results Tables and Plots when
         Modelling
-Version: 0.8.3
+Version: 0.8.4
 Author: Ewen Harrison, Tom Drake, Riinu Ots
 Maintainer: Ewen Harrison <ewen.harrison@ed.ac.uk>
 Description: Generate regression results tables and plots in final 
@@ -19,6 +19,6 @@ RoxygenNote: 6.0.1
 Suggests: knitr, rmarkdown, rstan
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2018-07-25 16:03:15 UTC; eharrison
+Packaged: 2018-08-01 12:51:56 UTC; eharrison
 Repository: CRAN
-Date/Publication: 2018-07-25 21:00:03 UTC
+Date/Publication: 2018-08-01 13:30:02 UTC

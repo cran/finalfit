@@ -1,4 +1,4 @@
-#' Missing completely at random
+#' Compare missing data
 #'
 #' @param .data Dataframe.
 #' @param dependent Variable to test missingness against other variables with.
@@ -20,12 +20,12 @@
 #'   ff_glimpse(dependent, explanatory)
 #'
 #' colon_s %>%
-#'  ff_missing(dependent, explanatory)
+#'  missing_pattern(dependent, explanatory)
 #'
 #' colon_s %>%
-#'   ff_mcar(dependent, explanatory)
+#'   missing_compare(dependent, explanatory)
 
-ff_mcar <- function(.data, dependent, explanatory, na_include = FALSE){
+missing_compare <- function(.data, dependent, explanatory, na_include = FALSE){
   if(length(dependent) != 1){
     stop("One and only one dependent variable must be provided")
   }
@@ -52,7 +52,3 @@ ff_mcar <- function(.data, dependent, explanatory, na_include = FALSE){
               dependent_label_prefix = "Missing data analysis: ")
   do.call(summary_factorlist, args)
 }
-
-#' @rdname ff_mcar
-#' @export
-finalfit_mcar <- ff_mcar

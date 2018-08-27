@@ -143,7 +143,7 @@ summary_factorlist0 <- function(.data, dependent, explanatory,  cont="mean", p=F
                                 dependent_label_prefix="Dependent: ", dependent_label_suffix=""){
 
   s = summary_formula(as.formula(paste(dependent, "~", paste(explanatory, collapse="+"))), data = .data,
-                      overall=FALSE, method="response", na.include=na_include, continuous=5,
+                      overall=FALSE, method="response", na.include=na_include, continuous=5, g=1,
                       fun=function(x) {
                         mean = mean(x)
                         sd = sd(x)
@@ -165,6 +165,11 @@ summary_factorlist0 <- function(.data, dependent, explanatory,  cont="mean", p=F
       if(vname_logical[i]) vname[i] = vname[i-1]
     }
     levels = as.character(df.out$levels)
+
+    # Error with continuous vs continuous variables and fit_id, fix:
+    regex_sqbracket = "^(\\[).*(\\])$"
+    drop = grepl(regex_sqbracket, levels)
+    levels[drop] = ""
     df.out$fit_id = paste0(vname, levels)
     df.out$index = 1:dim(df.out)[1]
   }

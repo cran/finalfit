@@ -300,7 +300,6 @@ p_tidy = function(x, digits, prefix="="){
 #'
 #' @keywords internal
 #' @export
-
 # Tried to do this with dplyr programming and failed miserably.
 # quo() enquo() !! all a bit of a nightmare
 # So let's square bracket away!
@@ -422,6 +421,78 @@ plot_title = function(.data, dependent, dependent_label, prefix = "", suffix="")
   out = paste0(prefix, d_label, suffix)
   return(out)
 }
+
+
+#' Extract variable labels and names
+#'
+#' @param .data Data frame.
+#'
+#' @return A data frame with three columns: first (vname), variabe names; second
+#'   (vlabel), variables labels; third (vfill), variable labels and when null
+#'   variable names.
+#' @export
+#' @keywords internal
+#'
+#' @examples
+#' colon_s %>%
+#'   extract_labels()
+extract_labels = function(.data){
+  # Struggled to make this work and look elegant!
+  # Works but surely there is a better way.
+  df.out = lapply(.data, function(x) {
+    vlabel = attr(x, "label")
+    list(vlabel = vlabel)}) %>%
+    do.call(rbind, .)
+  df.out = data.frame(vname = rownames(df.out), vlabel = unlist(as.character(df.out)),
+                      stringsAsFactors = FALSE)
+  df.out$vfill = df.out$vlabel
+  df.out$vfill[df.out$vlabel == "NULL"] = df.out$vname[df.out$vlabel=="NULL"]
+  return(df.out)
+}
+
+#' Remove variable labels.
+#'
+#' @param .data Data frame
+#'
+#' @return The original data frame with variable label attributes removed.
+#' @export
+#' @keywords internal
+#'
+#' @examples
+#' colon_s %>%
+#'   remove_labels()
+remove_labels = function(.data){
+  for (i in 1:dim(.data)[2]){
+    attr(.data[,i], "label") = NULL
+  }
+}
+
+#' Generate formula as character string
+#'
+#' Internal not called directly
+#'
+#' @param dependent Optional character vector: name(s) of depdendent
+#'   variable(s).
+#' @param explanatory Optional character vector: name(s) of explanatory
+#'   variable(s).
+#'
+#' @return Character vector
+#' @export
+#' @keywords internal
+#'
+#' @examples
+#' explanatory = c("age", "nodes", "sex.factor", "obstruct.factor", "perfor.factor")
+#' dependent = "mort_5yr"
+#' ff_formula(dependent, explanatory)
+
+ff_formula = function(dependent, explanatory){
+  paste(dependent, "~", paste(explanatory, collapse = "+")
+  )
+}
+#' @rdname ff_formula
+#' @export
+finalfit_formula <- ff_formula
+
 
 # Specify global variables
 globalVariables(c("L95", "U95", "fit_id", "Total", "OR", "HR", ".", ".id", "var", "value"))

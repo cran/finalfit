@@ -1,4 +1,4 @@
-48a6904c8f5c720a65662c6ec544321c *DESCRIPTION
+fd0318ed18c0e5c206b8d620506e9246 *DESCRIPTION
 f6c19e0d1f9f668e778324d82edb28c8 *LICENCE
 8d78a103be724445d9235fe3acadf5b0 *NAMESPACE
 f4e0f464861c5c71f1a75847047ce3b3 *NEWS
@@ -6,7 +6,7 @@ c48b8ab8ad921f6e6014eebdf9596f87 *R/boot_compare.R
 83f1a98e04f118855f585ffa66e7a822 *R/boot_predict.R
 3cb129e92d5b74883859a10dbb5c291a *R/coxphmulti.R
 f381619d91ce338012c2622ccb48c485 *R/coxphuni.R
-5117192dd9b388f39338a71af25352c5 *R/ff_glimpse.R
+1411525554d57968484a2ccd567c8a6b *R/ff_glimpse.R
 4cf805f64015806573e330709324096e *R/ff_merge.R
 23b6dfa4ac2a88794ea1b6dd92825572 *R/ff_newdata.R
 b1f22cbed43581862296e4449c3a9d5f *R/finalfit.R
@@ -33,7 +33,7 @@ a5ca90c8c93996fc0557e0d069e812e0 *build/vignette.rds
 bd5db3d4eadbbf8b15b6215715f8ff09 *data/colon_s.rda
 e688700dab66a692f1ae7dc02424825d *inst/doc/finalfit_basics.R
 48d59ae870c2e8456fff731a61334bea *inst/doc/finalfit_basics.Rmd
-2ff7d39e7ecf465cf862611271cfd906 *inst/doc/finalfit_basics.html
+decf52a45d49d94bc299536afb6e33d0 *inst/doc/finalfit_basics.html
 9a0a144de085f24a9f0b02486d604f01 *man/boot_compare.Rd
 8fdcac920e792ab48e9be043232a6614 *man/boot_predict.Rd
 aaa3594230e98015f7723fc03cdcdefc *man/colon_s.Rd

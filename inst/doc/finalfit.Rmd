@@ -1,10 +1,9 @@
 ---
-title: "Finalfit basics"
+title: "finalfit: Getting started"
 author: "Ewen Harrison"
-date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{finalfit basics}
+  %\VignetteIndexEntry{Getting started}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -79,7 +78,6 @@ colon_s %>%
 knitr::kable(t2, row.names=FALSE, align=c("l", "l", "r", "r", "r"))
 ```
 
-When exported to PDF:
 <a href="http://www.datasurg.net/wp-content/uploads/2018/05/table2.jpg"><img src="http://www.datasurg.net/wp-content/uploads/2018/05/table2.jpg" alt="" width="600" class="aligncenter" /></a>
 
 Tables can be knitted to PDF, Word or html documents. We do this in RStudio from a .Rmd document.
@@ -270,7 +268,7 @@ label(colon_s$age.factor) = "Age (years)"
 
 Export dataframe tables directly or to <a href="http://rmarkdown.rstudio.com">R Markdown</a> <a href="https://yihui.name/knitr/">`knitr::kable()`</a>.
 
-Note wrapper `summary_missing()` is also useful. Wraps `mice::md.pattern`.
+Note wrapper `missing_pattern()` is also useful. Wraps `mice::md.pattern`.
 
 ```{r, warning=FALSE, message=FALSE}
 colon_s %>%

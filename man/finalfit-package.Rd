@@ -36,8 +36,7 @@ Methods (not called directly):
 \link{fit2df.glmerMod},
 \link{fit2df.lmerMod},
 \link{fit2df.coxph},
-\link{fit2df.coxphlist},
-\link{fit2df.stanfit}.
+\link{fit2df.coxphlist}.
 }
 
 \section{\code{finalfit} all-in-one function}{
@@ -63,8 +62,10 @@ Methods (not called directly):
 \section{\code{finalfit} helper functions}{
 
 
-\link{ff_merge},
 \link{ff_glimpse},
+\link{ff_merge},
+\link{ff_label},
+\link{ff_interaction}.
 }
 
 \section{\code{finalfit} prediction functions}{
@@ -80,8 +81,10 @@ Methods (not called directly):
 \section{\code{finalfit} missing data functions}{
 
 
+\link{missing_glimpse},
 \link{missing_pattern},
 \link{missing_compare},
-\link{missing_plot}.
+\link{missing_plot},
+\link{missing_pairs}.
 }
 

@@ -5,10 +5,11 @@
 \alias{finalfit_glimpse}
 \title{Descriptive statistics for dataframe}
 \usage{
-ff_glimpse(.data, dependent = NULL, explanatory = NULL, digits = 1)
+ff_glimpse(.data, dependent = NULL, explanatory = NULL, digits = 1,
+  levels_cut = 5)
 
 finalfit_glimpse(.data, dependent = NULL, explanatory = NULL,
-  digits = 1)
+  digits = 1, levels_cut = 5)
 }
 \arguments{
 \item{.data}{Dataframe.}
@@ -20,6 +21,10 @@ variable(s).}
 variable(s).}
 
 \item{digits}{Significant digits for continuous variable summaries}
+
+\item{levels_cut}{Max number of factor levels to include in factor levels
+summary (in order to avoid the long printing of variables with many
+factors).}
 }
 \value{
 Dataframe on summary data.
@@ -27,13 +32,12 @@ Dataframe on summary data.
 \description{
 Everyone has a funcion like this, str, glimpse, glance etc. This one is
 specifically designed for use with \code{finalfit} language. It is different
-in dividing variables by numeric vs factor, the former using
-\code{link[psych]{describe}}.
+in dividing variables by numeric vs factor.
 }
 \examples{
 library(finalfit)
 dependent = 'mort_5yr'
-explanatory = c("age.factor", "extent.factor", "perfor.factor")
+explanatory = c("age", "nodes", "age.factor", "extent.factor", "perfor.factor")
 colon_s \%>\%
   finalfit_glimpse(dependent, explanatory)
 }

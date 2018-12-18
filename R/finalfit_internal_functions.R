@@ -204,22 +204,6 @@ extract_fit.coxph = function(.data, explanatory_name="explanatory", estimate_nam
 # 	return(df.out)
 #  }
 
-#' Extract variable labels from dataframe
-#'
-#' Internal function, not called directly.
-#'
-#' @param .data Dataframe containing labelled variables.
-#'
-#' @keywords internal
-#' @export
-
-extract_variable_label = function(.data){
-	sapply(colnames(.data), function(x){
-		label = attr(.data[,x], "label")
-		ifelse(is.null(label), x, label)
-	})
-}
-
 #' Condense model output dataframe for final tables
 #'
 #' Internal function, not called directly. Can only be used in conjunction with
@@ -527,10 +511,60 @@ ff_formula = function(dependent, explanatory){
 #' @export
 finalfit_formula <- ff_formula
 
+#' Determine type/class of a variable
+#'
+#' @param .var A vector, data frame column, or equivalent. 
+#'
+#' @return One of "factor", "character", "numeric", "logical", "date". 
+#' @export
+#' @keywords internal
+#'
+#' @examples
+#' var_d = as.Date("12.03.18", "%d.%m.%y")
+#' var_f = factor(c("yes", "no"))
+#' var_c = c("yes", "no")
+#' var_n = 1:10
+#' var_l = as.logical(c("true", "false"))
+#' variable_type(var_d)
+#' variable_type(var_f)
+#' variable_type(var_c)
+#' variable_type(var_n)
+#' variable_type(var_l)
+variable_type <- function(.var){
+	if(is.factor(.var)){
+		out = "factor"
+	}else if(is.character(.var)){
+		out = "character"
+	}else if(is.numeric(.var)){
+		out = "numeric"
+	}else if(is.logical(.var)){
+		out = "logical"
+	}else if(inherits(.var, 'Date')){
+		out = "date"
+	}
+	return(out)
+}
+
+#' Test character describes survival object
+#'
+#' @param .name Character string to test
+#'
+#' @return Logical
+#' @export
+#' @keywords internal
+#'
+#' @examples
+#' var_s = "Surv(mort, time)"
+#' is.survival(var_s) #TRUE
+#' var_s = "Sur(mort, time)"
+#' is.survival(var_s) #FALSE
+is.survival <- function(.name){
+	grepl("^Surv[(].*[)]", .name)
+}
 
 # Specify global variables
 globalVariables(c("L95", "U95", "fit_id", "Total",
-									"OR", "HR", ".", ".id", "var", "value",
+									"OR", "HR", "Coefficient", ".", ".id", "var", "value",
 									":="))
 
 
@@ -550,3 +584,20 @@ globalVariables(c("L95", "U95", "fit_id", "Total",
 #' @keywords internal
 #' @import Hmisc
 summary_formula = 'Hmisc' %:::% 'summary.formula'
+
+
+
+#' Errors: colon in factor levels
+#'
+#' @param .data Data frame.
+#'
+#' @return Logical
+#' @keywords internal
+error_colon_fct_levels <- function(.data){
+	.data %>% 
+		purrr::map(~ levels(.x)) %>%
+		purrr::map(~ grepl(":", .x)) %>% 
+		purrr::map(~ any(.x)) %>% 
+		unlist() %>% 
+		any()
+}

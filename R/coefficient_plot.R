@@ -1,21 +1,20 @@
-#' Produce an odds ratio table and plot
+#' Produce a coefficient table and plot
 #'
-#' Produce an odds ratio table and plot from a \code{glm()} or
-#' \code{lme4::glmer()} model.
+#' Produce a coefficient and plot from a \code{lm()} model.
 #'
 #' @param .data Dataframe.
 #' @param dependent Character vector of length 1:  name of depdendent variable
-#'   (must have 2 levels).
+#'   (must be numeric/continuous).
 #' @param explanatory Character vector of any length: name(s) of explanatory
 #'   variables.
-#' @param random_effect Character vector of length 1, name of random effect variable.
+#' @param random_effect Character vector of length 1, name of random effect
+#'   variable.
 #' @param factorlist Option to provide output directly from
 #'   \code{\link{summary_factorlist}()}.
-#' @param glmfit Option to provide output directly from \code{\link{glmmulti}()}
-#'   and \code{\link{glmmixed}()}.
-#' @param confint_type One of \code{c("profile", "default")} for GLM models or
-#'   \code{c("default", "Wald", "profile", "boot")} for \code{glmer}
-#'   models. Note "default" == "Wald".
+#' @param lmfit Option to provide output directly from \code{\link{lmmulti}()}
+#'   and \code{\link{lmmixed}()}.
+#' @param confint_type For for \code{lmer} models, one of \code{c("default",
+#'   "Wald", "profile", "boot")} Note "default" == "Wald".
 #' @param breaks Manually specify x-axis breaks in format \code{c(0.1, 1, 10)}.
 #' @param column_space Adjust table column spacing.
 #' @param dependent_label Main label for plot.
@@ -34,34 +33,31 @@
 #'
 #' @family finalfit plot functions
 #' @export
-#' @importFrom utils globalVariables
 #' @examples
 #' library(finalfit)
-#' library(dplyr)
 #' library(ggplot2)
 #'
-#' # OR plot
-#' data(colon_s)
+#' # Coefficient plot
 #' explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
-#' dependent = "mort_5yr"
+#' dependent = "nodes"
 #' colon_s %>%
-#' 	 or_plot(dependent, explanatory)
+#' 	 coefficient_plot(dependent, explanatory)
 #'
 #' colon_s %>%
-#'   or_plot(dependent, explanatory, table_text_size=4, title_text_size=14,
-#'     plot_opts=list(xlab("OR, 95% CI"), theme(axis.title = element_text(size=12))))
+#'   coefficient_plot(dependent, explanatory, table_text_size=4, title_text_size=14,
+#'     plot_opts=list(xlab("Beta, 95% CI"), theme(axis.title = element_text(size=12))))
 #'
 #' @import ggplot2
 
-or_plot = function(.data, dependent, explanatory, random_effect=NULL, 
-									 factorlist=NULL, glmfit=NULL,
-									 confint_type = NULL,
-									 breaks=NULL, column_space=c(-0.5, 0, 0.5),
-									 dependent_label = NULL,
-									 prefix = "", suffix = ": OR (95% CI, p-value)",
-									 table_text_size = 5,
-									 title_text_size = 18,
-									 plot_opts = NULL, table_opts = NULL, ...){
+coefficient_plot = function(.data, dependent, explanatory, random_effect = NULL,
+														factorlist=NULL, lmfit=NULL,
+														confint_type = "default",
+														breaks=NULL, column_space=c(-0.5, -0.1, 0.5),
+														dependent_label = NULL,
+														prefix = "", suffix = ": Coefficient, 95% CI, p-value)",
+														table_text_size = 5,
+														title_text_size = 18,
+														plot_opts = NULL, table_opts = NULL, ...){
 	
 	requireNamespace("ggplot2")
 	
@@ -79,29 +75,22 @@ or_plot = function(.data, dependent, explanatory, random_effect=NULL,
 		breaks = scales::pretty_breaks()
 	}
 	
-	# Confidence intervals, default to "profile" for glm and "Wald" for glmer
-	if(is.null(confint_type) && is.null(random_effect)){
-		confint_type = "profile"
-	} else if(is.null(confint_type) && !is.null(random_effect)){
-		confint_type == "default"
-	}
-		
-	# Generate or format glm
-	if(is.null(glmfit) && is.null(random_effect)){
-		glmfit = glmmulti(.data, dependent, explanatory)
-		glmfit_df_c = fit2df(glmfit, condense = TRUE, estimate_suffix = " (multivariable)",
+	# Generate or format lm
+	if(is.null(lmfit) && is.null(random_effect)){
+		lmfit = lmmulti(.data, dependent, explanatory)
+		lmfit_df_c = fit2df(lmfit, condense = TRUE, estimate_suffix = " (multivariable)",
 												 confint_type = confint_type, ...)
-	} else if(is.null(glmfit) && !is.null(random_effect)){
-		glmfit = glmmixed(.data, dependent, explanatory, random_effect)
-		glmfit_df_c = fit2df(glmfit, condense = TRUE, estimate_suffix = " (multilevel)",
+	} else if(is.null(lmfit) && !is.null(random_effect)){
+		lmfit = lmmixed(.data, dependent, explanatory, random_effect)
+		lmfit_df_c = fit2df(lmfit, condense = TRUE, estimate_suffix = " (multilevel)",
 												 confint_type = confint_type, ...)
 	}
-
-	glmfit_df = fit2df(glmfit, condense = FALSE, confint_type = confint_type,  ...)
 	
+	lmfit_df = fit2df(lmfit, condense = FALSE, confint_type = confint_type,  ...)
+
 	# Merge
-	df.out = finalfit_merge(factorlist, glmfit_df_c)
-	df.out = finalfit_merge(df.out, glmfit_df, ref_symbol = "1.0")
+	df.out = finalfit_merge(factorlist, lmfit_df_c)
+	df.out = finalfit_merge(df.out, lmfit_df, ref_symbol = "0")
 	
 	# Fill in total for continuous variables (NA by default)
 	df.out$Total[is.na(df.out$Total)] = dim(.data)[1]
@@ -123,13 +112,13 @@ or_plot = function(.data, dependent, explanatory, random_effect=NULL,
 	df.out$fit_id = factor(df.out$fit_id, levels = df.out$fit_id[order(-df.out$index)])
 	
 	# Plot
-	g1 = ggplot(df.out, aes(x = as.numeric(OR), xmin = as.numeric(L95), xmax  = as.numeric(U95),
+	g1 = ggplot(df.out, aes(x = as.numeric(Coefficient), xmin = as.numeric(L95), xmax  = as.numeric(U95),
 													y = fit_id))+
 		geom_point(aes(size = Total), shape=22, fill="darkblue")+
 		geom_errorbarh(height=0.2) +
-		geom_vline(xintercept = 1, linetype = "longdash", colour = "black")+
-		scale_x_continuous(trans="log10", breaks= breaks)+
-		xlab("Odds ratio (95% CI, log scale)")+
+		geom_vline(xintercept = 0, linetype = "longdash", colour = "black")+
+		scale_x_continuous(breaks= breaks)+
+		xlab("Coefficient (95% CI)")+
 		theme_classic(14)+
 		theme(axis.title.x = element_text(),
 					axis.title.y = element_blank(),
@@ -138,10 +127,10 @@ or_plot = function(.data, dependent, explanatory, random_effect=NULL,
 					axis.ticks.y = element_blank(),
 					legend.position="none")
 	
-	t1 = ggplot(df.out, aes(x = as.numeric(OR), y = fit_id))+
+	t1 = ggplot(df.out, aes(x = as.numeric(Coefficient), y = fit_id))+
 		annotate("text", x = column_space[1], y = df.out$fit_id, label=df.out[,2], hjust=0, size=table_text_size)+
 		annotate("text", x = column_space[2], y = df.out$fit_id, label=df.out[,3], hjust=1, size=table_text_size)+
-		annotate("text", x = column_space[3], y = df.out$fit_id, label=df.out[,8], hjust=1, size=table_text_size)+
+		annotate("text", x = column_space[3], y = df.out$fit_id, label=df.out[,7], hjust=1, size=table_text_size)+
 		theme_classic(14)+
 		theme(axis.title.x = element_text(colour = "white"),
 					axis.text.x = element_text(colour = "white"),

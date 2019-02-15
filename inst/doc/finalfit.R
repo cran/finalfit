@@ -5,8 +5,7 @@ knitr::opts_chunk$set(
 )
 
 ## ----eval=FALSE----------------------------------------------------------
-#  # install.packages("devtools")
-#  devtools::install_github("ewenharrison/finalfit", ref = "development")
+#  install.packages("finalfit")
 
 ## ----eval=FALSE----------------------------------------------------------
 #  install.packages("rstan")

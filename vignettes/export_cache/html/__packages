@@ -2,3 +2,4 @@ base
 finalfit
 dplyr
 bindrcpp
+readr

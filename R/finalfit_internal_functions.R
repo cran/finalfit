@@ -42,12 +42,13 @@ extract_fit.glm = function(.data, explanatory_name="explanatory", estimate_name=
 	L_confint_name = paste0("L", confint_level*100)
 	U_confint_name = paste0("U", confint_level*100)
 
-	df.out = data.frame(explanatory, estimate, confint[,1], confint[,2], p)
+	df.out = dplyr::tibble(explanatory, estimate, confint[,1], confint[,2], p)
 	colnames(df.out) = c(explanatory_name, paste0(estimate_name, estimate_suffix),
 											 L_confint_name, U_confint_name, p_name)
 	if(confint_level != 0.95){
 		df.out = df.out %>% dplyr::select(-p_name)
 	}
+	df.out = data.frame(df.out)
 	return(df.out)
 }
 
@@ -71,13 +72,14 @@ extract_fit.glmerMod = function(.data, explanatory_name="explanatory", estimate_
 	L_confint_name = paste0("L", confint_level*100)
 	U_confint_name = paste0("U", confint_level*100)
 
-	df.out = data.frame(explanatory, estimate, confint[,1], confint[,2], p)
+	df.out = dplyr::tibble(explanatory, estimate, confint[,1], confint[,2], p)
 	colnames(df.out) = c(explanatory_name, paste0(estimate_name, estimate_suffix),
 											 L_confint_name, U_confint_name, p_name)
 
 	if(confint_level != 0.95){
 		df.out = df.out %>% dplyr::select(-p_name)
 	}
+	df.out = data.frame(df.out)
 	return(df.out)
 }
 
@@ -100,12 +102,13 @@ extract_fit.lm = function(.data, explanatory_name="explanatory", estimate_name="
 	L_confint_name = paste0("L", confint_level*100)
 	U_confint_name = paste0("U", confint_level*100)
 
-	df.out = data.frame(explanatory, estimate, confint[,1], confint[,2], p)
+	df.out = dplyr::tibble(explanatory, estimate, confint[,1], confint[,2], p)
 	colnames(df.out) = c(explanatory_name, paste0(estimate_name, estimate_suffix),
 											 L_confint_name, U_confint_name, p_name)
 	if(confint_level != 0.95){
 		df.out = df.out %>% dplyr::select(-p_name)
 	}
+	df.out = data.frame(df.out)
 	return(df.out)
 }
 
@@ -131,12 +134,13 @@ extract_fit.lmerMod = function(.data, explanatory_name="explanatory", estimate_n
 	L_confint_name = paste0("L", confint_level*100)
 	U_confint_name = paste0("U", confint_level*100)
 
-	df.out = data.frame(explanatory, estimate, confint[,1], confint[,2], p)
+	df.out = dplyr::tibble(explanatory, estimate, confint[,1], confint[,2], p)
 	colnames(df.out) = c(explanatory_name, paste0(estimate_name, estimate_suffix),
 											 L_confint_name, U_confint_name, p_name)
 	if(confint_level != 0.95){
 		df.out = df.out %>% dplyr::select(-p_name)
 	}
+	df.out = data.frame(df.out)
 	return(df.out)
 }
 
@@ -160,8 +164,9 @@ extract_fit.coxph = function(.data, explanatory_name="explanatory", estimate_nam
 	confint_U = results[,4]
 	p = summary(x)$coefficients[explanatory,
 															max(dim(summary(x)$coefficients)[2])] # Hack to get p fe and re
-	df.out = data.frame(explanatory, estimate, confint_L, confint_U, p)
+	df.out = dplyr::tibble(explanatory, estimate, confint_L, confint_U, p)
 	colnames(df.out) = c(explanatory_name, paste0(estimate_name, estimate_suffix), "L95", "U95", p_name)
+	df.out = data.frame(df.out)
 	return(df.out)
 }
 
@@ -264,16 +269,16 @@ condense_fit = function(.data, explanatory_name="explanatory", estimate_name=NA,
 
 #' Round values but keep trailing zeros
 #'
-#' Internal function, not called directly
-#'
 #' e.g. for 3 decimal places I want 1.200, not 1.2.
 #'
 #' @param x Numeric vector of values to round
 #' @param digits Integer of length one: value to round to.
 #' @return Vector of strings.
 #'
-#' @keywords internal
 #' @export
+#' 
+#' @examples
+#' round_tidy(0.01023, 3)
 
 round_tidy = function(x, digits){
 	sprintf.arg = paste0("%.", digits, "f")
@@ -293,7 +298,6 @@ round_tidy = function(x, digits){
 #' @param prefix Appended in front of values for use with \code{condense_fit}.
 #' @return Vector of strings.
 #'
-#' @keywords internal
 #' @export
 
 p_tidy = function(x, digits, prefix="="){
@@ -352,7 +356,7 @@ rm_duplicate_labels = function(factorlist, na_to_missing = TRUE){
 
 #' Make a label for the dependent variable
 #'
-#' Not usually called directly. Can be used to label final results dataframe.
+#' Can be add dependent label to final results dataframe.
 #'
 #' @param df.out Dataframe (results table) to be altered.
 #' @param .data Original dataframe.
@@ -364,7 +368,6 @@ rm_duplicate_labels = function(factorlist, na_to_missing = TRUE){
 #'
 #' @return Returns the label for the dependent variable, if specified.
 #' @export
-#' @keywords internal
 #' @examples
 #' library(dplyr)
 #' explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
@@ -404,8 +407,8 @@ dependent_label = function(df.out, .data, dependent, prefix = "Dependent: ", suf
 	} else {
 		d_label = d_label
 	}
-	names(df.out)[1] = paste0(prefix, d_label, suffix)
-	names(df.out)[2] = ""
+	names(df.out)[which(names(df.out) == "label")] = paste0(prefix, d_label, suffix)
+	names(df.out)[which(names(df.out) == "levels")] = ""
 
 	return(df.out)
 }
@@ -487,25 +490,37 @@ remove_labels = function(.data){
 
 #' Generate formula as character string
 #'
-#' Internal not called directly
+#' Useful when passing finalfit dependent and explanatory lists to base R
+#' functions
 #'
 #' @param dependent Optional character vector: name(s) of depdendent
 #'   variable(s).
 #' @param explanatory Optional character vector: name(s) of explanatory
 #'   variable(s).
+#' @param random_effect Optional character vector: name(s) of random effect
+#'   variable(s).
 #'
 #' @return Character vector
 #' @export
-#' @keywords internal
 #'
 #' @examples
 #' explanatory = c("age", "nodes", "sex.factor", "obstruct.factor", "perfor.factor")
 #' dependent = "mort_5yr"
 #' ff_formula(dependent, explanatory)
+#' 
+#' explanatory = c("age", "nodes", "sex.factor", "obstruct.factor", "perfor.factor")
+#' dependent = "mort_5yr"
+#' random_effect = "(age.factor | hospital)"
+#' ff_formula(dependent, explanatory)
 
-ff_formula = function(dependent, explanatory){
-	paste(dependent, "~", paste(explanatory, collapse = "+")
-	)
+ff_formula = function(dependent, explanatory, random_effect = NULL){
+	if(!is.null(random_effect)){
+		if(!grepl("\\|", random_effect)) random_effect = paste0("(1 | ", random_effect, ")")
+		out = paste0(dependent, "~", paste(explanatory, collapse="+"), " + ", random_effect)
+	} else {
+		out = paste(dependent, "~", paste(explanatory, collapse = "+"))	
+	}
+	return(out)
 }
 #' @rdname ff_formula
 #' @export

@@ -170,6 +170,29 @@ colon_s %>%
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
+## ---- warning=FALSE------------------------------------------------------
+library(dplyr)
+# Piped function to generate stratified crosstabs table
+explanatory = c("age.factor", "sex.factor")
+dependent = "rx.factor"
+
+# Pick option below
+split = "rx.factor"
+split = c("perfor.factor", "node4.factor")
+
+colon_s %>%
+  group_by(!!! syms(split)) %>% #Looks awkward, but this keeps quoted var names (rather than unquoted)
+  do(
+    summary_factorlist(., dependent, explanatory, p = TRUE)
+  ) %>%
+  data.frame() %>%
+  dependent_label(colon_s, dependent, prefix = "") %>%
+  colname2label(split) -> t
+
+## ---- echo=FALSE---------------------------------------------------------
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "l", "l", "r", "r", "r"))
+
 ## ---- warning=FALSE, message=FALSE---------------------------------------
 library(finalfit)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
@@ -573,4 +596,66 @@ colon_s %>%
 ## ---- echo=FALSE---------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
+
+## ---- warning=FALSE, message=FALSE---------------------------------------
+library(finalfit)
+library(dplyr)
+
+mydata = colon_s
+base_explanatory = c("age.factor", "sex.factor")
+explanatory = c("obstruct.factor", "perfor.factor", "node4.factor")
+dependent = "Surv(time, status)"
+
+mydata %>%
+	# Counts
+	summary_factorlist(dependent, c(base_explanatory,
+																	explanatory),
+										 column = TRUE,
+										 fit_id = TRUE) %>% 
+	
+	# Univariable
+	ff_merge(
+		coxphuni(mydata, dependent, c(base_explanatory, explanatory)) %>% 
+			fit2df(estimate_suffix = " (Univariable)")
+	) %>% 
+	
+	# Base
+	ff_merge(
+		coxphmulti(mydata, dependent, base_explanatory) %>% 
+			fit2df(estimate_suffix = " (Base model)")
+	) %>% 
+	
+	# Model 1
+	ff_merge(
+		coxphmulti(mydata, dependent, c(base_explanatory, explanatory[1])) %>% 
+			fit2df(estimate_suffix = " (Model 1)")
+	) %>% 
+	
+	# Model 2
+	ff_merge(
+		coxphmulti(mydata, dependent, c(base_explanatory, explanatory[2])) %>% 
+			fit2df(estimate_suffix = " (Model 2)")
+	) %>% 
+	
+	# Model 3
+	ff_merge(
+		coxphmulti(mydata, dependent, c(base_explanatory, explanatory[3])) %>% 
+			fit2df(estimate_suffix = " (Model 3)")
+	) %>% 
+	
+	# Full
+	ff_merge(
+		coxphmulti(mydata, dependent, c(base_explanatory, explanatory)) %>% 
+			fit2df(estimate_suffix = " (Full)")
+	) %>% 
+	
+	# Tidy-up
+	select(-c(fit_id, index)) %>% 
+	rename("Overall survival" = label) %>% 
+	rename(" " = levels) %>% 
+	rename(`n (%)` = all) -> t
+
+## ---- echo=FALSE---------------------------------------------------------
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r", "r", "r"))
 

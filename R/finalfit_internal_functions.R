@@ -1,3 +1,16 @@
+#' Eval for `lm` and `glm` model wrappers
+#'
+#' Internal function, not called directly. This is in reponse to a long running
+#' issue of the best way to pass `weights` to `lm()` and `glm()`. See here
+#' https://stackoverflow.com/questions/54383414/passing-weights-to-glm-using-rlang
+#'
+#' @param .
+#'
+#' @keywords internal
+ff_eval <- function(.) {
+	eval(rlang::enexpr(.), rlang::caller_env())
+}
+
 #' Extract model output to dataframe
 #'
 #' Internal function, not usually called directly.
@@ -308,6 +321,21 @@ p_tidy = function(x, digits, prefix="="){
 	return(x.out)
 }
 
+
+#' Format n and percent as a character
+#'
+#' Internal, function, not called directly
+#'
+#' @param n Value
+#' @param percent Value
+#'
+#' @export
+#'
+format_n_percent = function(n, percent) {
+	percent = round_tidy(percent, 1)
+	paste0(n, " (", percent, ")")
+}
+
 #' Remove intercept from model output
 #'
 #' Internal function, not called directly
@@ -469,6 +497,44 @@ extract_labels = function(.data){
 	return(df.out)
 }
 
+#' Change column names to variable labels
+#'
+#' Written to support stratified tables to \code{\link{summary_factorlist}}. See
+#' example below for explantion.
+#'
+#' @param .data Data frame
+#' @param .cols Quoted character vector of columns to change
+#'
+#' @export
+#'
+#' @examples
+#' library(rlang)
+#' library(dplyr)
+#' explanatory = c("age.factor", "sex.factor")
+#' dependent = "perfor.factor"
+#'
+#' # Pick option below
+#' split = "rx.factor"
+#' split = c("rx.factor", "node4.factor")
+#'
+#' # Piped function to generate stratified crosstabs table
+#' colon_s %>%
+#'   group_by(!!! syms(split)) %>% #Looks awkward, but avoids unquoted var names
+#'   do(
+#'     summary_factorlist(., dependent, explanatory, total = TRUE, p = TRUE)
+#'   ) %>%
+#'   data.frame() %>%
+#'   dependent_label(colon_s, dependent, prefix = "") %>%
+#'   colname2label(split)
+#'   
+colname2label <- function(.data, .cols){
+	lookup = extract_labels(.data) %>% 
+		dplyr::filter(vname %in% .cols)
+	
+	.data %>%
+		dplyr::rename(!!! rlang::syms(with(lookup, setNames(vname, vfill))))
+}
+
 #' Remove variable labels.
 #'
 #' @param .data Data frame
@@ -580,9 +646,8 @@ is.survival <- function(.name){
 # Specify global variables
 globalVariables(c("L95", "U95", "fit_id", "Total",
 									"OR", "HR", "Coefficient", ".", ".id", "var", "value",
-									":="))
-
-
+									":=", "Mean", "SD", "Median", "Q3", "Q1", "IQR", "Formatted", 
+									"w", "Freq", "g", "total_prop", "Prop", "index_total", "vname"))
 
 
 # Workaround ::: as summary.formula not (yet) exported from Hmisc

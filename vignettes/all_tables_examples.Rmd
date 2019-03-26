@@ -1,9 +1,9 @@
 ---
-title: "Tables gallery"
+title: "All tables examples"
 author: "Ewen Harrison"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Tables gallery}
+  %\VignetteIndexEntry{All tables examples}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -199,7 +199,7 @@ library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r"))
 ```
 
-### 1.10 Dependent variable with 0 to 5 factor levels supported
+### 1.10 Dependent variable with any number of factor levels supported
 
 ```{r, warning=FALSE}
 library(finalfit)
@@ -250,6 +250,35 @@ colon_s %>%
 ```{r, echo=FALSE}
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
+```
+
+### 1.13 Stratified crosstables
+
+I've been meaning to include support for table stratification for a while. I have delayed for a good reason. Perhaps the most straightforward way to implement stratificiation is with `dplyr::group_by()`. However, the non-standard evaluation required for multiple strata may confuse as it is not implemented else where in the package (doesn't work with `group_by_`). This translates to whether variable names are passed in quotes or not. Finally,. `dplyr::do()` is planned for deprecation, but there is not a good alternative at the moment. Anyway, here is a solution, which while not that pretty, is very effective. 
+
+```{r, warning=FALSE}
+library(dplyr)
+# Piped function to generate stratified crosstabs table
+explanatory = c("age.factor", "sex.factor")
+dependent = "rx.factor"
+
+# Pick option below
+split = "rx.factor"
+split = c("perfor.factor", "node4.factor")
+
+colon_s %>%
+  group_by(!!! syms(split)) %>% #Looks awkward, but this keeps quoted var names (rather than unquoted)
+  do(
+    summary_factorlist(., dependent, explanatory, p = TRUE)
+  ) %>%
+  data.frame() %>%
+  dependent_label(colon_s, dependent, prefix = "") %>%
+  colname2label(split) -> t
+```
+
+```{r, echo=FALSE}
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "l", "l", "r", "r", "r"))
 ```
 
 ## 2 Model tables with `finalfit()`
@@ -802,3 +831,70 @@ library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 ```
 
+### 3.5 Base model + individual explanatory variables
+
+This was an email enquiry about how to build on a base model. The example request was in a survival context.
+
+```{r, warning=FALSE, message=FALSE}
+library(finalfit)
+library(dplyr)
+
+mydata = colon_s
+base_explanatory = c("age.factor", "sex.factor")
+explanatory = c("obstruct.factor", "perfor.factor", "node4.factor")
+dependent = "Surv(time, status)"
+
+mydata %>%
+	# Counts
+	summary_factorlist(dependent, c(base_explanatory,
+																	explanatory),
+										 column = TRUE,
+										 fit_id = TRUE) %>% 
+	
+	# Univariable
+	ff_merge(
+		coxphuni(mydata, dependent, c(base_explanatory, explanatory)) %>% 
+			fit2df(estimate_suffix = " (Univariable)")
+	) %>% 
+	
+	# Base
+	ff_merge(
+		coxphmulti(mydata, dependent, base_explanatory) %>% 
+			fit2df(estimate_suffix = " (Base model)")
+	) %>% 
+	
+	# Model 1
+	ff_merge(
+		coxphmulti(mydata, dependent, c(base_explanatory, explanatory[1])) %>% 
+			fit2df(estimate_suffix = " (Model 1)")
+	) %>% 
+	
+	# Model 2
+	ff_merge(
+		coxphmulti(mydata, dependent, c(base_explanatory, explanatory[2])) %>% 
+			fit2df(estimate_suffix = " (Model 2)")
+	) %>% 
+	
+	# Model 3
+	ff_merge(
+		coxphmulti(mydata, dependent, c(base_explanatory, explanatory[3])) %>% 
+			fit2df(estimate_suffix = " (Model 3)")
+	) %>% 
+	
+	# Full
+	ff_merge(
+		coxphmulti(mydata, dependent, c(base_explanatory, explanatory)) %>% 
+			fit2df(estimate_suffix = " (Full)")
+	) %>% 
+	
+	# Tidy-up
+	select(-c(fit_id, index)) %>% 
+	rename("Overall survival" = label) %>% 
+	rename(" " = levels) %>% 
+	rename(`n (%)` = all) -> t
+```
+
+```{r, echo=FALSE}
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r", "r", "r"))
+```

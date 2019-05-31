@@ -1,7 +1,7 @@
-ca813736a54f79f1aa086aed05b34cfb *DESCRIPTION
+ab5723c965e2f3c9a36d85d5aa960cf6 *DESCRIPTION
 44256e4c7ccc334c302b9edaa2dd1628 *LICENCE
 3a2848459a5d6c1707cd22b564530506 *NAMESPACE
-eb26741d358c9c0477f5eeddf8a7d31e *NEWS.md
+d1841bd857aec1a6c75aab875f1af7f2 *NEWS.md
 c48b8ab8ad921f6e6014eebdf9596f87 *R/boot_compare.R
 83f1a98e04f118855f585ffa66e7a822 *R/boot_predict.R
 b06b748796d29748a35f16ec51ca7936 *R/catTest.R
@@ -27,7 +27,7 @@ cdee486bb354fa11394969dbd685dd2e *R/fit2df.R
 2ba1763da654be00ef88cd6c6e9b17f4 *R/glmmulti.R
 2c747f9417d436fc486358aa0f841985 *R/glmmultiboot.R
 96ea66987328c675785346e676e1eb11 *R/glmuni.R
-9aa5f602743860d4530360be9a56aea0 *R/hr_plot.R
+30e4c7074618d1c3a6c988bfc233263b *R/hr_plot.R
 ad82df2e363646f4d1e0f49f7e84b159 *R/lmmixed.R
 d367fb7544bb8e58b6be1bb72f1dd604 *R/lmmulti.R
 70be3e79385021f25d8bc930e519a145 *R/lmuni.R
@@ -36,7 +36,7 @@ d367fb7544bb8e58b6be1bb72f1dd604 *R/lmmulti.R
 c5497350a06adbededdc15d9fce90c04 *R/missing_glimpse.R
 9ffb0f2be4e6c22fcf1cfe310d5f8521 *R/missing_pattern.R
 0c22b92fa92d1fd4522c1ad670ca9f42 *R/missing_plot.R
-977c61a3bf4ba4426bf0058e30c2d69a *R/or_plot.R
+6af23d311b40121ea31041926601b1d5 *R/or_plot.R
 999eaf586bb8207ffc98112543ba4934 *R/summaryfactorlist.R
 4c585744e17c5290cd8b8b8bbf443b3b *R/surv_plot.R
 b16b7d07ff143feb5790bd62fa45d084 *R/svyglm.R
@@ -45,10 +45,10 @@ b16b7d07ff143feb5790bd62fa45d084 *R/svyglm.R
 bd5db3d4eadbbf8b15b6215715f8ff09 *data/colon_s.rda
 ec2113ec7b9ee5d1c164454ba007813a *inst/doc/all_tables_examples.R
 98a24ecb52c4d80bce642ca3cd5cfeb5 *inst/doc/all_tables_examples.Rmd
-d95a8986d7fc731d9d532a61055eecca *inst/doc/all_tables_examples.html
+ff1d07375cc65cfd803a50e58a8d7716 *inst/doc/all_tables_examples.html
 abcc75383366c3824dfa17fe716446ff *inst/doc/bootstrap.R
 1261da52ed82e04d4d59bbc5f8be4145 *inst/doc/bootstrap.Rmd
-3c0d8cea4365bc20f15d90a006a8ac30 *inst/doc/bootstrap.html
+41c3466989264026637c09e4b8f12db5 *inst/doc/bootstrap.html
 e8d372a836b6b273f927da5f949b355f *inst/doc/data_prep.R
 bd7cd71d311636adccb9b054680c4d99 *inst/doc/data_prep.Rmd
 63651a46629d3147ce0d1bcd9eb128e2 *inst/doc/data_prep.html

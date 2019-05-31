@@ -39,25 +39,28 @@ colon_s %>%
   knitr::kable(row.names=FALSE, align=c("l", "l", "r", "r", "r", "r"))
 
 ## ---- eval=FALSE---------------------------------------------------------
-#  Hmisc::label(colon_s$nodes) = "Lymph nodes involved"
 #  explanatory = c("age", "sex.factor",
 #    "extent.factor", "nodes")
 #  
 #  colon_s %>%
+#  	mutate(
+#  		nodes = ff_label(nodes, "Lymph nodes involved")
+#  	) %>%
 #    summary_factorlist(dependent, explanatory,
-#    p=TRUE, na_include=TRUE,
-#    add_dependent_label=TRUE) -> table1
+#      p=TRUE, na_include=TRUE,
+#      add_dependent_label=TRUE) -> table 1
 #  table1
 
-## ---- warning=FALSE, message=FALSE, cache=TRUE, echo=FALSE---------------
-Hmisc::label(colon_s$nodes) = "Lymph nodes involved"
+## ---- warning=FALSE, message=FALSE, echo=FALSE---------------------------
 explanatory = c("age", "sex.factor", 
   "extent.factor", "nodes")
 
 colon_s %>% 
+  mutate(
+    nodes = ff_label(nodes, "Lymph nodes involved")) %>% 
   summary_factorlist(dependent, explanatory, 
-  p=TRUE, na_include=TRUE, 
-  add_dependent_label=TRUE) %>% 
+    p=TRUE, na_include=TRUE, 
+    add_dependent_label=TRUE) %>% 
 	knitr::kable(row.names=FALSE, align=c("l", "l", "r", "r", "r", "r"))
 
 ## ---- eval=FALSE---------------------------------------------------------

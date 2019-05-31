@@ -17,7 +17,7 @@ glmmulti(.data, dependent, explanatory, family = "binomial", ...)
 variables.}
 
 \item{family}{Character vector quoted or unquoted of the error distribution
-and link function to be used in the model, seem \code{\link[stats]{glm}}.}
+and link function to be used in the model, see \code{\link[stats]{glm}}.}
 
 \item{...}{Other arguments to pass to \code{\link[stats]{glm}}.}
 }
@@ -50,10 +50,12 @@ colon_s \%>\%
 \seealso{
 \code{\link{fit2df}, \link{finalfit_merge}}
 
-Other \code{finalfit} model wrappers: \code{\link{coxphmulti}},
-  \code{\link{coxphuni}}, \code{\link{glmmixed}},
+Other finalfit model wrappers: \code{\link{coxphmulti}},
+  \code{\link{coxphuni}}, \code{\link{crrmulti}},
+  \code{\link{crruni}}, \code{\link{glmmixed}},
   \code{\link{glmmulti_boot}}, \code{\link{glmuni}},
   \code{\link{lmmixed}}, \code{\link{lmmulti}},
-  \code{\link{lmuni}}
+  \code{\link{lmuni}}, \code{\link{svyglmmulti}},
+  \code{\link{svyglmuni}}
 }
-\concept{\code{finalfit} model wrappers}
+\concept{finalfit model wrappers}

@@ -18,7 +18,11 @@ finalfit: Quickly create elegant final results tables and plots when modelling.
 \link{lmmulti},
 \link{lmmixed},
 \link{coxphuni},
-\link{coxphmulti}.
+\link{coxphmulti},
+\link{crruni},
+\link{crrmulti},
+\link{svyglmuni},
+\link{svyglmmulti}.
 }
 
 \section{\code{finalfit} model extractor}{
@@ -36,7 +40,10 @@ Methods (not called directly):
 \link{fit2df.glmerMod},
 \link{fit2df.lmerMod},
 \link{fit2df.coxph},
-\link{fit2df.coxphlist}.
+\link{fit2df.coxphlist},
+\link{fit2df.crr},
+\link{fit2df.crrlist},
+\link{fit2df.stanfit}.
 }
 
 \section{\code{finalfit} all-in-one function}{
@@ -44,6 +51,7 @@ Methods (not called directly):
 
 Generic:
 \link{finalfit}.
+\link{finalfit_permute}.
 
 Methods (not called directly):
 \link{finalfit.glm},
@@ -54,17 +62,19 @@ Methods (not called directly):
 \section{\code{finalfit} plotting functions}{
 
 
+\link{coefficient_plot},
 \link{or_plot},
 \link{hr_plot},
-\link{surv_plot}.
+\link{surv_plot},
+\link{ff_plot}.
 }
 
 \section{\code{finalfit} helper functions}{
 
 
 \link{ff_glimpse},
-\link{ff_merge},
 \link{ff_label},
+\link{ff_merge},
 \link{ff_interaction}.
 }
 

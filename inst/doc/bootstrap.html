@@ -18,10 +18,10 @@
 
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
+<style type="text/css" data-origin="pandoc">
 a.sourceLine { display: inline-block; line-height: 1.25; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -34,13 +34,11 @@ code.sourceCode { white-space: pre-wrap; }
 a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
 pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
+  { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
   { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -83,8 +81,28 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 
-
 </style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 
 
 
@@ -272,6 +290,9 @@ code > span.al { color: #ff0000; font-weight: bold; }
 code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
+
+
+
 </head>
 
 <body>
@@ -280,7 +301,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 
 <h1 class="title toc-ignore">Bootstrap simulation for model prediction</h1>
-<h4 class="author"><em>Ewen Harrison</em></h4>
+<h4 class="author">Ewen Harrison</h4>
 
 
 
@@ -324,10 +345,10 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb3-5" data-line-number="5">    <span class="dt">R=</span><span class="dv">100</span>, <span class="dt">boot_compare =</span> <span class="ot">FALSE</span>,</a>
 <a class="sourceLine" id="cb3-6" data-line-number="6">    <span class="dt">digits =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>))</a>
 <a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt;         Age    Extent of spread Perforation Predicted probability of death</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt; 1 &lt;40 years           Submucosa          No            0.28 (0.07 to 0.58)</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; 2 &lt;40 years           Submucosa         Yes            0.29 (0.07 to 0.67)</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; 3 &lt;40 years Adjacent structures          No            0.71 (0.48 to 0.87)</span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; 4 &lt;40 years Adjacent structures         Yes            0.72 (0.48 to 0.90)</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt; 1 &lt;40 years           Submucosa          No            0.28 (0.00 to 0.59)</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; 2 &lt;40 years           Submucosa         Yes            0.29 (0.00 to 0.67)</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; 3 &lt;40 years Adjacent structures          No            0.71 (0.48 to 0.84)</span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; 4 &lt;40 years Adjacent structures         Yes            0.72 (0.42 to 0.90)</span></a></code></pre></div>
 <p>Note that the number of simulations (<code>R</code>) here is low for demonstration purposes. You should expect to use 1000 to 10000 to ensure you have stable estimates.</p>
 </div>
 <div id="output-to-word-pdf-and-html-via-rmarkdown" class="section level2">
@@ -347,15 +368,15 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb5-5" data-line-number="5">    <span class="dt">compare_name =</span> <span class="st">&quot;Absolute risk difference&quot;</span>,</a>
 <a class="sourceLine" id="cb5-6" data-line-number="6">    <span class="dt">R=</span><span class="dv">100</span>, <span class="dt">digits =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>))</a>
 <a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt;         Age    Extent of spread Perforation Predicted probability of death</span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; 1 &lt;40 years           Submucosa          No            0.28 (0.07 to 0.57)</span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; 2 &lt;40 years           Submucosa         Yes            0.29 (0.08 to 0.69)</span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt; 3 &lt;40 years Adjacent structures          No            0.71 (0.52 to 0.86)</span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt; 4 &lt;40 years Adjacent structures         Yes            0.72 (0.40 to 0.92)</span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt;        Absolute risk difference</span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt; 1                             -</span></a>
-<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt; 2 0.00 (-0.17 to 0.22, p=0.960)</span></a>
-<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; 3  0.42 (0.18 to 0.69, p&lt;0.001)</span></a>
-<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; 4  0.42 (0.09 to 0.74, p&lt;0.001)</span></a></code></pre></div>
+<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; 1 &lt;40 years           Submucosa          No            0.28 (0.03 to 0.50)</span></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; 2 &lt;40 years           Submucosa         Yes            0.29 (0.03 to 0.61)</span></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt; 3 &lt;40 years Adjacent structures          No            0.71 (0.53 to 0.86)</span></a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt; 4 &lt;40 years Adjacent structures         Yes            0.72 (0.47 to 0.87)</span></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt;         Absolute risk difference</span></a>
+<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt; 1                              -</span></a>
+<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt; 2 -0.00 (-0.14 to 0.18, p=0.940)</span></a>
+<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; 3   0.47 (0.18 to 0.71, p&lt;0.001)</span></a>
+<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; 4   0.45 (0.12 to 0.66, p&lt;0.001)</span></a></code></pre></div>
 </div>
 <div id="what-is-not-included" class="section level2">
 <h2>What is not included?</h2>

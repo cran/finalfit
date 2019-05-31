@@ -7,10 +7,14 @@
 \alias{fit2df.glm}
 \alias{fit2df.glmboot}
 \alias{fit2df.glmlist}
+\alias{fit2df.svyglmlist}
 \alias{fit2df.lmerMod}
 \alias{fit2df.glmerMod}
 \alias{fit2df.coxph}
 \alias{fit2df.coxphlist}
+\alias{fit2df.crr}
+\alias{fit2df.crrlist}
+\alias{fit2df.stanfit}
 \title{Extract model fit results to dataframe (generic): \code{finalfit} model
 extractors}
 \usage{
@@ -31,7 +35,7 @@ fit2df(...)
 \method{fit2df}{glm}(.data, condense = TRUE, metrics = FALSE,
   remove_intercept = TRUE, explanatory_name = "explanatory",
   estimate_name = "OR", estimate_suffix = "", p_name = "p",
-  digits = c(2, 2, 3), confint_type = "profile",
+  digits = c(2, 2, 3), exp = TRUE, confint_type = "profile",
   confint_level = 0.95, confint_sep = "-", ...)
 
 \method{fit2df}{glmboot}(.data, condense = TRUE, metrics = FALSE,
@@ -42,7 +46,13 @@ fit2df(...)
 \method{fit2df}{glmlist}(.data, condense = TRUE, metrics = FALSE,
   remove_intercept = TRUE, explanatory_name = "explanatory",
   estimate_name = "OR", estimate_suffix = "", p_name = "p",
-  digits = c(2, 2, 3), confint_type = "profile",
+  digits = c(2, 2, 3), exp = TRUE, confint_type = "profile",
+  confint_level = 0.95, confint_sep = "-", ...)
+
+\method{fit2df}{svyglmlist}(.data, condense = TRUE, metrics = FALSE,
+  remove_intercept = TRUE, explanatory_name = "explanatory",
+  estimate_name = "Coefficient", estimate_suffix = "", p_name = "p",
+  digits = c(2, 2, 3), exp = FALSE, confint_type = "profile",
   confint_level = 0.95, confint_sep = "-", ...)
 
 \method{fit2df}{lmerMod}(.data, condense = TRUE, metrics = FALSE,
@@ -58,13 +68,28 @@ fit2df(...)
   confint_sep = "-", ...)
 
 \method{fit2df}{coxph}(.data, condense = TRUE, metrics = FALSE,
-  remove_intercept = TRUE, explanatory_name = "explanatory",
-  estimate_name = "HR", estimate_suffix = "", p_name = "p",
-  digits = c(2, 2, 3), confint_sep = "-", ...)
+  explanatory_name = "explanatory", estimate_name = "HR",
+  estimate_suffix = "", p_name = "p", digits = c(2, 2, 3),
+  confint_sep = "-", ...)
 
 \method{fit2df}{coxphlist}(.data, condense = TRUE, metrics = FALSE,
+  explanatory_name = "explanatory", estimate_name = "HR",
+  estimate_suffix = "", p_name = "p", digits = c(2, 2, 3),
+  confint_sep = "-", ...)
+
+\method{fit2df}{crr}(.data, condense = TRUE, metrics = FALSE,
+  explanatory_name = "explanatory", estimate_name = "HR",
+  estimate_suffix = "", p_name = "p", digits = c(2, 2, 3),
+  confint_sep = "-", ...)
+
+\method{fit2df}{crrlist}(.data, condense = TRUE, metrics = FALSE,
+  explanatory_name = "explanatory", estimate_name = "HR",
+  estimate_suffix = "", p_name = "p", digits = c(2, 2, 3),
+  confint_sep = "-", ...)
+
+\method{fit2df}{stanfit}(.data, condense = TRUE, metrics = FALSE,
   remove_intercept = TRUE, explanatory_name = "explanatory",
-  estimate_name = "HR", estimate_suffix = "", p_name = "p",
+  estimate_name = "OR", estimate_suffix = "", p_name = "p",
   digits = c(2, 2, 3), confint_sep = "-", ...)
 }
 \arguments{
@@ -96,6 +121,9 @@ interval limits, (3) p-value.}
 \item{confint_sep}{String to separate confidence intervals, typically "-" or
 " to ".}
 
+\item{exp}{Currently GLM only. Exponentiate coefficients and confidence
+intervals. Defaults to TRUE.}
+
 \item{confint_type}{One of \code{c("profile", "default")} for GLM models
 (\code{\link[MASS]{confint.glm}}) or \code{c("profile", "Wald", "boot")}
 for \code{glmer/lmer} models (\code{\link[lme4]{confint.merMod}}.). Not
@@ -123,6 +151,8 @@ wrappers.
 
 \code{fit2df.glmlist} is the model extract method for \code{glmuni} and \code{glmmulti}.
 
+\code{fit2df.svyglmlist} is the model extract method for \code{svyglmuni} and \code{svyglmmulti}.
+
 \code{fit2df.lmerMod} is the model extract method for standard
 \code{lme4::\link[lme4]{lmer}} models and for the
 \code{finalfit::\link{lmmixed}} model wrapper.
@@ -134,6 +164,19 @@ wrappers.
 \code{fit2df.coxph} is the model extract method for \code{survival::\link[survival]{coxph}}.
 
 \code{fit2df.coxphlist} is the model extract method for \code{coxphuni} and \code{coxphmulti}.
+
+\code{fit2df.crr} is the model extract method for \code{cmprsk::\link[cmprsk]{crr}}.
+
+\code{fit2df.crr} is the model extract method for
+\code{crruni} and \code{crrmulti}.
+
+\code{fit2df.stanfit} is the model extract method for our standard Bayesian
+hierarchical binomial logistic regression models. These models will be fully
+documented separately. However this should work for a single or multilevel
+Bayesian logistic regression done in Stan, as long as the fixed effects are
+specified in the parameters block as a vector named \code{beta}, of length
+\code{P}, where \code{P} is the number of fixed effect parameters. e.g.
+parameters{ vector[P] beta; }
 }
 \details{
 \code{fit2df} is a generic (S3) function for model extract.
@@ -152,8 +195,8 @@ fit \%>\%
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 dependent = "mort_5yr"
 colon_s \%>\%
-	glmmulti(dependent, explanatory) \%>\%
-	fit2df(estimate_suffix=" (univariable)")
+  glmmulti(dependent, explanatory) \%>\%
+  fit2df(estimate_suffix=" (univariable)")
 
 # glmerMod
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
@@ -161,15 +204,15 @@ random_effect = "hospital"
 dependent = "mort_5yr"
 colon_s \%>\%
   glmmixed(dependent, explanatory, random_effect) \%>\%
-	 fit2df(estimate_suffix=" (multilevel)")
+  fit2df(estimate_suffix=" (multilevel)")
 
 # glmboot
 ## Note number of draws set to 100 just for speed in this example
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 dependent = "mort_5yr"
 colon_s \%>\%
-	glmmulti_boot(dependent, explanatory,  R = 100) \%>\%
-	fit2df(estimate_suffix=" (multivariable (BS CIs))")
+  glmmulti_boot(dependent, explanatory,  R = 100) \%>\%
+  fit2df(estimate_suffix=" (multivariable (BS CIs))")
 
 # lm
 fit = lm(nodes ~  age.factor + sex.factor + obstruct.factor + perfor.factor,
@@ -184,25 +227,48 @@ dependent = "nodes"
 
 colon_s \%>\%
   lmmixed(dependent, explanatory, random_effect) \%>\%
-	 fit2df(estimate_suffix=" (multilevel")
+  fit2df(estimate_suffix=" (multilevel")
 
 # coxphlist
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 dependent = "Surv(time, status)"
 
 colon_s \%>\%
-	coxphuni(dependent, explanatory) \%>\%
-	fit2df(estimate_suffix=" (univariable)")
+  coxphuni(dependent, explanatory) \%>\%
+  fit2df(estimate_suffix=" (univariable)")
 
 colon_s \%>\%
-	coxphmulti(dependent, explanatory) \%>\%
-	fit2df(estimate_suffix=" (multivariable)")
+  coxphmulti(dependent, explanatory) \%>\%
+  fit2df(estimate_suffix=" (multivariable)")
 
 # coxph
 fit = coxph(Surv(time, status) ~ age.factor + sex.factor + obstruct.factor + perfor.factor,
   data = colon_s)
 
 fit \%>\%
-	fit2df(estimate_suffix=" (multivariable)")
+  fit2df(estimate_suffix=" (multivariable)")
+	
+# crr: competing risks
+melanoma = boot::melanoma
+melanoma = melanoma \%>\% 
+  mutate(
+    status_crr = ifelse(status == 2, 0, # "still alive"
+      ifelse(status == 1, 1, # "died of melanoma"
+      2)), # "died of other causes" 
+    sex = factor(sex),
+    ulcer = factor(ulcer)
+  )
+
+dependent = c("Surv(time, status_crr)")
+explanatory = c("sex", "age", "ulcer")
+melanoma \%>\% 
+  summary_factorlist(dependent, explanatory, column = TRUE, fit_id = TRUE) \%>\% 
+  ff_merge(
+    melanoma \%>\% 
+      crrmulti(dependent, explanatory) \%>\% 
+      fit2df(estimate_suffix = " (competing risks)")
+  ) \%>\% 
+select(-fit_id, -index) \%>\% 
+dependent_label(melanoma, dependent)
 }
-\concept{\code{finalfit} model extractors}
+\concept{finalfit model extractors}

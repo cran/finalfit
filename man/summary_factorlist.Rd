@@ -8,13 +8,14 @@ summary_factorlist(.data, dependent = NULL, explanatory, cont = "mean",
   cont_cut = 5, p = FALSE, na_include = FALSE, column = FALSE,
   total_col = FALSE, orderbytotal = FALSE, fit_id = FALSE,
   na_to_missing = TRUE, add_dependent_label = FALSE,
-  dependent_label_prefix = "Dependent: ", dependent_label_suffix = "")
+  dependent_label_prefix = "Dependent: ", dependent_label_suffix = "",
+  ...)
 }
 \arguments{
 \item{.data}{Dataframe.}
 
-\item{dependent}{Character vector of length 1:  name of dependent variable
-(2 to 5 factor levels).}
+\item{dependent}{Character vector of length 1:  name of dependent variable (2
+to 5 factor levels).}
 
 \item{explanatory}{Character vector of any length: name(s) of explanatory
 variables.}
@@ -22,7 +23,8 @@ variables.}
 \item{cont}{Summary for continuous variables: "mean" (standard deviation) or
 "median" (interquartile range).}
 
-\item{cont_cut}{Numeric: number of unique values in continuous variable at which to consider it a factor.}
+\item{cont_cut}{Numeric: number of unique values in continuous variable at
+which to consider it a factor.}
 
 \item{p}{Logical: Include statistical test (see
 \code{\link[Hmisc]{summary.formula}}).}
@@ -43,11 +45,14 @@ levels.}
 \code{na_include=TRUE}.}
 
 \item{add_dependent_label}{Add the name of the dependent label to the top
-left of table}
+left of table.}
 
-\item{dependent_label_prefix}{Add text before dependent label}
+\item{dependent_label_prefix}{Add text before dependent label.}
 
-\item{dependent_label_suffix}{Add text after dependent label}
+\item{dependent_label_suffix}{Add text after dependent label.}
+
+\item{...}{Pass other arguments to \code{\link[Hmisc]{summary.formula}}),
+e.g. \code{catTest = catTestfisher}.}
 }
 \value{
 Returns a \code{factorlist} dataframe.

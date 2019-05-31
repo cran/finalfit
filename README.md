@@ -4,7 +4,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/3wpgw2rs6vn1lsrn?svg=true)](https://ci.appveyor.com/project/ewenharrison/finalfit)
 [![Coverage status](https://codecov.io/gh/ewenharrison/finalfit/branch/master/graph/badge.svg)](https://codecov.io/github/ewenharrison/finalfit?branch=master)
 
-finalfit <img src="man/figures/finalfit_130_150.png" align="right" />
+finalfit <img src="man/figures/finalfit_hex.png" align="right" />
 ==============================
 
 
@@ -67,3 +67,15 @@ When exported to PDF:
 <a href="https://www.datasurg.net/wp-content/uploads/2018/05/table7a.jpg"><img src="https://www.datasurg.net/wp-content/uploads/2018/05/table7a.jpg" alt="" width="700" /></a>
 
 <a href="https://www.datasurg.net/wp-content/uploads/2018/05/table7b.jpg"><img src="https://www.datasurg.net/wp-content/uploads/2018/05/table7b.jpg" alt="" width="700"/></a>
+
+### Regression plots
+
+``` r
+explanatory = c("age.factor", "sex.factor", 
+  "obstruct.factor", "perfor.factor")
+dependent = 'mort_5yr'
+colon_s %>%
+  or_plot(dependent, explanatory)
+```
+
+<a href="https://www.datasurg.net/wp-content/uploads/2018/05/plot1.jpg"><img src="https://www.datasurg.net/wp-content/uploads/2018/05/plot1.jpg" alt="" width="600" class="aligncenter" /></a>

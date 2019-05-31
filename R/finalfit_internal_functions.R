@@ -41,23 +41,27 @@ extract_fit = function(...){
 #' @export
 
 extract_fit.glm = function(.data, explanatory_name="explanatory", estimate_name="OR",
-													 estimate_suffix = "",  p_name = "p",
+													 estimate_suffix = "",  p_name = "p", exp = TRUE,
 													 confint_type = "profile", confint_level = 0.95, ...){
 	x=.data
 	explanatory = names(coef(x))
-	estimate = exp(coef(x))
+	estimate = coef(x)
 	if (confint_type == "profile"){
-		confint = exp(confint(x, level = confint_level))
+		confint = confint(x, level = confint_level)
 	}else if (confint_type == "default"){
-		confint = exp(confint.default(x, level = confint_level))
+		confint = confint.default(x, level = confint_level)
 	}
-	p = summary(x)$coef[,"Pr(>|z|)"]
+	p_col = dimnames(summary(x)$coef)[[2]] %in% c("Pr(>|t|)", "Pr(>|z|)")
+	p = summary(x)$coef[ ,p_col]
 	L_confint_name = paste0("L", confint_level*100)
 	U_confint_name = paste0("U", confint_level*100)
 
 	df.out = dplyr::tibble(explanatory, estimate, confint[,1], confint[,2], p)
 	colnames(df.out) = c(explanatory_name, paste0(estimate_name, estimate_suffix),
 											 L_confint_name, U_confint_name, p_name)
+	if(exp){
+		df.out[, 2:4] = df.out[, 2:4] %>% exp() # mutate_at not working here
+	}
 	if(confint_level != 0.95){
 		df.out = df.out %>% dplyr::select(-p_name)
 	}
@@ -138,11 +142,11 @@ extract_fit.lmerMod = function(.data, explanatory_name="explanatory", estimate_n
 	x=.data
 	if(confint_type == "default") confint_type = "Wald"
 	explanatory = names(lme4::fixef(x))
-	estimate = exp(lme4::fixef(x))
-	confint = exp(lme4::confint.merMod(x, method = confint_type))
+	estimate = lme4::fixef(x)
+	confint = lme4::confint.merMod(x, method = confint_type)
 	confint = confint[-grep("sig", rownames(confint)),]
 	p = 1-pnorm(abs(summary(x)$coefficients[,3]))
-	warning("P-value for lmer is estimate assuming t-distribution is normal. Bootstrap for final publication.")
+	message("P-value for lmer is estimate assuming t-distribution is normal. Bootstrap for final publication.")
 
 	L_confint_name = paste0("L", confint_level*100)
 	U_confint_name = paste0("U", confint_level*100)
@@ -183,44 +187,69 @@ extract_fit.coxph = function(.data, explanatory_name="explanatory", estimate_nam
 	return(df.out)
 }
 
+#' Extract model output to dataframe
+#'
+#' Internal function, not called directly.
+#'
+#' @keywords internal
+#' @rdname extract_fit
+#' @method extract_fit crr
+#' @export
 
-# #' Extract model output to dataframe
-# #'
-# #' @param X Design matrix from Stan modelling procedure.
-# #'
-# #' @keywords internal
-# #' @rdname extract_fit
-# #' @method extract_fit stanfit
-# #' @export
-#
-# extract_fit.stanfit = function(.data, explanatory_name="explanatory", estimate_name="OR",
-# 															 estimate_suffix = "",  p_name = "p", digits=c(2,2,3), X, ...){
-# 	stanfit = .data
-# 	pars = "beta"
-# 	quantiles =  c(0.025, 0.50, 0.975)
-#
-# 	explanatory = attr(X, "dimnames")[[2]]
-# 	results = rstan::summary(stanfit,
-# 													 pars = pars,
-# 													 probs = quantiles)$summary
-# 	estimate = exp(results[, 1])
-# 	confint_L = exp(results[, 4])
-# 	confint_U = exp(results[, 6])
-#
-# 	# Determine a p-value based on two-sided examination of chains
-# 	chains = rstan::extract(stanfit, pars=pars, permuted = TRUE, inc_warmup = FALSE,
-# 													include = TRUE)
-# 	p1.out = apply(chains[[1]], 2, function(x)mean(x<0))
-# 	p2.out = apply(chains[[1]], 2, function(x)mean(x>0))
-# 	p1.out = p1.out*2
-# 	p2.out = p2.out*2
-# 	p.out = ifelse(p1.out < 1, p1.out, p2.out)
-# 	p = round(p.out, 3)
-#
-# 	df.out = data.frame(explanatory, estimate, confint_L, confint_U, p)
-# 	colnames(df.out) = c(explanatory_name, paste0(estimate_name, estimate_suffix), "L95", "U95", p_name)
-# 	return(df.out)
-#  }
+extract_fit.crr = function(.data, explanatory_name="explanatory", estimate_name="HR",
+													 estimate_suffix = "",
+													 p_name = "p", ...){
+	x=.data
+	results = summary(x)$conf.int
+	explanatory = row.names(results)
+	estimate = results[,1]
+	confint_L = results[,3]
+	confint_U = results[,4]
+	p = summary(x)$coef[explanatory,
+											max(dim(summary(x)$coef)[2])] # Hack to get p fe and re
+	df.out = dplyr::tibble(explanatory, estimate, confint_L, confint_U, p)
+	colnames(df.out) = c(explanatory_name, paste0(estimate_name, estimate_suffix), "L95", "U95", p_name)
+	df.out = data.frame(df.out)
+	return(df.out)
+}
+
+#' Extract model output to dataframe
+#'
+#' @param X Design matrix from Stan modelling procedure.
+#'
+#' @keywords internal
+#' @rdname extract_fit
+#' @method extract_fit stanfit
+#' @export
+
+extract_fit.stanfit = function(.data, explanatory_name="explanatory", estimate_name="OR",
+															 estimate_suffix = "",  p_name = "p", digits=c(2,2,3), X, ...){
+	stanfit = .data
+	pars = "beta"
+	quantiles =  c(0.025, 0.50, 0.975)
+
+	explanatory = dimnames(X)[[2]]
+	results = rstan::summary(stanfit,
+													 pars = pars,
+													 probs = quantiles)$summary
+	estimate = exp(results[, 1])
+	confint_L = exp(results[, 4])
+	confint_U = exp(results[, 6])
+
+	# Determine a p-value based on two-sided examination of chains
+	chains = rstan::extract(stanfit, pars=pars, permuted = TRUE, inc_warmup = FALSE,
+													include = TRUE)
+	p1.out = apply(chains[[1]], 2, function(x)mean(x<0))
+	p2.out = apply(chains[[1]], 2, function(x)mean(x>0))
+	p1.out = p1.out*2
+	p2.out = p2.out*2
+	p.out = ifelse(p1.out < 1, p1.out, p2.out)
+	p = round(p.out, 3)
+
+	df.out = data.frame(explanatory, estimate, confint_L, confint_U, p)
+	colnames(df.out) = c(explanatory_name, paste0(estimate_name, estimate_suffix), "L95", "U95", p_name)
+	return(df.out)
+ }
 
 #' Condense model output dataframe for final tables
 #'
@@ -351,8 +380,8 @@ format_n_percent = function(n, percent) {
 # quo() enquo() !! all a bit of a nightmare
 # So let's square bracket away!
 remove_intercept = function(.data, intercept_name = "(Intercept)"){
-	.data = .data[-which(.data[,1] == intercept_name),]
-	return(.data)
+	.data %>% 
+		dplyr::filter_at(.vars = 1, dplyr::any_vars(. != intercept_name))
 }
 
 #' Remove duplicate levels within \code{\link{summary_factorlist}}: \code{finalfit} helper function
@@ -647,7 +676,7 @@ is.survival <- function(.name){
 globalVariables(c("L95", "U95", "fit_id", "Total",
 									"OR", "HR", "Coefficient", ".", ".id", "var", "value",
 									":=", "Mean", "SD", "Median", "Q3", "Q1", "IQR", "Formatted", 
-									"w", "Freq", "g", "total_prop", "Prop", "index_total", "vname"))
+									"w", "Freq", "g", "total_prop", "Prop", "index_total", "vname", "Combined"))
 
 
 # Workaround ::: as summary.formula not (yet) exported from Hmisc

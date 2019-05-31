@@ -44,6 +44,17 @@ colon_s %>%
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r"))
 
+## ------------------------------------------------------------------------
+library(finalfit)
+explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
+dependent = "perfor.factor"
+colon_s %>%
+  summary_factorlist(dependent, explanatory, p = TRUE, catTest = catTestfisher) -> t
+
+## ---- echo=FALSE---------------------------------------------------------
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "r", "r"))
+
 ## ---- warning=FALSE------------------------------------------------------
 library(finalfit)
 explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
@@ -536,6 +547,107 @@ kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 ## ---- warning=FALSE, message=FALSE---------------------------------------
 library(finalfit)
 library(dplyr)
+
+## Dobson (1990) Page 93: Randomized Controlled Trial :
+counts = c(18,17,15,20,10,20,25,13,12)
+outcome = gl(3,1,9)
+treatment = gl(3,3)
+d.AD <- data.frame(treatment, outcome, counts)
+
+dependent = "counts"
+explanatory = c("outcome", "treatment")
+
+fit_uni = d.AD %>% 
+	glmuni(dependent, explanatory, family = poisson) %>% 
+	fit2df(estimate_name = "Rate ratio (univariable)")
+
+fit_multi = d.AD %>% 
+	glmmulti(dependent, explanatory, family = poisson) %>% 
+	fit2df(estimate_name = "Rate ratio (multivariable)")
+
+# All in one pipe
+d.AD %>%
+	## Crosstable
+	summary_factorlist(dependent, explanatory, cont = "median", fit_id=TRUE)  %>% 
+	
+	## Add univariable
+	ff_merge(fit_uni, estimate_name = "Rate ratio") %>% 
+	
+	## Add multivariable
+	ff_merge(fit_multi, estimate_name = "Rate ratio") %>% 
+	
+	select(-c(fit_id, index)) %>% 
+	dependent_label(d.AD, dependent) -> t
+
+## ---- echo=FALSE---------------------------------------------------------
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
+
+## ---- warning=FALSE, message=FALSE---------------------------------------
+library(finalfit)
+library(dplyr)
+
+# A Gamma example, from McCullagh & Nelder (1989, pp. 300-2)
+clotting <- data.frame(
+    u = c(5,10,15,20,30,40,60,80,100),
+    lot1 = c(118,58,42,35,27,25,21,19,18),
+    lot2 = c(69,35,26,21,18,16,13,12,12))
+
+dependent = "lot1"
+explanatory = "log(u)"
+
+fit_uni = clotting %>% 
+	glmuni(dependent, explanatory, family = Gamma) %>% 
+	fit2df(estimate_name = "Coefficient", exp = FALSE, digits = c(3,3,4))
+
+# All in one pipe
+clotting %>%
+	## Crosstable
+	summary_factorlist(dependent, explanatory, cont = "median", fit_id=TRUE)  %>% 
+	
+	## Add fit
+	ff_merge(fit_uni) %>% 
+	
+	select(-c(fit_id, index)) %>% 
+	dependent_label(colon_s, dependent) -> t
+
+## ---- echo=FALSE---------------------------------------------------------
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
+
+## ---- warning=FALSE, message=FALSE---------------------------------------
+library(finalfit)
+library(dplyr)
+explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
+dependent = "mort_5yr"
+weights = runif(dim(colon_s)[1]) # random just for example
+
+# All in one pipe
+colon_s %>%
+	## Crosstable
+	summary_factorlist(dependent, explanatory, fit_id=TRUE)  %>% 
+	
+	## Add univariable
+	ff_merge(
+		glmuni(colon_s, dependent, explanatory, weights = weights, family = quasibinomial) %>%
+			fit2df(estimate_suffix=" (univariable)")
+	) %>% 
+	
+	## Add multivariable
+	ff_merge(
+		glmmulti(colon_s, dependent, explanatory, weights = weights, family = quasibinomial) %>%
+			fit2df(estimate_suffix=" (multivariable)")
+	) %>% 
+	select(-c(fit_id, index)) %>% 
+	dependent_label(colon_s, dependent) -> t
+
+## ---- echo=FALSE---------------------------------------------------------
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
+
+## ---- warning=FALSE, message=FALSE---------------------------------------
+library(finalfit)
+library(dplyr)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 dependent = "mort_5yr"
 
@@ -654,6 +766,93 @@ mydata %>%
 	rename("Overall survival" = label) %>% 
 	rename(" " = levels) %>% 
 	rename(`n (%)` = all) -> t
+
+## ---- echo=FALSE---------------------------------------------------------
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r", "r", "r"))
+
+## ---- warning=FALSE, message=FALSE---------------------------------------
+library(survey)
+library(dplyr)
+
+data(api)
+dependent = "api00"
+explanatory = c("ell", "meals", "mobility")
+
+# Label data frame
+apistrat = apistrat %>%
+  mutate(
+  api00 = ff_label(api00, "API in 2000 (api00)"),
+  ell = ff_label(ell, "English language learners (percent)(ell)"),
+  meals = ff_label(meals, "Meals eligible (percent)(meals)"),
+  mobility = ff_label(mobility, "First year at the school (percent)(mobility)"),
+  sch.wide = ff_label(sch.wide, "School-wide target met (sch.wide)")
+  )
+
+# Linear example
+dependent = "api00"
+explanatory = c("ell", "meals", "mobility")
+
+# Stratified design
+dstrat = svydesign(id=~1,strata=~stype, weights=~pw, data=apistrat, fpc=~fpc)
+
+# Univariable fit
+fit_uni = dstrat %>%
+  svyglmuni(dependent, explanatory) %>%
+  fit2df(estimate_suffix = " (univariable)")
+
+# Multivariable fit
+fit_multi = dstrat %>%
+  svyglmmulti(dependent, explanatory) %>%
+  fit2df(estimate_suffix = " (multivariable)")
+
+# Pipe together
+apistrat %>%
+  summary_factorlist(dependent, explanatory, fit_id = TRUE) %>%
+  ff_merge(fit_uni) %>%
+  ff_merge(fit_multi) %>%
+  select(-fit_id, -index) %>%
+  dependent_label(apistrat, dependent) -> t
+
+## ---- echo=FALSE---------------------------------------------------------
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r", "r", "r"))
+
+## ---- warning=FALSE, message=FALSE---------------------------------------
+library(survey)
+library(dplyr)
+
+data(api)
+dependent = "sch.wide"
+explanatory = c("ell", "meals", "mobility")
+
+# Label data frame
+apistrat = apistrat %>%
+  mutate(
+  api00 = ff_label(api00, "API in 2000 (api00)"),
+  ell = ff_label(ell, "English language learners (percent)(ell)"),
+  meals = ff_label(meals, "Meals eligible (percent)(meals)"),
+  mobility = ff_label(mobility, "First year at the school (percent)(mobility)"),
+  sch.wide = ff_label(sch.wide, "School-wide target met (sch.wide)")
+  )
+  
+# Univariable fit
+fit_uni = dstrat %>%
+  svyglmuni(dependent, explanatory, family = "quasibinomial") %>%
+  fit2df(exp = TRUE, estimate_name = "OR", estimate_suffix = " (univariable)")
+
+# Multivariable fit
+fit_multi = dstrat %>%
+  svyglmmulti(dependent, explanatory, family = "quasibinomial") %>%
+  fit2df(exp = TRUE, estimate_name = "OR", estimate_suffix = " (multivariable)")
+
+# Pipe together
+apistrat %>%
+  summary_factorlist(dependent, explanatory, fit_id = TRUE) %>%
+  ff_merge(fit_uni) %>%
+  ff_merge(fit_multi) %>%
+  select(-fit_id, -index) %>%
+  dependent_label(apistrat, dependent) -> t
 
 ## ---- echo=FALSE---------------------------------------------------------
 library(knitr)

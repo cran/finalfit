@@ -13,13 +13,14 @@
 #' regression models.
 #'
 #' @param .data Dataframe.
-#' @param dependent Character vector of length 1:  name of dependent variable
-#'   (2 to 5 factor levels).
+#' @param dependent Character vector of length 1:  name of dependent variable (2
+#'   to 5 factor levels).
 #' @param explanatory Character vector of any length: name(s) of explanatory
 #'   variables.
 #' @param cont Summary for continuous variables: "mean" (standard deviation) or
 #'   "median" (interquartile range).
-#' @param cont_cut Numeric: number of unique values in continuous variable at which to consider it a factor.
+#' @param cont_cut Numeric: number of unique values in continuous variable at
+#'   which to consider it a factor.
 #' @param p Logical: Include statistical test (see
 #'   \code{\link[Hmisc]{summary.formula}}).
 #' @param na_include Logical: include missing data in summary (\code{NA}).
@@ -32,9 +33,11 @@
 #' @param na_to_missing Logical: convert \code{NA} to 'Missing' when
 #'   \code{na_include=TRUE}.
 #' @param add_dependent_label Add the name of the dependent label to the top
-#'   left of table
-#' @param dependent_label_prefix Add text before dependent label
-#' @param dependent_label_suffix Add text after dependent label
+#'   left of table.
+#' @param dependent_label_prefix Add text before dependent label.
+#' @param dependent_label_suffix Add text after dependent label.
+#' @param ... Pass other arguments to \code{\link[Hmisc]{summary.formula}}),
+#'   e.g. \code{catTest = catTestfisher}.
 #' @return Returns a \code{factorlist} dataframe.
 #'
 #' @family finalfit wrappers
@@ -66,7 +69,7 @@ summary_factorlist <- function(.data, dependent = NULL, explanatory, cont = "mea
 															 p = FALSE, na_include = FALSE,
 															 column = FALSE, total_col = FALSE, orderbytotal = FALSE, fit_id = FALSE,
 															 na_to_missing = TRUE, add_dependent_label = FALSE,
-															 dependent_label_prefix = "Dependent: ", dependent_label_suffix = ""){
+															 dependent_label_prefix = "Dependent: ", dependent_label_suffix = "", ...){
 	if(is.data.frame(.data) == FALSE) stop(".data is not dataframe")
 	if(any(class(.data) %in% c("tbl_df", "tbl"))) .data = data.frame(.data) # tbl work different, convert to data.frame
 	if(is.null(explanatory)) stop("No explanatory variable(s) provided")
@@ -81,13 +84,13 @@ summary_factorlist <- function(.data, dependent = NULL, explanatory, cont = "mea
 							column = column, total_col = total_col, orderbytotal = orderbytotal, fit_id = fit_id,
 							na_to_missing = na_to_missing, add_dependent_label = add_dependent_label,
 							dependent_label_prefix = dependent_label_prefix,
-							dependent_label_suffix = dependent_label_suffix)
+							dependent_label_suffix = dependent_label_suffix, ...)
 	
 	# Survival object
 	d_is.surv = grepl("Surv[(].*[)]", dependent)
 	
 	if(d_is.surv){
-		warning("Dependent variable is a survival object")
+		message("Dependent variable is a survival object")
 		.data$all = factor(1, labels="all")
 		args$.data = .data
 		args$dependent = "all"
@@ -112,7 +115,7 @@ summary_factorlist <- function(.data, dependent = NULL, explanatory, cont = "mea
 		
 		# Non-factor case
 		if(!d_is.factor){
-			warning("Dependent is not a factor and will be treated as a continuous variable")
+			message("Dependent is not a factor and will be treated as a continuous variable")
 			do.call(summary_factorlist0, args)
 		} else {
 			do.call(summary_factorlist_groups, args)
@@ -206,24 +209,17 @@ summary_factorlist_groups <- function(.data, dependent, explanatory,  cont = "me
 																			p = FALSE, na_include = FALSE,
 																			column = FALSE, total_col = FALSE, orderbytotal = FALSE, fit_id = FALSE,
 																			na_to_missing = TRUE, add_dependent_label = FALSE,
-																			dependent_label_prefix = "Dependent: ", dependent_label_suffix = ""){
+																			dependent_label_prefix = "Dependent: ", dependent_label_suffix = "", ...){
 	
 	s <- summary_formula(as.formula(paste(dependent, "~", paste(explanatory, collapse = "+"))), data = .data,
-											 method = "reverse", overall = FALSE,
-											 test = TRUE,na.include = na_include, continuous = cont_cut)
+											 method = "reverse", overall = TRUE,
+											 test = TRUE, na.include = na_include, continuous = cont_cut, ...)
 	df.out = plyr::ldply(1:length(s$stats), function(index) {
 		x = s$stats[[index]]
 		is_continuous = s$type[index] == 2
 		
 		if (is_continuous) {
-			df.out = summarise_continuous(x, cont = cont)
-			if(total_col){
-				df.out$Total = s$n[index]
-				if(total_col & column){
-					Prop = df.out$Total / dim(.data)[1] * 100
-					df.out$Total = format_n_percent(df.out$Total, Prop)
-				}
-			}
+			df.out = summarise_continuous(x, cont = cont, total_col = total_col)
 		} else {
 			# Factor variables
 			df.out = summarise_categorical(x, column = column, total_col = total_col)
@@ -292,7 +288,7 @@ summary_factorlist_groups <- function(.data, dependent, explanatory,  cont = "me
 #' Internal function, not called directly.
 #'
 #' @keywords internal
-summarise_continuous = function(x, cont) {
+summarise_continuous = function(x, cont, total_col) {
 	if (cont == "mean") {
 		df_out = x %>%
 			as.data.frame() %>%
@@ -316,11 +312,18 @@ summarise_continuous = function(x, cont) {
 				levels = "Median (IQR)"
 			)
 	}
-	df_out %>%
+	df_out = df_out %>%
 		dplyr::select(levels, Label, Formatted) %>%
-		tidyr::spread(Label, Formatted)
+		tidyr::spread(Label, Formatted) %>%
+		dplyr::select(-Combined, Total = Combined)
+	if(total_col){
+		return(df_out)
+	} else {
+		df_out = df_out %>% 
+			dplyr::select(-Total)
+		return(df_out)
+	}
 }
-
 
 #' Helper function to generate the summary for a categorical variable
 #'
@@ -331,13 +334,14 @@ summarise_categorical = function(x, column, total_col) {
 	# Calculate totals
 	df = x %>%
 		as.data.frame() %>%
-		dplyr::group_by(w) %>%
-		dplyr::mutate(Total = sum(Freq),
-									index_total = Total) %>%
+		tibble::rownames_to_column("w") %>%
+		dplyr::mutate(w = factor(w, levels = w)) %>% # Needed to keep order
+		tidyr::gather(g, Freq, -w, -Combined) %>% 
+		dplyr::mutate(g = factor(g, levels = unique(g))) %>% 
+		dplyr::rename(Total = Combined) %>% 
+		dplyr::mutate(index_total = Total) %>% 
 		dplyr::group_by(g) %>%
 		dplyr::mutate(total_prop = Total / sum(Total) * 100)
-	
-	
 	# Calculate percentage: row-wise or column-wise
 	if (column) {
 		df = df %>%

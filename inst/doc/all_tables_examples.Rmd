@@ -41,8 +41,7 @@ library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r"))
 ```
 
-Note, chi-squared warnings will be generated when the expected count in any cell is less than 5. Fisher's exact test has not been implemented, given it is so easy to go straight to a univariable logistic regression,
-e.g. `colon_s %>% finalfit(dependent, explanatory)`
+Note, chi-squared warnings will be generated when the expected count in any cell is less than 5. Fisher's exact test can be used as below, or go straight to a univariable logistic regression, e.g. `colon_s %>% finalfit(dependent, explanatory)`
 
 ### 1.02 Add or edit variable labels
 
@@ -80,7 +79,22 @@ library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r"))
 ```
 
-### 1.04 Median (interquartile range) instead of mean (standard deviation)
+### 1.04 With Fisher's exact test
+
+```{r}
+library(finalfit)
+explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
+dependent = "perfor.factor"
+colon_s %>%
+  summary_factorlist(dependent, explanatory, p = TRUE, catTest = catTestfisher) -> t
+```
+
+```{r, echo=FALSE}
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "r", "r"))
+```
+
+### 1.05 Median (interquartile range) instead of mean (standard deviation)
 
 ... for continuous variables.
 
@@ -97,7 +111,7 @@ library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r"))
 ```
 
-### 1.05 Missing values for the explanatory variables
+### 1.06 Missing values for the explanatory variables
 
 Always do this when describing your data.
 
@@ -114,7 +128,7 @@ library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r"))
 ```
 
-### 1.06 Column proportions (rather than row)
+### 1.07 Column proportions (rather than row)
 
 ```{r, warning=FALSE}
 library(finalfit)
@@ -130,7 +144,7 @@ library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r"))
 ```
 
-### 1.07 Total column
+### 1.08 Total column
 
 ```{r, warning=FALSE}
 library(finalfit)
@@ -146,7 +160,7 @@ library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r"))
 ```
 
-### 1.08 Order a variable by total
+### 1.09 Order a variable by total
 
 This is intended for when there is only one `explanatory` variable.  
 
@@ -164,7 +178,7 @@ library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r"))
 ```
 
-### 1.09 Label with `dependent` name
+### 1.10 Label with `dependent` name
 
 ```{r, warning=FALSE}
 library(finalfit)
@@ -199,7 +213,7 @@ library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r"))
 ```
 
-### 1.10 Dependent variable with any number of factor levels supported
+### 1.11 Dependent variable with any number of factor levels supported
 
 ```{r, warning=FALSE}
 library(finalfit)
@@ -218,7 +232,7 @@ library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 ```
 
-### 1.11 Explanatory variable defaults to factor when ≤5 distinct values
+### 1.12 Explanatory variable defaults to factor when ≤5 distinct values
 
 ```{r, warning=FALSE}
 library(finalfit)
@@ -237,7 +251,7 @@ library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 ```
 
-### 1.12 Keep as continous variable when ≤5 distinct values
+### 1.13 Keep as continous variable when ≤5 distinct values
 
 ```{r, warning=FALSE}
 library(finalfit)
@@ -252,9 +266,9 @@ library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 ```
 
-### 1.13 Stratified crosstables
+### 1.14 Stratified crosstables
 
-I've been meaning to include support for table stratification for a while. I have delayed for a good reason. Perhaps the most straightforward way to implement stratificiation is with `dplyr::group_by()`. However, the non-standard evaluation required for multiple strata may confuse as it is not implemented else where in the package (doesn't work with `group_by_`). This translates to whether variable names are passed in quotes or not. Finally,. `dplyr::do()` is planned for deprecation, but there is not a good alternative at the moment. Anyway, here is a solution, which while not that pretty, is very effective. 
+I've been meaning to include support for table stratification for a while. I have delayed for a good reason. Perhaps the most straightforward way to implement stratificiation is with `dplyr::group_by()`. However, the non-standard evaluation required for multiple strata may confuse as it is not implemented else where in the package (doesn't work with `group_by_`). This translates to whether variable names are passed in quotes or not. Finally,. `dplyr::do()` is planned for deprecation, but there is no good alternative at the moment. Anyway, here is a solution, which while not that pretty, is very effective. 
 
 ```{r, warning=FALSE}
 library(dplyr)
@@ -578,7 +592,7 @@ library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 ```
 
-## 2.17 Exclude all missing data in final model from univariable analyses 
+### 2.17 Exclude all missing data in final model from univariable analyses 
 
 This can be useful if you want the numbers in the final table to match the final multivariable model. However, be careful to include a full explanation of this in the methods and the reason for exluding the missing data. 
 
@@ -755,7 +769,122 @@ library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 ```
 
-### 3.3 Using base R functions
+### 3.3 Other GLM models
+
+#### Poisson
+
+```{r, warning=FALSE, message=FALSE}
+library(finalfit)
+library(dplyr)
+
+## Dobson (1990) Page 93: Randomized Controlled Trial :
+counts = c(18,17,15,20,10,20,25,13,12)
+outcome = gl(3,1,9)
+treatment = gl(3,3)
+d.AD <- data.frame(treatment, outcome, counts)
+
+dependent = "counts"
+explanatory = c("outcome", "treatment")
+
+fit_uni = d.AD %>% 
+	glmuni(dependent, explanatory, family = poisson) %>% 
+	fit2df(estimate_name = "Rate ratio (univariable)")
+
+fit_multi = d.AD %>% 
+	glmmulti(dependent, explanatory, family = poisson) %>% 
+	fit2df(estimate_name = "Rate ratio (multivariable)")
+
+# All in one pipe
+d.AD %>%
+	## Crosstable
+	summary_factorlist(dependent, explanatory, cont = "median", fit_id=TRUE)  %>% 
+	
+	## Add univariable
+	ff_merge(fit_uni, estimate_name = "Rate ratio") %>% 
+	
+	## Add multivariable
+	ff_merge(fit_multi, estimate_name = "Rate ratio") %>% 
+	
+	select(-c(fit_id, index)) %>% 
+	dependent_label(d.AD, dependent) -> t
+```
+
+```{r, echo=FALSE}
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
+```
+
+#### Gamma
+
+```{r, warning=FALSE, message=FALSE}
+library(finalfit)
+library(dplyr)
+
+# A Gamma example, from McCullagh & Nelder (1989, pp. 300-2)
+clotting <- data.frame(
+    u = c(5,10,15,20,30,40,60,80,100),
+    lot1 = c(118,58,42,35,27,25,21,19,18),
+    lot2 = c(69,35,26,21,18,16,13,12,12))
+
+dependent = "lot1"
+explanatory = "log(u)"
+
+fit_uni = clotting %>% 
+	glmuni(dependent, explanatory, family = Gamma) %>% 
+	fit2df(estimate_name = "Coefficient", exp = FALSE, digits = c(3,3,4))
+
+# All in one pipe
+clotting %>%
+	## Crosstable
+	summary_factorlist(dependent, explanatory, cont = "median", fit_id=TRUE)  %>% 
+	
+	## Add fit
+	ff_merge(fit_uni) %>% 
+	
+	select(-c(fit_id, index)) %>% 
+	dependent_label(colon_s, dependent) -> t
+```
+
+```{r, echo=FALSE}
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
+```
+
+### 3.4 Weighted regression
+
+```{r, warning=FALSE, message=FALSE}
+library(finalfit)
+library(dplyr)
+explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
+dependent = "mort_5yr"
+weights = runif(dim(colon_s)[1]) # random just for example
+
+# All in one pipe
+colon_s %>%
+	## Crosstable
+	summary_factorlist(dependent, explanatory, fit_id=TRUE)  %>% 
+	
+	## Add univariable
+	ff_merge(
+		glmuni(colon_s, dependent, explanatory, weights = weights, family = quasibinomial) %>%
+			fit2df(estimate_suffix=" (univariable)")
+	) %>% 
+	
+	## Add multivariable
+	ff_merge(
+		glmmulti(colon_s, dependent, explanatory, weights = weights, family = quasibinomial) %>%
+			fit2df(estimate_suffix=" (multivariable)")
+	) %>% 
+	select(-c(fit_id, index)) %>% 
+	dependent_label(colon_s, dependent) -> t
+```
+
+```{r, echo=FALSE}
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
+```
+
+### 3.5 Using base R functions
 
 Note `ff_formula()` convenience function to make multivariable formula (`y ~ x1 + x2 + x3` etc.) from a `dependent` and `explanatory` vector of names. 
 
@@ -794,7 +923,7 @@ library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 ```
 
-### 3.4 Edit table rows
+### 3.6 Edit table rows
 
 This can be done as any dataframe would be edited. 
 
@@ -831,7 +960,7 @@ library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 ```
 
-### 3.5 Base model + individual explanatory variables
+### 3.7 Base model + individual explanatory variables
 
 This was an email enquiry about how to build on a base model. The example request was in a survival context.
 
@@ -898,3 +1027,106 @@ mydata %>%
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r", "r", "r"))
 ```
+
+## 4 Support for complex survey structures via `library(survey)`
+
+### 4.1 Linear regression
+
+Examples taken from `survey::svyglm()` help page.
+
+```{r, warning=FALSE, message=FALSE}
+library(survey)
+library(dplyr)
+
+data(api)
+dependent = "api00"
+explanatory = c("ell", "meals", "mobility")
+
+# Label data frame
+apistrat = apistrat %>%
+  mutate(
+  api00 = ff_label(api00, "API in 2000 (api00)"),
+  ell = ff_label(ell, "English language learners (percent)(ell)"),
+  meals = ff_label(meals, "Meals eligible (percent)(meals)"),
+  mobility = ff_label(mobility, "First year at the school (percent)(mobility)"),
+  sch.wide = ff_label(sch.wide, "School-wide target met (sch.wide)")
+  )
+
+# Linear example
+dependent = "api00"
+explanatory = c("ell", "meals", "mobility")
+
+# Stratified design
+dstrat = svydesign(id=~1,strata=~stype, weights=~pw, data=apistrat, fpc=~fpc)
+
+# Univariable fit
+fit_uni = dstrat %>%
+  svyglmuni(dependent, explanatory) %>%
+  fit2df(estimate_suffix = " (univariable)")
+
+# Multivariable fit
+fit_multi = dstrat %>%
+  svyglmmulti(dependent, explanatory) %>%
+  fit2df(estimate_suffix = " (multivariable)")
+
+# Pipe together
+apistrat %>%
+  summary_factorlist(dependent, explanatory, fit_id = TRUE) %>%
+  ff_merge(fit_uni) %>%
+  ff_merge(fit_multi) %>%
+  select(-fit_id, -index) %>%
+  dependent_label(apistrat, dependent) -> t
+```
+
+```{r, echo=FALSE}
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r", "r", "r"))
+```
+
+### 4.2 Binomial example
+
+Note model family needs specified and exponentiation set to `TRUE` if desired.
+
+```{r, warning=FALSE, message=FALSE}
+library(survey)
+library(dplyr)
+
+data(api)
+dependent = "sch.wide"
+explanatory = c("ell", "meals", "mobility")
+
+# Label data frame
+apistrat = apistrat %>%
+  mutate(
+  api00 = ff_label(api00, "API in 2000 (api00)"),
+  ell = ff_label(ell, "English language learners (percent)(ell)"),
+  meals = ff_label(meals, "Meals eligible (percent)(meals)"),
+  mobility = ff_label(mobility, "First year at the school (percent)(mobility)"),
+  sch.wide = ff_label(sch.wide, "School-wide target met (sch.wide)")
+  )
+  
+# Univariable fit
+fit_uni = dstrat %>%
+  svyglmuni(dependent, explanatory, family = "quasibinomial") %>%
+  fit2df(exp = TRUE, estimate_name = "OR", estimate_suffix = " (univariable)")
+
+# Multivariable fit
+fit_multi = dstrat %>%
+  svyglmmulti(dependent, explanatory, family = "quasibinomial") %>%
+  fit2df(exp = TRUE, estimate_name = "OR", estimate_suffix = " (multivariable)")
+
+# Pipe together
+apistrat %>%
+  summary_factorlist(dependent, explanatory, fit_id = TRUE) %>%
+  ff_merge(fit_uni) %>%
+  ff_merge(fit_multi) %>%
+  select(-fit_id, -index) %>%
+  dependent_label(apistrat, dependent) -> t
+```
+
+```{r, echo=FALSE}
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r", "r", "r"))
+```
+
+

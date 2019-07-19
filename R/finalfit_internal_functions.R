@@ -173,14 +173,19 @@ extract_fit.lmerMod = function(.data, explanatory_name="explanatory", estimate_n
 extract_fit.coxph = function(.data, explanatory_name="explanatory", estimate_name="HR",
 														 estimate_suffix = "",
 														 p_name = "p", ...){
-	x=.data
+	x = .data
 	results = summary(x)$conf.int
-	explanatory = row.names(results)
-	estimate = results[,1]
-	confint_L = results[,3]
-	confint_U = results[,4]
+	# Below is required to cope with difference in output when `frailty()` included
+	explanatory = row.names(summary(x)$coefficients)[
+		row.names(summary(x)$coefficients) %in% row.names(summary(x)$conf.int)
+		]
+	estimate = results[explanatory, 1]
+	confint_L = results[explanatory, 3]
+	confint_U = results[explanatory, 4]
+	
 	p = summary(x)$coefficients[explanatory,
-															max(dim(summary(x)$coefficients)[2])] # Hack to get p fe and re
+															dim(summary(x)$coefficients)[2]]
+
 	df.out = dplyr::tibble(explanatory, estimate, confint_L, confint_U, p)
 	colnames(df.out) = c(explanatory_name, paste0(estimate_name, estimate_suffix), "L95", "U95", p_name)
 	df.out = data.frame(df.out)
@@ -212,6 +217,37 @@ extract_fit.crr = function(.data, explanatory_name="explanatory", estimate_name=
 	df.out = data.frame(df.out)
 	return(df.out)
 }
+
+#' #' Extract model output to dataframe
+#' #'
+#' #' @keywords internal
+#' #' @rdname extract_fit
+#' #' @method extract_fit coxme
+#' #' @export
+#' 
+#' extract_fit.coxme = function(.data, explanatory_name="explanatory", estimate_name="HR",
+#' 																estimate_suffix = "",  p_name = "p",
+#' 																confint_level = 0.95, ...){
+#' 	x=.data
+#' 	if(confint_type == "default") confint_type = "Wald"
+#' 	explanatory = names(coxme::fixef(x))
+#' 	estimate = exp(coxme::fixef(x))
+#' 	# confint = 
+#' 	# p =
+#' 	L_confint_name = paste0("L", confint_level*100)
+#' 	U_confint_name = paste0("U", confint_level*100)
+#' 	
+#' 	df.out = dplyr::tibble(explanatory, estimate, confint[,1], confint[,2], p)
+#' 	colnames(df.out) = c(explanatory_name, paste0(estimate_name, estimate_suffix),
+#' 											 L_confint_name, U_confint_name, p_name)
+#' 	
+#' 	if(confint_level != 0.95){
+#' 		df.out = df.out %>% dplyr::select(-p_name)
+#' 	}
+#' 	df.out = data.frame(df.out)
+#' 	return(df.out)
+#' }
+
 
 #' Extract model output to dataframe
 #'
@@ -357,11 +393,12 @@ p_tidy = function(x, digits, prefix="="){
 #'
 #' @param n Value
 #' @param percent Value
+#' @param digits Value
 #'
 #' @export
 #'
-format_n_percent = function(n, percent) {
-	percent = round_tidy(percent, 1)
+format_n_percent = function(n, percent, digits) {
+	percent = round_tidy(percent, digits)
 	paste0(n, " (", percent, ")")
 }
 
@@ -457,6 +494,7 @@ rm_duplicate_labels = function(factorlist, na_to_missing = TRUE){
 #' 	 dependent_label(colon_s, dependent) -> example.final
 #'   example.final
 dependent_label = function(df.out, .data, dependent, prefix = "Dependent: ", suffix=""){
+	if(any(class(.data) %in% c("tbl_df", "tbl"))) .data = data.frame(.data)
 	d_label = attr(.data[,which(names(.data) %in% dependent)], "label")
 
 	if (is.null(d_label)){

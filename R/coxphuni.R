@@ -6,7 +6,7 @@
 #' Uses \code{\link[survival]{coxph}} with \code{finalfit} modelling conventions. Output can be
 #'   passed to \code{\link{fit2df}}.
 #'
-#' @param .data Dataframe.
+#' @param .data Data frame.
 #' @param dependent Character vector of length 1:  name of survival object in form \code{Surv(time, status)}.
 #' @param explanatory Character vector of any length: name(s) of explanatory variables.
 #' @return A list of univariable \code{\link[survival]{coxph}} fitted model outputs.
@@ -15,6 +15,7 @@
 #' @seealso \code{\link{fit2df}, \link{finalfit_merge}}
 #' @family finalfit model wrappers
 #' @export
+#' @import survival
 #'
 #' @examples
 #' # Cox Proportional Hazards univariable analysis.
@@ -28,9 +29,17 @@
 #' 	fit2df()
 
 coxphuni <- function(.data, dependent, explanatory){
+  requireNamespace("survival")
+  
+  # Remove cluster and strata terms
+  drop = grepl("cluster[(].*[)]", explanatory) |
+    grepl("strata[(].*[)]", explanatory) |
+    grepl("frailty[(].*[)]", explanatory)
+  explanatory = explanatory[!drop]
+  
   result <- list()
   for (i in 1:length(explanatory)){
-    result[[i]] <- survival::coxph(as.formula(paste0("survival::", dependent, "~", explanatory[i])), data=.data)
+    result[[i]] <- coxph(as.formula(paste0(dependent, "~", explanatory[i])), data=.data)
   }
   class(result) = "coxphlist"
   return(result)

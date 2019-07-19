@@ -23,6 +23,8 @@
 #'   which to consider it a factor.
 #' @param p Logical: Include statistical test (see
 #'   \code{\link[Hmisc]{summary.formula}}).
+#' @param digits Number of digits to round to (1) mean/median, (2) standard
+#'   deviation / interquartile range, (3) p-value, (4) count percentage.
 #' @param na_include Logical: include missing data in summary (\code{NA}).
 #' @param column Logical: Compute margins by column rather than row.
 #' @param total_col Logical: include a total column summing across factor
@@ -66,21 +68,31 @@
 #'   summary_factorlist(dependent, explanatory)
 
 summary_factorlist <- function(.data, dependent = NULL, explanatory, cont = "mean", cont_cut = 5,
-															 p = FALSE, na_include = FALSE,
+															 p = FALSE, digits = c(1, 1, 3, 1), na_include = FALSE,
 															 column = FALSE, total_col = FALSE, orderbytotal = FALSE, fit_id = FALSE,
 															 na_to_missing = TRUE, add_dependent_label = FALSE,
-															 dependent_label_prefix = "Dependent: ", dependent_label_suffix = "", ...){
-	if(is.data.frame(.data) == FALSE) stop(".data is not dataframe")
+															 dependent_label_prefix = "Dependent: ", dependent_label_suffix = "", ...) {
+	if(!is.data.frame(.data)) stop(".data is not dataframe")
 	if(any(class(.data) %in% c("tbl_df", "tbl"))) .data = data.frame(.data) # tbl work different, convert to data.frame
 	if(is.null(explanatory)) stop("No explanatory variable(s) provided")
 	if(is.null(dependent)){
-		warning("No dependent variable(s) provided; defaulting to single-level factor")
+		message("No dependent variable(s) provided; defaulting to single-level factor")
 		dependent = "all"
 		.data$all = factor(1, labels="all")
 	}
+	if(cont == "geometric") { # For requested geometric mean function, log continuous variables for ease below
+		log_vars = sapply(.data, is.numeric) & names(.data) %in% explanatory
+		col_zeros = sapply(.data[log_vars], function(x) any(x == 0))
+		col_names = names(which(col_zeros))
+		if(any(col_zeros)){
+			stop(paste0("Geometric mean called when variable(s) `", paste0(col_names, collapse = "` `"), "` contain(s) zero values"))
+		}
+		.data = .data %>% dplyr::mutate_if(log_vars, log)
+	}
 	
 	args = list(.data = .data, dependent = dependent, explanatory = explanatory,
-							cont = cont, cont_cut = cont_cut, p = p, na_include = na_include,
+							cont = cont, cont_cut = cont_cut, p = p, digits = digits, 
+							na_include = na_include,
 							column = column, total_col = total_col, orderbytotal = orderbytotal, fit_id = fit_id,
 							na_to_missing = na_to_missing, add_dependent_label = add_dependent_label,
 							dependent_label_prefix = dependent_label_prefix,
@@ -94,13 +106,20 @@ summary_factorlist <- function(.data, dependent = NULL, explanatory, cont = "mea
 		.data$all = factor(1, labels="all")
 		args$.data = .data
 		args$dependent = "all"
+		
+		# Remove strata and cluster terms
+		drop = grepl("cluster[(].*[)]", explanatory) |
+			grepl("strata[(].*[)]", explanatory) |
+			grepl("frailty[(].*[)]", explanatory)
+		args$explanatory = args$explanatory[!drop]
+		
 		suppressWarnings(
 			do.call(summary_factorlist_groups, args)
 		)
 	} else {
 		
 		# Extract dependent variable
-		d_variable = .data[,names(.data) %in% dependent]
+		d_variable = .data[ ,names(.data) %in% dependent]
 		
 		if(length(d_variable) == 0){
 			stop("Dependent variable length is 0")
@@ -130,7 +149,9 @@ summary_factorlist <- function(.data, dependent = NULL, explanatory, cont = "mea
 #'
 #' @keywords internal
 
-summary_factorlist0 <- function(.data, dependent, explanatory,  cont = "mean", cont_cut = 5, p = FALSE, na_include = FALSE,
+summary_factorlist0 <- function(.data, dependent, explanatory,  cont = "mean", cont_cut = 5, p = FALSE, 
+																digits = c(1, 1, 3, 1),
+																na_include = FALSE,
 																column = FALSE, total_col = FALSE, orderbytotal = FALSE, fit_id = FALSE,
 																na_to_missing = TRUE, add_dependent_label = FALSE,
 																dependent_label_prefix = "Dependent: ", dependent_label_suffix=""){
@@ -148,7 +169,8 @@ summary_factorlist0 <- function(.data, dependent, explanatory,  cont = "mean", c
 	)
 	
 	# Dataframe
-	df.out = data.frame(label=attr(s, "vlabel"), levels=attr(s, "dimnames")[[1]])
+	df.out = data.frame(label=attr(s, "vlabel"), levels=attr(s, "dimnames")[[1]],
+											stringsAsFactors = FALSE)
 	
 	# Add in lm level names, this needs hacked in given above methodology
 	if (fit_id){
@@ -168,18 +190,28 @@ summary_factorlist0 <- function(.data, dependent, explanatory,  cont = "mean", c
 	}
 	
 	if (cont=="mean"){
-		mean.out = round_tidy(matrix(s[,2]), 1)
-		sd.out = round_tidy(matrix(s[,3]), 1)
-		result.out = data.frame(paste0(mean.out, " (", sd.out, ")"))
+		mean.out = round_tidy(matrix(s[,2]), digits[1])
+		sd.out = round_tidy(matrix(s[,3]), digits[2])
+		result.out = data.frame(paste0(mean.out, " (", sd.out, ")"), 
+														stringsAsFactors = FALSE)
 		colnames(result.out) = "Mean (sd)"
 	}
 	
 	if (cont=="median"){
-		median.out = round_tidy(matrix(s[,5]), 1)
-		L_IQR = round_tidy(matrix(s[,4]), 1)
-		U_IQR = round_tidy(matrix(s[,6]), 1)
-		result.out = data.frame(paste0(median.out, " (", L_IQR, " to ", U_IQR, ")"))
+		median.out = round_tidy(matrix(s[,5]), digits[1])
+		L_IQR = round_tidy(matrix(s[,4]), digits[2])
+		U_IQR = round_tidy(matrix(s[,6]), digits[2])
+		result.out = data.frame(paste0(median.out, " (", L_IQR, " to ", U_IQR, ")"), 
+														stringsAsFactors = FALSE)
 		colnames(result.out) = "Median (IQR)"
+	}
+	
+	if (cont=="geometric"){
+		mean.out = round_tidy(exp(matrix(s[,2])), digits[1])
+		sd.out = round_tidy(exp(matrix(s[,3])), digits[2])
+		result.out = data.frame(paste0(mean.out, " (", sd.out, ")"), 
+														stringsAsFactors = FALSE)
+		colnames(result.out) = "Geometric mean (sd)"
 	}
 	
 	df.out = cbind(df.out, result.out)
@@ -206,7 +238,7 @@ summary_factorlist0 <- function(.data, dependent, explanatory,  cont = "mean", c
 #'
 #' @keywords internal
 summary_factorlist_groups <- function(.data, dependent, explanatory,  cont = "mean", cont_cut = 5, 
-																			p = FALSE, na_include = FALSE,
+																			p = FALSE, digits = c(1, 1, 3, 1), na_include = FALSE,
 																			column = FALSE, total_col = FALSE, orderbytotal = FALSE, fit_id = FALSE,
 																			na_to_missing = TRUE, add_dependent_label = FALSE,
 																			dependent_label_prefix = "Dependent: ", dependent_label_suffix = "", ...){
@@ -219,10 +251,10 @@ summary_factorlist_groups <- function(.data, dependent, explanatory,  cont = "me
 		is_continuous = s$type[index] == 2
 		
 		if (is_continuous) {
-			df.out = summarise_continuous(x, cont = cont, total_col = total_col)
+			df.out = summarise_continuous(x, cont = cont, total_col = total_col, digits = digits)
 		} else {
 			# Factor variables
-			df.out = summarise_categorical(x, column = column, total_col = total_col)
+			df.out = summarise_categorical(x, column = column, total_col = total_col, digits = digits)
 		}
 		df.out[[".id"]] = names(s$stats)[index]
 		
@@ -233,7 +265,7 @@ summary_factorlist_groups <- function(.data, dependent, explanatory,  cont = "me
 	df.out$index = 1:dim(df.out)[1]
 	
 	if (p == TRUE){
-		a = plyr::ldply(s$testresults, function(x) round_tidy(x[[1]], 3))
+		a = plyr::ldply(s$testresults, function(x) round_tidy(x[[1]], digits[3]))
 		names(a) = c(".id", "p")
 		df.out = merge(df.out, a, by=".id")
 	}
@@ -288,14 +320,14 @@ summary_factorlist_groups <- function(.data, dependent, explanatory,  cont = "me
 #' Internal function, not called directly.
 #'
 #' @keywords internal
-summarise_continuous = function(x, cont, total_col) {
+summarise_continuous = function(x, cont, total_col, digits) {
 	if (cont == "mean") {
 		df_out = x %>%
 			as.data.frame() %>%
 			dplyr::mutate(
 				Label = rownames(.),
-				Formatted = paste0(round_tidy(Mean, 1), " (",
-													 round_tidy(SD, 1), ")"),
+				Formatted = paste0(round_tidy(Mean, digits[1]), " (",
+													 round_tidy(SD, digits[2]), ")"),
 				levels = "Mean (SD)"
 			)
 	} else if (cont == "median") {
@@ -307,9 +339,18 @@ summarise_continuous = function(x, cont, total_col) {
 			dplyr::mutate(
 				Label = rownames(.),
 				IQR = Q3 - Q1,
-				Formatted = paste0(round_tidy(Median, 1), " (",
-													 round_tidy(IQR, 1), ")"),
+				Formatted = paste0(round_tidy(Median, digits[1]), " (",
+													 round_tidy(IQR, digits[2]), ")"),
 				levels = "Median (IQR)"
+			)
+	}	else if (cont == "geometric") {
+		df_out = x %>%
+			as.data.frame() %>%
+			dplyr::mutate(
+				Label = rownames(.),
+				Formatted = paste0(round_tidy(exp(Mean), digits[1]), " (",
+													 round_tidy(exp(SD), digits[2]), ")"),
+				levels = "Geometric mean (SD)"
 			)
 	}
 	df_out = df_out %>%
@@ -330,7 +371,7 @@ summarise_continuous = function(x, cont, total_col) {
 #' Internal function, not called directly.
 #'
 #' @keywords internal
-summarise_categorical = function(x, column, total_col) {
+summarise_categorical = function(x, column, total_col, digits) {
 	# Calculate totals
 	df = x %>%
 		as.data.frame() %>%
@@ -347,7 +388,7 @@ summarise_categorical = function(x, column, total_col) {
 		df = df %>%
 			dplyr::group_by(g) %>%
 			dplyr::mutate(Prop = Freq / sum(Freq) * 100,
-										Total = format_n_percent(Total, total_prop))
+										Total = format_n_percent(Total, total_prop, digits[4]))
 	} else {
 		df = df %>%
 			dplyr::group_by(w) %>%
@@ -357,7 +398,7 @@ summarise_categorical = function(x, column, total_col) {
 	# Finalize and reshape
 	df = df %>%
 		dplyr::ungroup() %>%
-		dplyr::mutate(Formatted = format_n_percent(Freq, Prop)) %>%
+		dplyr::mutate(Formatted = format_n_percent(Freq, Prop, digits[4])) %>%
 		dplyr::select(levels = w, g, Formatted, Total, index_total) %>%
 		tidyr::spread(g, Formatted)
 	

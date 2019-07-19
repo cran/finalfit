@@ -82,7 +82,6 @@
 #'
 #' @importFrom stats as.formula coef confint confint.default glm lm logLik pnorm
 #'   quantile setNames model.matrix
-#' @importFrom survival Surv coxph
 # @exportPattern ^[[:alpha:]]+
 NULL
 
@@ -103,6 +102,16 @@ NULL
 #' @keywords internal
 #' @importFrom magrittr %<>%
 #' @usage lhs \%<>\% rhs
+#' @export
+NULL
+
+#' magrittr exposition pipe-operator
+#'
+#' @name %$%
+#' @rdname expositionpipe
+#' @keywords internal
+#' @importFrom magrittr %$%
+#' @usage lhs \%$\% rhs
 #' @export
 NULL
 

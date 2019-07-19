@@ -1,3 +1,12 @@
+# finalfit 0.9.4
+
+* `coxphuni()` and `coxphmulti()` now take the other `library(survival)` functions `survival::strata()` and `survival::cluster()`. 
+* Fixed `hr_plot()` axis title edit option. 
+* Add option to remove reference level (`remove_ref = TRUE`) to `or_plot()`, `hr_plot()` and `coefficient_plot()`. 
+* `summary_factorlist()` digit rounding option added.
+* `summary_factorlist()` geometric mean option added. 
+* Level label removed for continous variables from `or_plot()`, `hr_plot()` and `coeffient_plot()`. 
+
 # finalfit 0.9.3
 
 * Bug in `or_plot()` and `hr_plot()` introduced in 0.9.2 because of new total column specification. 
@@ -5,7 +14,7 @@
 # finalfit 0.9.2
 
 * Competing risks time-to-event regression now supported via `cmprsk::crr()`: `crruni()`, `crrmulti()` and `fit2df()`.
-* Complex stratified sampling now supported via `library(survey)`: `svyglmuni()`, `svyglmmulti()` provide support for . #13
+* Complex stratified sampling now supported via `library(survey)`: `svyglmuni()`, `svyglmmulti()` provide support for. #13
 * `summary_factorlist()` total column now summarises continuous variables.  #17 #21
 * `summary_factorlist()` can now take any `Hmisc:::summary.formula` argument, such as `catTest = catTestfisher`. 
 *  `catTestfisher()` added. 

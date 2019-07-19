@@ -190,6 +190,8 @@ summary1 %>%
 
 ## ---- warning=FALSE, message=FALSE---------------------------------------
 library(dplyr)
+explanatory = c("age", "sex.factor", 
+  "nodes", "obstruct.factor", "smoking_mar")
 colon_s %>% 
   mutate(
     smoking_mar = forcats::fct_explicit_na(smoking_mar)

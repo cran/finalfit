@@ -710,6 +710,22 @@ library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
 ## ---- warning=FALSE, message=FALSE---------------------------------------
+library(dplyr)
+mydata = colon_s
+explanatory_base = c("age.factor", "sex.factor")
+explanatory_permute = c("obstruct.factor", "perfor.factor", "node4.factor")
+dependent = "Surv(time, status)"
+
+mydata %>% 
+	ff_permute(dependent, explanatory_base, explanatory_permute) %>% 
+	rename("Overall survival" = `Dependent: Surv(time, status)`, # optional tidying
+				 `n (%)` = "all") -> t
+
+## ---- echo=FALSE---------------------------------------------------------
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r", "r", "r"))
+
+## ---- warning=FALSE, message=FALSE---------------------------------------
 library(finalfit)
 library(dplyr)
 

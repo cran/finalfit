@@ -19,6 +19,7 @@
 #'   variables.
 #' @param cont Summary for continuous variables: "mean" (standard deviation) or
 #'   "median" (interquartile range).
+#' @param cont_range Logical. Median is show with 1st and 3rd quartiles.
 #' @param cont_cut Numeric: number of unique values in continuous variable at
 #'   which to consider it a factor.
 #' @param p Logical: Include statistical test (see
@@ -67,9 +68,9 @@
 #' colon_s %>%
 #'   summary_factorlist(dependent, explanatory)
 
-summary_factorlist <- function(.data, dependent = NULL, explanatory, cont = "mean", cont_cut = 5,
+summary_factorlist <- function(.data, dependent = NULL, explanatory, cont = "mean", cont_range = FALSE, cont_cut = 5,
 															 p = FALSE, digits = c(1, 1, 3, 1), na_include = FALSE,
-															 column = FALSE, total_col = FALSE, orderbytotal = FALSE, fit_id = FALSE,
+															 column = TRUE, total_col = FALSE, orderbytotal = FALSE, fit_id = FALSE,
 															 na_to_missing = TRUE, add_dependent_label = FALSE,
 															 dependent_label_prefix = "Dependent: ", dependent_label_suffix = "", ...) {
 	if(!is.data.frame(.data)) stop(".data is not dataframe")
@@ -91,7 +92,7 @@ summary_factorlist <- function(.data, dependent = NULL, explanatory, cont = "mea
 	}
 	
 	args = list(.data = .data, dependent = dependent, explanatory = explanatory,
-							cont = cont, cont_cut = cont_cut, p = p, digits = digits, 
+							cont = cont, cont_range = cont_range, cont_cut = cont_cut, p = p, digits = digits, 
 							na_include = na_include,
 							column = column, total_col = total_col, orderbytotal = orderbytotal, fit_id = fit_id,
 							na_to_missing = na_to_missing, add_dependent_label = add_dependent_label,
@@ -149,7 +150,8 @@ summary_factorlist <- function(.data, dependent = NULL, explanatory, cont = "mea
 #'
 #' @keywords internal
 
-summary_factorlist0 <- function(.data, dependent, explanatory,  cont = "mean", cont_cut = 5, p = FALSE, 
+summary_factorlist0 <- function(.data, dependent, explanatory,  cont = "mean", cont_range = FALSE,
+																cont_cut = 5, p = FALSE, 
 																digits = c(1, 1, 3, 1),
 																na_include = FALSE,
 																column = FALSE, total_col = FALSE, orderbytotal = FALSE, fit_id = FALSE,
@@ -244,9 +246,9 @@ summary_factorlist0 <- function(.data, dependent, explanatory,  cont = "mean", c
 #' Internal function, not called directly.
 #'
 #' @keywords internal
-summary_factorlist_groups <- function(.data, dependent, explanatory,  cont = "mean", cont_cut = 5, 
+summary_factorlist_groups <- function(.data, dependent, explanatory,  cont = "mean", cont_range = FALSE, cont_cut = 5, 
 																			p = FALSE, digits = c(1, 1, 3, 1), na_include = FALSE,
-																			column = FALSE, total_col = FALSE, orderbytotal = FALSE, fit_id = FALSE,
+																			column = TRUE, total_col = FALSE, orderbytotal = FALSE, fit_id = FALSE,
 																			na_to_missing = TRUE, add_dependent_label = FALSE,
 																			dependent_label_prefix = "Dependent: ", dependent_label_suffix = "", ...){
 	
@@ -258,7 +260,7 @@ summary_factorlist_groups <- function(.data, dependent, explanatory,  cont = "me
 		is_continuous = s$type[index] == 2
 		
 		if (is_continuous) {
-			df.out = summarise_continuous(x, cont = cont, total_col = total_col, digits = digits)
+			df.out = summarise_continuous(x, cont = cont, cont_range = cont_range, total_col = total_col, digits = digits)
 		} else {
 			# Factor variables
 			df.out = summarise_categorical(x, column = column, total_col = total_col, digits = digits)
@@ -327,7 +329,7 @@ summary_factorlist_groups <- function(.data, dependent, explanatory,  cont = "me
 #' Internal function, not called directly.
 #'
 #' @keywords internal
-summarise_continuous = function(x, cont, total_col, digits) {
+summarise_continuous = function(x, cont, cont_range, total_col, digits) {
 	if (cont == "mean") {
 		df_out = x %>%
 			as.data.frame() %>%
@@ -337,7 +339,20 @@ summarise_continuous = function(x, cont, total_col, digits) {
 													 round_tidy(SD, digits[2]), ")"),
 				levels = "Mean (SD)"
 			)
-	} else if (cont == "median") {
+	} else if (cont == "median" && cont_range) {
+		df_out = x %>%
+			as.data.frame() %>%
+			dplyr::rename(Median = 6,
+										Q3 = 8,
+										Q1 = 4) %>%
+			dplyr::mutate(
+				Label = rownames(.),
+				Formatted = paste0(round_tidy(Median, digits[1]), " (",
+													 round_tidy(Q1, digits[2]), " to ",
+													 round_tidy(Q3, digits[2]), ")"),
+				levels = "Median (IQR)"
+			)
+	} else if (cont == "median" && !cont_range) {
 		df_out = x %>%
 			as.data.frame() %>%
 			dplyr::rename(Median = 6,
@@ -350,6 +365,7 @@ summarise_continuous = function(x, cont, total_col, digits) {
 													 round_tidy(IQR, digits[2]), ")"),
 				levels = "Median (IQR)"
 			)
+		
 	}	else if (cont == "geometric") {
 		df_out = x %>%
 			as.data.frame() %>%
@@ -364,7 +380,7 @@ summarise_continuous = function(x, cont, total_col, digits) {
 	}
 	df_out = df_out %>%
 		dplyr::select(levels, Label, Formatted) %>%
-		tidyr::spread(Label, Formatted) %>%
+		tidyr::pivot_wider(names_from = Label, values_from = Formatted) %>%
 		dplyr::select(-Combined, Total = Combined)
 	if(total_col){
 		return(df_out)
@@ -409,7 +425,7 @@ summarise_categorical = function(x, column, total_col, digits) {
 		dplyr::ungroup() %>%
 		dplyr::mutate(Formatted = format_n_percent(Freq, Prop, digits[4])) %>%
 		dplyr::select(levels = w, g, Formatted, Total, index_total) %>%
-		tidyr::spread(g, Formatted)
+		tidyr::pivot_wider(names_from = g, values_from = Formatted)
 	
 	# Drop totals if not required
 	if (total_col) {

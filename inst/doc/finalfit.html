@@ -7,6 +7,7 @@
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -95,7 +96,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -357,50 +358,50 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <tr class="even">
 <td align="left">Age</td>
 <td>&lt;40 years</td>
-<td align="right">68 (97.1)</td>
-<td align="right">2 (2.9)</td>
+<td align="right">68 (7.5)</td>
+<td align="right">2 (7.4)</td>
 <td align="right">1.000</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td>40-59 years</td>
-<td align="right">334 (97.1)</td>
-<td align="right">10 (2.9)</td>
+<td align="right">334 (37.0)</td>
+<td align="right">10 (37.0)</td>
 <td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td>60+ years</td>
-<td align="right">500 (97.1)</td>
-<td align="right">15 (2.9)</td>
+<td align="right">500 (55.4)</td>
+<td align="right">15 (55.6)</td>
 <td align="right"></td>
 </tr>
 <tr class="odd">
 <td align="left">Sex</td>
 <td>Female</td>
-<td align="right">432 (97.1)</td>
-<td align="right">13 (2.9)</td>
+<td align="right">432 (47.9)</td>
+<td align="right">13 (48.1)</td>
 <td align="right">0.979</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td>Male</td>
-<td align="right">470 (97.1)</td>
-<td align="right">14 (2.9)</td>
+<td align="right">470 (52.1)</td>
+<td align="right">14 (51.9)</td>
 <td align="right"></td>
 </tr>
 <tr class="odd">
 <td align="left">Obstruction</td>
 <td>No</td>
-<td align="right">715 (97.7)</td>
-<td align="right">17 (2.3)</td>
+<td align="right">715 (81.2)</td>
+<td align="right">17 (63.0)</td>
 <td align="right">0.018</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td>Yes</td>
-<td align="right">166 (94.3)</td>
-<td align="right">10 (5.7)</td>
+<td align="right">166 (18.8)</td>
+<td align="right">10 (37.0)</td>
 <td align="right"></td>
 </tr>
 </tbody>
@@ -430,50 +431,50 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <tr class="odd">
 <td align="left">Age</td>
 <td>&lt;40 years</td>
-<td align="right">31 (46.3)</td>
-<td align="right">36 (53.7)</td>
+<td align="right">31 (6.1)</td>
+<td align="right">36 (8.9)</td>
 <td align="right">0.020</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td>40-59 years</td>
-<td align="right">208 (61.4)</td>
-<td align="right">131 (38.6)</td>
+<td align="right">208 (40.7)</td>
+<td align="right">131 (32.4)</td>
 <td align="right"></td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td>60+ years</td>
-<td align="right">272 (53.4)</td>
-<td align="right">237 (46.6)</td>
+<td align="right">272 (53.2)</td>
+<td align="right">237 (58.7)</td>
 <td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left">Sex</td>
 <td>Female</td>
-<td align="right">243 (55.6)</td>
-<td align="right">194 (44.4)</td>
+<td align="right">243 (47.6)</td>
+<td align="right">194 (48.0)</td>
 <td align="right">0.889</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td>Male</td>
-<td align="right">268 (56.1)</td>
-<td align="right">210 (43.9)</td>
+<td align="right">268 (52.4)</td>
+<td align="right">210 (52.0)</td>
 <td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left">Obstruction</td>
 <td>No</td>
-<td align="right">408 (56.7)</td>
-<td align="right">312 (43.3)</td>
+<td align="right">408 (82.1)</td>
+<td align="right">312 (78.6)</td>
 <td align="right">0.189</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td>Yes</td>
-<td align="right">89 (51.1)</td>
-<td align="right">85 (48.9)</td>
+<td align="right">89 (17.9)</td>
+<td align="right">85 (21.4)</td>
 <td align="right"></td>
 </tr>
 </tbody>
@@ -508,72 +509,72 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <tr class="odd">
 <td align="left">Age</td>
 <td>&lt;40 years</td>
-<td align="right">31 (6.1)</td>
-<td align="right">36 (8.9)</td>
+<td align="right">31 (46.3)</td>
+<td align="right">36 (53.7)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td>40-59 years</td>
-<td align="right">208 (40.7)</td>
-<td align="right">131 (32.4)</td>
+<td align="right">208 (61.4)</td>
+<td align="right">131 (38.6)</td>
 <td align="right">0.54 (0.32-0.92, p=0.023)</td>
 <td align="right">0.57 (0.34-0.98, p=0.041)</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td>60+ years</td>
-<td align="right">272 (53.2)</td>
-<td align="right">237 (58.7)</td>
+<td align="right">272 (53.4)</td>
+<td align="right">237 (46.6)</td>
 <td align="right">0.75 (0.45-1.25, p=0.270)</td>
 <td align="right">0.81 (0.48-1.36, p=0.426)</td>
 </tr>
 <tr class="even">
 <td align="left">Sex</td>
 <td>Female</td>
-<td align="right">243 (47.6)</td>
-<td align="right">194 (48.0)</td>
+<td align="right">243 (55.6)</td>
+<td align="right">194 (44.4)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td>Male</td>
-<td align="right">268 (52.4)</td>
-<td align="right">210 (52.0)</td>
+<td align="right">268 (56.1)</td>
+<td align="right">210 (43.9)</td>
 <td align="right">0.98 (0.76-1.27, p=0.889)</td>
 <td align="right">0.98 (0.75-1.28, p=0.902)</td>
 </tr>
 <tr class="even">
 <td align="left">Obstruction</td>
 <td>No</td>
-<td align="right">408 (82.1)</td>
-<td align="right">312 (78.6)</td>
+<td align="right">408 (56.7)</td>
+<td align="right">312 (43.3)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td>Yes</td>
-<td align="right">89 (17.9)</td>
-<td align="right">85 (21.4)</td>
+<td align="right">89 (51.1)</td>
+<td align="right">85 (48.9)</td>
 <td align="right">1.25 (0.90-1.74, p=0.189)</td>
 <td align="right">1.25 (0.90-1.76, p=0.186)</td>
 </tr>
 <tr class="even">
 <td align="left">Perforation</td>
 <td>No</td>
-<td align="right">497 (97.3)</td>
-<td align="right">391 (96.8)</td>
+<td align="right">497 (56.0)</td>
+<td align="right">391 (44.0)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td>Yes</td>
-<td align="right">14 (2.7)</td>
-<td align="right">13 (3.2)</td>
+<td align="right">14 (51.9)</td>
+<td align="right">13 (48.1)</td>
 <td align="right">1.18 (0.54-2.55, p=0.672)</td>
 <td align="right">1.12 (0.51-2.44, p=0.770)</td>
 </tr>
@@ -605,72 +606,72 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <tr class="odd">
 <td align="left">Age</td>
 <td>&lt;40 years</td>
-<td align="right">31 (6.1)</td>
-<td align="right">36 (8.9)</td>
+<td align="right">31 (46.3)</td>
+<td align="right">36 (53.7)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td>40-59 years</td>
-<td align="right">208 (40.7)</td>
-<td align="right">131 (32.4)</td>
+<td align="right">208 (61.4)</td>
+<td align="right">131 (38.6)</td>
 <td align="right">0.54 (0.32-0.92, p=0.023)</td>
 <td align="right">0.57 (0.34-0.98, p=0.041)</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td>60+ years</td>
-<td align="right">272 (53.2)</td>
-<td align="right">237 (58.7)</td>
+<td align="right">272 (53.4)</td>
+<td align="right">237 (46.6)</td>
 <td align="right">0.75 (0.45-1.25, p=0.270)</td>
 <td align="right">0.81 (0.48-1.36, p=0.424)</td>
 </tr>
 <tr class="even">
 <td align="left">Sex</td>
 <td>Female</td>
-<td align="right">243 (47.6)</td>
-<td align="right">194 (48.0)</td>
+<td align="right">243 (55.6)</td>
+<td align="right">194 (44.4)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td>Male</td>
-<td align="right">268 (52.4)</td>
-<td align="right">210 (52.0)</td>
+<td align="right">268 (56.1)</td>
+<td align="right">210 (43.9)</td>
 <td align="right">0.98 (0.76-1.27, p=0.889)</td>
 <td align="right">-</td>
 </tr>
 <tr class="even">
 <td align="left">Obstruction</td>
 <td>No</td>
-<td align="right">408 (82.1)</td>
-<td align="right">312 (78.6)</td>
+<td align="right">408 (56.7)</td>
+<td align="right">312 (43.3)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td>Yes</td>
-<td align="right">89 (17.9)</td>
-<td align="right">85 (21.4)</td>
+<td align="right">89 (51.1)</td>
+<td align="right">85 (48.9)</td>
 <td align="right">1.25 (0.90-1.74, p=0.189)</td>
 <td align="right">1.26 (0.90-1.76, p=0.176)</td>
 </tr>
 <tr class="even">
 <td align="left">Perforation</td>
 <td>No</td>
-<td align="right">497 (97.3)</td>
-<td align="right">391 (96.8)</td>
+<td align="right">497 (56.0)</td>
+<td align="right">391 (44.0)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td>Yes</td>
-<td align="right">14 (2.7)</td>
-<td align="right">13 (3.2)</td>
+<td align="right">14 (51.9)</td>
+<td align="right">13 (48.1)</td>
 <td align="right">1.18 (0.54-2.55, p=0.672)</td>
 <td align="right">-</td>
 </tr>
@@ -704,72 +705,72 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <tr class="odd">
 <td align="left">Age</td>
 <td>&lt;40 years</td>
-<td align="right">31 (6.1)</td>
-<td align="right">36 (8.9)</td>
+<td align="right">31 (46.3)</td>
+<td align="right">36 (53.7)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td>40-59 years</td>
-<td align="right">208 (40.7)</td>
-<td align="right">131 (32.4)</td>
+<td align="right">208 (61.4)</td>
+<td align="right">131 (38.6)</td>
 <td align="right">0.54 (0.32-0.92, p=0.023)</td>
 <td align="right">0.73 (0.38-1.40, p=0.342)</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td>60+ years</td>
-<td align="right">272 (53.2)</td>
-<td align="right">237 (58.7)</td>
+<td align="right">272 (53.4)</td>
+<td align="right">237 (46.6)</td>
 <td align="right">0.75 (0.45-1.25, p=0.270)</td>
 <td align="right">1.01 (0.53-1.90, p=0.984)</td>
 </tr>
 <tr class="even">
 <td align="left">Sex</td>
 <td>Female</td>
-<td align="right">243 (47.6)</td>
-<td align="right">194 (48.0)</td>
+<td align="right">243 (55.6)</td>
+<td align="right">194 (44.4)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td>Male</td>
-<td align="right">268 (52.4)</td>
-<td align="right">210 (52.0)</td>
+<td align="right">268 (56.1)</td>
+<td align="right">210 (43.9)</td>
 <td align="right">0.98 (0.76-1.27, p=0.889)</td>
 <td align="right">-</td>
 </tr>
 <tr class="even">
 <td align="left">Obstruction</td>
 <td>No</td>
-<td align="right">408 (82.1)</td>
-<td align="right">312 (78.6)</td>
+<td align="right">408 (56.7)</td>
+<td align="right">312 (43.3)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td>Yes</td>
-<td align="right">89 (17.9)</td>
-<td align="right">85 (21.4)</td>
+<td align="right">89 (51.1)</td>
+<td align="right">85 (48.9)</td>
 <td align="right">1.25 (0.90-1.74, p=0.189)</td>
 <td align="right">1.24 (0.83-1.85, p=0.292)</td>
 </tr>
 <tr class="even">
 <td align="left">Perforation</td>
 <td>No</td>
-<td align="right">497 (97.3)</td>
-<td align="right">391 (96.8)</td>
+<td align="right">497 (56.0)</td>
+<td align="right">391 (44.0)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td>Yes</td>
-<td align="right">14 (2.7)</td>
-<td align="right">13 (3.2)</td>
+<td align="right">14 (51.9)</td>
+<td align="right">13 (48.1)</td>
 <td align="right">1.18 (0.54-2.55, p=0.672)</td>
 <td align="right">-</td>
 </tr>
@@ -799,63 +800,63 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <tr class="odd">
 <td align="left">Age</td>
 <td>&lt;40 years</td>
-<td align="right">70 (7.5)</td>
+<td align="right">70 (100.0)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td>40-59 years</td>
-<td align="right">344 (37.0)</td>
+<td align="right">344 (100.0)</td>
 <td align="right">0.76 (0.53-1.09, p=0.132)</td>
 <td align="right">0.79 (0.55-1.13, p=0.196)</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td>60+ years</td>
-<td align="right">515 (55.4)</td>
+<td align="right">515 (100.0)</td>
 <td align="right">0.93 (0.66-1.31, p=0.668)</td>
 <td align="right">0.98 (0.69-1.40, p=0.926)</td>
 </tr>
 <tr class="even">
 <td align="left">Sex</td>
 <td>Female</td>
-<td align="right">445 (47.9)</td>
+<td align="right">445 (100.0)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td>Male</td>
-<td align="right">484 (52.1)</td>
+<td align="right">484 (100.0)</td>
 <td align="right">1.01 (0.84-1.22, p=0.888)</td>
 <td align="right">1.02 (0.85-1.23, p=0.812)</td>
 </tr>
 <tr class="even">
 <td align="left">Obstruction</td>
 <td>No</td>
-<td align="right">732 (80.6)</td>
+<td align="right">732 (100.0)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td>Yes</td>
-<td align="right">176 (19.4)</td>
+<td align="right">176 (100.0)</td>
 <td align="right">1.29 (1.03-1.62, p=0.028)</td>
 <td align="right">1.30 (1.03-1.64, p=0.026)</td>
 </tr>
 <tr class="even">
 <td align="left">Perforation</td>
 <td>No</td>
-<td align="right">902 (97.1)</td>
+<td align="right">902 (100.0)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td>Yes</td>
-<td align="right">27 (2.9)</td>
+<td align="right">27 (100.0)</td>
 <td align="right">1.17 (0.70-1.95, p=0.556)</td>
 <td align="right">1.08 (0.64-1.81, p=0.785)</td>
 </tr>
@@ -887,72 +888,72 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <tr class="odd">
 <td align="left">Age</td>
 <td>&lt;40 years</td>
-<td align="right">31 (6.1)</td>
-<td align="right">36 (8.9)</td>
+<td align="right">31 (46.3)</td>
+<td align="right">36 (53.7)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td>40-59 years</td>
-<td align="right">208 (40.7)</td>
-<td align="right">131 (32.4)</td>
+<td align="right">208 (61.4)</td>
+<td align="right">131 (38.6)</td>
 <td align="right">0.54 (0.32-0.92, p=0.023)</td>
 <td align="right">0.57 (0.34-0.98, p=0.041)</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td>60+ years</td>
-<td align="right">272 (53.2)</td>
-<td align="right">237 (58.7)</td>
+<td align="right">272 (53.4)</td>
+<td align="right">237 (46.6)</td>
 <td align="right">0.75 (0.45-1.25, p=0.270)</td>
 <td align="right">0.81 (0.48-1.36, p=0.426)</td>
 </tr>
 <tr class="even">
 <td align="left">Sex</td>
 <td>Female</td>
-<td align="right">243 (47.6)</td>
-<td align="right">194 (48.0)</td>
+<td align="right">243 (55.6)</td>
+<td align="right">194 (44.4)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td>Male</td>
-<td align="right">268 (52.4)</td>
-<td align="right">210 (52.0)</td>
+<td align="right">268 (56.1)</td>
+<td align="right">210 (43.9)</td>
 <td align="right">0.98 (0.76-1.27, p=0.889)</td>
 <td align="right">0.98 (0.75-1.28, p=0.902)</td>
 </tr>
 <tr class="even">
 <td align="left">Obstruction</td>
 <td>No</td>
-<td align="right">408 (82.1)</td>
-<td align="right">312 (78.6)</td>
+<td align="right">408 (56.7)</td>
+<td align="right">312 (43.3)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td>Yes</td>
-<td align="right">89 (17.9)</td>
-<td align="right">85 (21.4)</td>
+<td align="right">89 (51.1)</td>
+<td align="right">85 (48.9)</td>
 <td align="right">1.25 (0.90-1.74, p=0.189)</td>
 <td align="right">1.25 (0.90-1.76, p=0.186)</td>
 </tr>
 <tr class="even">
 <td align="left">Perforation</td>
 <td>No</td>
-<td align="right">497 (97.3)</td>
-<td align="right">391 (96.8)</td>
+<td align="right">497 (56.0)</td>
+<td align="right">391 (44.0)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td>Yes</td>
-<td align="right">14 (2.7)</td>
-<td align="right">13 (3.2)</td>
+<td align="right">14 (51.9)</td>
+<td align="right">13 (48.1)</td>
 <td align="right">1.18 (0.54-2.55, p=0.672)</td>
 <td align="right">1.12 (0.51-2.44, p=0.770)</td>
 </tr>
@@ -1022,8 +1023,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <tr class="odd">
 <td align="left">Age</td>
 <td>&lt;40 years</td>
-<td align="right">31 (46.3)</td>
-<td align="right">36 (53.7)</td>
+<td align="right">31 (6.1)</td>
+<td align="right">36 (8.9)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 <td align="right">-</td>
@@ -1031,8 +1032,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <tr class="even">
 <td align="left"></td>
 <td>40-59 years</td>
-<td align="right">208 (61.4)</td>
-<td align="right">131 (38.6)</td>
+<td align="right">208 (40.7)</td>
+<td align="right">131 (32.4)</td>
 <td align="right">0.54 (0.32-0.92, p=0.023)</td>
 <td align="right">0.57 (0.34-0.98, p=0.041)</td>
 <td align="right">0.75 (0.39-1.44, p=0.382)</td>
@@ -1040,8 +1041,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <tr class="odd">
 <td align="left"></td>
 <td>60+ years</td>
-<td align="right">272 (53.4)</td>
-<td align="right">237 (46.6)</td>
+<td align="right">272 (53.2)</td>
+<td align="right">237 (58.7)</td>
 <td align="right">0.75 (0.45-1.25, p=0.270)</td>
 <td align="right">0.81 (0.48-1.36, p=0.426)</td>
 <td align="right">1.03 (0.55-1.96, p=0.916)</td>
@@ -1049,8 +1050,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <tr class="even">
 <td align="left">Sex</td>
 <td>Female</td>
-<td align="right">243 (55.6)</td>
-<td align="right">194 (44.4)</td>
+<td align="right">243 (47.6)</td>
+<td align="right">194 (48.0)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 <td align="right">-</td>
@@ -1058,8 +1059,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <tr class="odd">
 <td align="left"></td>
 <td>Male</td>
-<td align="right">268 (56.1)</td>
-<td align="right">210 (43.9)</td>
+<td align="right">268 (52.4)</td>
+<td align="right">210 (52.0)</td>
 <td align="right">0.98 (0.76-1.27, p=0.889)</td>
 <td align="right">0.98 (0.75-1.28, p=0.902)</td>
 <td align="right">0.80 (0.58-1.11, p=0.180)</td>
@@ -1067,8 +1068,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <tr class="even">
 <td align="left">Obstruction</td>
 <td>No</td>
-<td align="right">408 (56.7)</td>
-<td align="right">312 (43.3)</td>
+<td align="right">408 (82.1)</td>
+<td align="right">312 (78.6)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 <td align="right">-</td>
@@ -1076,8 +1077,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <tr class="odd">
 <td align="left"></td>
 <td>Yes</td>
-<td align="right">89 (51.1)</td>
-<td align="right">85 (48.9)</td>
+<td align="right">89 (17.9)</td>
+<td align="right">85 (21.4)</td>
 <td align="right">1.25 (0.90-1.74, p=0.189)</td>
 <td align="right">1.25 (0.90-1.76, p=0.186)</td>
 <td align="right">1.23 (0.82-1.83, p=0.320)</td>
@@ -1085,8 +1086,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <tr class="even">
 <td align="left">Perforation</td>
 <td>No</td>
-<td align="right">497 (56.0)</td>
-<td align="right">391 (44.0)</td>
+<td align="right">497 (97.3)</td>
+<td align="right">391 (96.8)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 <td align="right">-</td>
@@ -1094,8 +1095,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <tr class="odd">
 <td align="left"></td>
 <td>Yes</td>
-<td align="right">14 (51.9)</td>
-<td align="right">13 (48.1)</td>
+<td align="right">14 (2.7)</td>
+<td align="right">13 (3.2)</td>
 <td align="right">1.18 (0.54-2.55, p=0.672)</td>
 <td align="right">1.12 (0.51-2.44, p=0.770)</td>
 <td align="right">1.03 (0.43-2.51, p=0.940)</td>
@@ -1150,7 +1151,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p>Note wrapper <code>missing_pattern()</code> is also useful. Wraps <code>mice::md.pattern</code>.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">colon_s <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb16-2" data-line-number="2"><span class="st">  </span><span class="kw">missing_pattern</span>(dependent, explanatory)</a></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
 <pre><code>#&gt;     sex.factor perfor.factor age.factor mort_5yr obstruct.factor   
 #&gt; 894          1             1          1        1               1  0
 #&gt; 21           1             1          1        1               0  1
@@ -1159,6 +1160,9 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p>Development will be on-going, but any input appreciated.</p>
 </div>
 
+
+
+<!-- code folding -->
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

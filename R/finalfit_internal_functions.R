@@ -77,13 +77,13 @@ extract_fit.glm = function(.data, explanatory_name="explanatory", estimate_name=
 #' @export
 
 extract_fit.glmerMod = function(.data, explanatory_name="explanatory", estimate_name="OR",
-																estimate_suffix = "",  p_name = "p",
+																estimate_suffix = "",  p_name = "p", exp = TRUE, 
 																confint_type = "Wald", confint_level = 0.95, ...){
 	x=.data
 	if(confint_type == "default") confint_type = "Wald"
 	explanatory = names(lme4::fixef(x))
-	estimate = exp(lme4::fixef(x))
-	confint = exp(lme4::confint.merMod(x, level = confint_level, method = confint_type))
+	estimate = lme4::fixef(x)
+	confint = lme4::confint.merMod(x, level = confint_level, method = confint_type)
 	confint = confint[-grep("sig", rownames(confint)),]
 	p = summary(x)$coef[,"Pr(>|z|)"]
 	L_confint_name = paste0("L", confint_level*100)
@@ -92,6 +92,10 @@ extract_fit.glmerMod = function(.data, explanatory_name="explanatory", estimate_
 	df.out = dplyr::tibble(explanatory, estimate, confint[,1], confint[,2], p)
 	colnames(df.out) = c(explanatory_name, paste0(estimate_name, estimate_suffix),
 											 L_confint_name, U_confint_name, p_name)
+	
+	if(exp){
+		df.out[, 2:4] = df.out[, 2:4] %>% exp() # mutate_at not working here
+	}
 
 	if(confint_level != 0.95){
 		df.out = df.out %>% dplyr::select(-p_name)
@@ -503,7 +507,7 @@ dependent_label = function(df.out, .data, dependent, prefix = "Dependent: ", suf
 		d_label = d_label
 	}
 	names(df.out)[which(names(df.out) == "label")] = paste0(prefix, d_label, suffix)
-	names(df.out)[which(names(df.out) == "levels")] = ""
+	names(df.out)[which(names(df.out) == "levels")] = " "
 
 	return(df.out)
 }
@@ -614,11 +618,13 @@ colname2label <- function(.data, .cols){
 #' colon_s %>%
 #'   remove_labels()
 remove_labels = function(.data){
-	df.out = .data
-	for (i in 1:dim(.data)[2]){
-		attr(df.out[,i], "label") = NULL
+	attr_label_null <- function(x){
+		attr(x, "label") <- NULL
+		return(x)
 	}
-	return(df.out)
+	
+	.data %>% 
+		purrr::map_df(attr_label_null)
 }
 
 #' Generate formula as character string
@@ -714,7 +720,9 @@ is.survival <- function(.name){
 globalVariables(c("L95", "U95", "fit_id", "Total",
 									"OR", "HR", "Coefficient", ".", ".id", "var", "value",
 									":=", "Mean", "SD", "Median", "Q3", "Q1", "IQR", "Formatted", 
-									"w", "Freq", "g", "total_prop", "Prop", "index_total", "vname", "Combined"))
+									"w", "Freq", "g", "total_prop", "Prop", "index_total", "vname", "Combined",
+									"2.5 %", "97.5 %", "p.value", "estimate", "index", "n", "missing_n", "var_type",
+									"missing_percent", "var1", "var2", "keep"))
 
 
 # Workaround ::: as summary.formula not (yet) exported from Hmisc
@@ -732,6 +740,13 @@ globalVariables(c("L95", "U95", "fit_id", "Total",
 #' @import Hmisc
 summary_formula = 'Hmisc' %:::% 'summary.formula'
 
+#' Call to mice:::summary.mipo
+#'
+#' Not called directly.
+#'
+#' @keywords internal
+#' @import Hmisc
+summary_mipo = 'mice' %:::% 'summary.mipo'
 
 
 #' Errors: colon in factor levels

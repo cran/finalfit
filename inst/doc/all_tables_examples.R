@@ -83,7 +83,7 @@ explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
 dependent = "perfor.factor"
 colon_s %>%
 	summary_factorlist(dependent, explanatory, p = TRUE, cont = "median", na_include = TRUE,
-										 column = TRUE) -> t
+										 column = FALSE) -> t
 
 ## ---- echo=FALSE---------------------------------------------------------
 library(knitr)
@@ -96,6 +96,19 @@ dependent = "perfor.factor"
 colon_s %>%
 	summary_factorlist(dependent, explanatory, p = TRUE, cont = "median", na_include = TRUE,
 										 column = TRUE, total_col = TRUE) -> t
+
+## ---- echo=FALSE---------------------------------------------------------
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r"))
+
+## ----message=FALSE, warning=FALSE----------------------------------------
+library(finalfit)
+explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
+dependent = "perfor.factor"
+colon_s %>%
+	summary_factorlist(dependent, explanatory, p = TRUE, cont = "median", na_include = TRUE,
+										 column = TRUE, total_col = TRUE) %>% 
+	ff_row_totals(colon_s, explanatory) -> t
 
 ## ---- echo=FALSE---------------------------------------------------------
 library(knitr)
@@ -199,6 +212,18 @@ colon_s %>%
   data.frame() %>%
   dependent_label(colon_s, dependent, prefix = "") %>%
   colname2label(split) -> t
+
+## ---- echo=FALSE---------------------------------------------------------
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "l", "l", "r", "r", "r"))
+
+## ---- warning=FALSE------------------------------------------------------
+explanatory = c("age.factor", "sex.factor")
+dependent = "rx.factor"
+
+colon_s %>%
+	summary_factorlist(., dependent, explanatory, p = TRUE) %>% 
+	ff_column_totals(colon_s, dependent)	-> t
 
 ## ---- echo=FALSE---------------------------------------------------------
 library(knitr)
@@ -372,6 +397,18 @@ kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 library(finalfit)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 dependent = "mort_5yr"
+colon_s %>%
+	finalfit(dependent, explanatory) %>% 
+	ff_remove_p() -> t
+
+## ---- echo=FALSE---------------------------------------------------------
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
+
+## ---- warning=FALSE, message=FALSE---------------------------------------
+library(finalfit)
+explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
+dependent = "mort_5yr"
 random_effect = "hospital"
 colon_s %>%
 	finalfit(dependent, explanatory, random_effect = random_effect,
@@ -535,9 +572,9 @@ colon_s %>%
 	## Add mixed effects
 	ff_merge(
 		glmmixed(colon_s, dependent, explanatory, random_effect) %>%
-			fit2df(estimate_suffix=" (multilevel)") 
+			fit2df(estimate_suffix=" (multilevel)"),
+		last_merge = TRUE
 	) %>% 
-	select(-c(fit_id, index)) %>% 
 	dependent_label(colon_s, dependent) -> t
 
 ## ---- echo=FALSE---------------------------------------------------------
@@ -574,9 +611,8 @@ d.AD %>%
 	ff_merge(fit_uni, estimate_name = "Rate ratio") %>% 
 	
 	## Add multivariable
-	ff_merge(fit_multi, estimate_name = "Rate ratio") %>% 
-	
-	select(-c(fit_id, index)) %>% 
+	ff_merge(fit_multi, estimate_name = "Rate ratio",
+					 last_merge = TRUE) %>% 
 	dependent_label(d.AD, dependent) -> t
 
 ## ---- echo=FALSE---------------------------------------------------------
@@ -606,9 +642,7 @@ clotting %>%
 	summary_factorlist(dependent, explanatory, cont = "median", fit_id=TRUE)  %>% 
 	
 	## Add fit
-	ff_merge(fit_uni) %>% 
-	
-	select(-c(fit_id, index)) %>% 
+	ff_merge(fit_uni, last_merge = TRUE) %>% 
 	dependent_label(colon_s, dependent) -> t
 
 ## ---- echo=FALSE---------------------------------------------------------
@@ -636,9 +670,9 @@ colon_s %>%
 	## Add multivariable
 	ff_merge(
 		glmmulti(colon_s, dependent, explanatory, weights = weights, family = quasibinomial) %>%
-			fit2df(estimate_suffix=" (multivariable)")
+			fit2df(estimate_suffix=" (multivariable)"),
+		last_merge = TRUE
 	) %>% 
-	select(-c(fit_id, index)) %>% 
 	dependent_label(colon_s, dependent) -> t
 
 ## ---- echo=FALSE---------------------------------------------------------
@@ -668,10 +702,9 @@ colon_s %>%
 		glm(
 			ff_formula(dependent, explanatory), data = colon_s, family = "binomial", weights = NULL
 		) %>%
-			fit2df(estimate_suffix=" (multivariable)")
+			fit2df(estimate_suffix=" (multivariable)"),
+		last_merge = TRUE
 	) %>% 
-	
-	select(-c(fit_id, index)) %>% 
 	dependent_label(colon_s, dependent) -> t
 
 ## ---- echo=FALSE---------------------------------------------------------
@@ -774,11 +807,11 @@ mydata %>%
 	# Full
 	ff_merge(
 		coxphmulti(mydata, dependent, c(base_explanatory, explanatory)) %>% 
-			fit2df(estimate_suffix = " (Full)")
+			fit2df(estimate_suffix = " (Full)"),
+		last_merge = TRUE
 	) %>% 
 	
 	# Tidy-up
-	select(-c(fit_id, index)) %>% 
 	rename("Overall survival" = label) %>% 
 	rename(" " = levels) %>% 
 	rename(`n (%)` = all) -> t
@@ -826,8 +859,7 @@ fit_multi = dstrat %>%
 apistrat %>%
   summary_factorlist(dependent, explanatory, fit_id = TRUE) %>%
   ff_merge(fit_uni) %>%
-  ff_merge(fit_multi) %>%
-  select(-fit_id, -index) %>%
+  ff_merge(fit_multi, last_merge = TRUE) %>%
   dependent_label(apistrat, dependent) -> t
 
 ## ---- echo=FALSE---------------------------------------------------------
@@ -866,8 +898,7 @@ fit_multi = dstrat %>%
 apistrat %>%
   summary_factorlist(dependent, explanatory, fit_id = TRUE) %>%
   ff_merge(fit_uni) %>%
-  ff_merge(fit_multi) %>%
-  select(-fit_id, -index) %>%
+  ff_merge(fit_multi, last_merge = TRUE) %>%
   dependent_label(apistrat, dependent) -> t
 
 ## ---- echo=FALSE---------------------------------------------------------

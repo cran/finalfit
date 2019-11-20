@@ -36,7 +36,7 @@ colon_s %>%
   glmmulti(dependent, explanatory) %>% 
   boot_predict(newdata, 
     estimate_name = "Predicted probability of death",
-    compare_name = "Absolute risk difference",
+    #compare_name = "Absolute risk difference",
     R=100, digits = c(2,3))
 
 ## ---- eval=FALSE---------------------------------------------------------

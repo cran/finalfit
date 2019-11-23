@@ -2,7 +2,7 @@ Package: finalfit
 Type: Package
 Title: Quickly Create Elegant Regression Results Tables and Plots when
         Modelling
-Version: 0.9.6
+Version: 0.9.7
 Authors@R: c(
   person(given = "Ewen", family = "Harrison", role = c("aut", "cre"), email = "ewen.harrison@ed.ac.uk"),
   person(given = "Tom", family = "Drake", role = c("aut")),
@@ -24,9 +24,9 @@ Suggests: covr, cmprsk, knitr, readr, rlang, rmarkdown, rstan, survey,
         testthat
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2019-10-25 05:35:42 UTC; eharrison
+Packaged: 2019-11-22 18:28:37 UTC; eharrison
 Author: Ewen Harrison [aut, cre],
   Tom Drake [aut],
   Riinu Ots [aut]
 Repository: CRAN
-Date/Publication: 2019-11-20 22:00:02 UTC
+Date/Publication: 2019-11-23 09:30:09 UTC

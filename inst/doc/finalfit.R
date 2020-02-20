@@ -102,8 +102,7 @@ colon_s %>%
 example.summary %>%
   finalfit_merge(example.univariable) %>%
   finalfit_merge(example.multivariable) %>%
-  finalfit_merge(example.multilevel) %>%
-  select(-c(fit_id, index)) %>% # remove unnecessary columns
+  finalfit_merge(example.multilevel, last_merge = TRUE) %>%
   dependent_label(colon_s, dependent, prefix="") -> t8 # place dependent variable label
 knitr::kable(t8, row.names=FALSE, align=c("l", "l", "r", "r", "r", "r", "r"))
 
@@ -129,7 +128,10 @@ knitr::kable(t8, row.names=FALSE, align=c("l", "l", "r", "r", "r", "r", "r"))
 #    xlab="Time (days)", pval=TRUE, legend="none")
 
 ## ---- eval=FALSE---------------------------------------------------------
-#  label(colon_s$age.factor) = "Age (years)"
+#  colon_s %>%
+#    mutate(
+#      ff_label(age.factor, "Age (years)")
+#    )
 
 ## ---- warning=FALSE, message=FALSE---------------------------------------
 colon_s %>%

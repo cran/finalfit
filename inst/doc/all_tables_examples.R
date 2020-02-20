@@ -18,7 +18,7 @@ colon_s %>%
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r"))
 
-## ---- warning = FALSE----------------------------------------------------
+## ----message=FALSE, warning=FALSE----------------------------------------
 library(finalfit)
 library(dplyr)
 explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
@@ -49,7 +49,18 @@ library(finalfit)
 explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
 dependent = "perfor.factor"
 colon_s %>%
-  summary_factorlist(dependent, explanatory, p = TRUE, catTest = catTestfisher) -> t
+  summary_factorlist(dependent, explanatory, p = TRUE, p_cat = "fisher") -> t
+
+## ---- echo=FALSE---------------------------------------------------------
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "r", "r"))
+
+## ------------------------------------------------------------------------
+library(finalfit)
+explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
+dependent = "perfor.factor"
+colon_s %>%
+  summary_factorlist(dependent, explanatory, p = TRUE, p_cont_para = "t.test") -> t
 
 ## ---- echo=FALSE---------------------------------------------------------
 library(knitr)
@@ -57,7 +68,7 @@ kable(t, row.names=FALSE, align = c("l", "l", "r", "r"))
 
 ## ---- warning=FALSE------------------------------------------------------
 library(finalfit)
-explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
+explanatory = c("age", "nodes", "age.factor", "sex.factor", "obstruct.factor")
 dependent = "perfor.factor"
 colon_s %>%
 	summary_factorlist(dependent, explanatory, p = TRUE, cont = "median") -> t
@@ -68,10 +79,10 @@ kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r"))
 
 ## ---- warning=FALSE------------------------------------------------------
 library(finalfit)
-explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
+explanatory = c("age", "nodes", "age.factor", "sex.factor", "obstruct.factor")
 dependent = "perfor.factor"
 colon_s %>%
-	summary_factorlist(dependent, explanatory, p = TRUE, cont = "median", na_include = TRUE) -> t
+	summary_factorlist(dependent, explanatory, p = TRUE, cont_nonpara = c(2)) -> t
 
 ## ---- echo=FALSE---------------------------------------------------------
 library(knitr)
@@ -82,7 +93,30 @@ library(finalfit)
 explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
 dependent = "perfor.factor"
 colon_s %>%
-	summary_factorlist(dependent, explanatory, p = TRUE, cont = "median", na_include = TRUE,
+	summary_factorlist(dependent, explanatory, p = TRUE, na_include = TRUE) -> t
+
+## ---- echo=FALSE---------------------------------------------------------
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r"))
+
+## ---- warning=FALSE------------------------------------------------------
+library(finalfit)
+explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
+dependent = "perfor.factor"
+colon_s %>%
+	summary_factorlist(dependent, explanatory, p = TRUE, na_include = TRUE, 
+										 na_to_p = TRUE) -> t
+
+## ---- echo=FALSE---------------------------------------------------------
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r"))
+
+## ---- warning=FALSE------------------------------------------------------
+library(finalfit)
+explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
+dependent = "perfor.factor"
+colon_s %>%
+	summary_factorlist(dependent, explanatory, p = TRUE, na_include = TRUE,
 										 column = FALSE) -> t
 
 ## ---- echo=FALSE---------------------------------------------------------
@@ -106,9 +140,38 @@ library(finalfit)
 explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
 dependent = "perfor.factor"
 colon_s %>%
-	summary_factorlist(dependent, explanatory, p = TRUE, cont = "median", na_include = TRUE,
-										 column = TRUE, total_col = TRUE) %>% 
-	ff_row_totals(colon_s, explanatory) -> t
+	summary_factorlist(dependent, explanatory, p = TRUE, na_include = TRUE,
+										 total_col = TRUE,
+										 add_row_total = TRUE) -> t
+
+## ---- echo=FALSE---------------------------------------------------------
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r"))
+
+## ----message=FALSE, warning=FALSE----------------------------------------
+library(finalfit)
+explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
+dependent = "perfor.factor"
+colon_s %>%
+	summary_factorlist(dependent, explanatory, p = TRUE, na_include = TRUE,
+										 total_col = TRUE,
+										 add_row_total = TRUE,
+										 include_row_missing_col = FALSE) -> t
+
+## ---- echo=FALSE---------------------------------------------------------
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r"))
+
+## ----message=FALSE, warning=FALSE----------------------------------------
+library(finalfit)
+explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
+dependent = "perfor.factor"
+colon_s %>%
+	summary_factorlist(dependent, explanatory, p = TRUE,
+										 total_col = TRUE,
+										 add_row_total = TRUE,
+										 row_totals_colname = "N (total)",
+										 row_missing_colname = "N (missing)") -> t
 
 ## ---- echo=FALSE---------------------------------------------------------
 library(knitr)
@@ -125,6 +188,46 @@ colon_s %>%
 ## ---- echo=FALSE---------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r"))
+
+## ---- warning=FALSE------------------------------------------------------
+explanatory = c("age.factor", "sex.factor")
+dependent = "rx.factor"
+
+colon_s %>%
+	summary_factorlist(dependent, explanatory, p = TRUE,
+										 add_col_totals = TRUE)	-> t
+
+## ---- echo=FALSE---------------------------------------------------------
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "l", "l", "r", "r", "r"))
+
+## ---- warning=FALSE------------------------------------------------------
+explanatory = c("age.factor", "sex.factor")
+dependent = "rx.factor"
+
+colon_s %>%
+	summary_factorlist(dependent, explanatory, p = TRUE,
+										 add_col_totals = TRUE,
+										 include_col_totals_percent = FALSE)	-> t
+
+## ---- echo=FALSE---------------------------------------------------------
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "l", "l", "r", "r", "r"))
+
+## ---- warning=FALSE------------------------------------------------------
+explanatory = c("age.factor", "sex.factor")
+dependent = "rx.factor"
+
+colon_s %>%
+	summary_factorlist(dependent, explanatory, p = TRUE,
+										 add_col_totals = TRUE,
+										 include_col_totals_percent = FALSE,
+										 col_totals_rowname = "",
+										 col_totals_prefix = "N=")	-> t
+
+## ---- echo=FALSE---------------------------------------------------------
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "l", "l", "r", "r", "r"))
 
 ## ---- warning=FALSE------------------------------------------------------
 library(finalfit)
@@ -168,7 +271,61 @@ colon_s %>%
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
+## ------------------------------------------------------------------------
+explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
+dependent = "mort_5yr"
+colon_s %>% 
+	ff_glimpse(dependent, explanatory)
+
 ## ---- warning=FALSE------------------------------------------------------
+library(finalfit)
+explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
+dependent = "mort_5yr"
+colon_s %>%
+  summary_factorlist(dependent, explanatory, p = TRUE, na_include = TRUE,
+  									 total_col = TRUE,
+  									 add_col_totals = TRUE, add_row_totals = TRUE) -> t
+
+## ---- echo=FALSE---------------------------------------------------------
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
+
+## ---- warning=FALSE------------------------------------------------------
+library(finalfit)
+explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
+dependent = "mort_5yr"
+colon_s %>%
+	mutate(
+		mort_5yr = forcats::fct_explicit_na(mort_5yr)
+	) %>% 
+  summary_factorlist(dependent, explanatory, p = TRUE, na_include = TRUE,
+  									 total_col = TRUE,
+  									 add_col_totals = TRUE, add_row_totals = TRUE) -> t
+
+## ---- echo=FALSE---------------------------------------------------------
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
+
+## ---- warning=FALSE------------------------------------------------------
+library(finalfit)
+explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
+dependent = "mort_5yr"
+vlabels = colon_s %>% 
+	extract_variable_label()
+
+colon_s %>%
+	select(dependent, explanatory) %>% 
+	tidyr::drop_na() %>% # Silently removes attributes
+	ff_relabel(vlabels) %>% # Relabel
+  summary_factorlist(dependent, explanatory, p = TRUE, na_include = TRUE,
+  									 total_col = TRUE,
+  									 add_col_totals = TRUE, add_row_totals = TRUE) -> t
+
+## ---- echo=FALSE---------------------------------------------------------
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
+
+## ----message=FALSE, warning=FALSE----------------------------------------
 library(finalfit)
 
 # Here, `extent` is a continuous variable with 4 distinct values. 
@@ -185,10 +342,11 @@ kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
 ## ---- warning=FALSE------------------------------------------------------
 library(finalfit)
-explanatory = c("extent")
+explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
 dependent = "mort_5yr"
 colon_s %>%
-  summary_factorlist(dependent, explanatory, cont_cut = 3) -> t
+  summary_factorlist(dependent, explanatory, p = TRUE, 
+  									 digits = c(1,2,3,4)) -> t
 
 ## ---- echo=FALSE---------------------------------------------------------
 library(knitr)
@@ -196,38 +354,32 @@ kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
 ## ---- warning=FALSE------------------------------------------------------
 library(dplyr)
-# Piped function to generate stratified crosstabs table
 explanatory = c("age.factor", "sex.factor")
-dependent = "rx.factor"
+dependent = "perfor.factor"
 
 # Pick option below
 split = "rx.factor"
-split = c("perfor.factor", "node4.factor")
+split = c("rx.factor", "node4.factor")
 
+# Piped function to generate stratified crosstabs table
 colon_s %>%
-  group_by(!!! syms(split)) %>% #Looks awkward, but this keeps quoted var names (rather than unquoted)
-  do(
-    summary_factorlist(., dependent, explanatory, p = TRUE)
-  ) %>%
-  data.frame() %>%
-  dependent_label(colon_s, dependent, prefix = "") %>%
-  colname2label(split) -> t
+  group_by(!!! syms(split)) %>% # Looks awkward, but avoids unquoted var names
+  group_modify(~ summary_factorlist(.x, dependent, explanatory)) %>%
+  ff_stratify_helper(colon_s) -> t
 
 ## ---- echo=FALSE---------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "l", "l", "r", "r", "r"))
 
 ## ---- warning=FALSE------------------------------------------------------
-explanatory = c("age.factor", "sex.factor")
-dependent = "rx.factor"
-
+explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
+dependent = "perfor.factor"
 colon_s %>%
-	summary_factorlist(., dependent, explanatory, p = TRUE) %>% 
-	ff_column_totals(colon_s, dependent)	-> t
+  summary_factorlist(dependent, explanatory, p = TRUE, digits = c(1,2,3,4)) -> t
 
 ## ---- echo=FALSE---------------------------------------------------------
 library(knitr)
-kable(t, row.names=FALSE, align = c("l", "l", "l", "l", "r", "r", "r"))
+kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
 ## ---- warning=FALSE, message=FALSE---------------------------------------
 library(finalfit)

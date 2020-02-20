@@ -353,7 +353,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <td>Mean (SD)</td>
 <td align="right">59.8 (11.9)</td>
 <td align="right">58.4 (13.3)</td>
-<td align="right">0.578</td>
+<td align="right">0.542</td>
 </tr>
 <tr class="even">
 <td align="left">Age</td>
@@ -381,7 +381,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <td>Female</td>
 <td align="right">432 (47.9)</td>
 <td align="right">13 (48.1)</td>
-<td align="right">0.979</td>
+<td align="right">1.000</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
@@ -395,7 +395,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <td>No</td>
 <td align="right">715 (81.2)</td>
 <td align="right">17 (63.0)</td>
-<td align="right">0.018</td>
+<td align="right">0.035</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
@@ -454,7 +454,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <td>Female</td>
 <td align="right">243 (47.6)</td>
 <td align="right">194 (48.0)</td>
-<td align="right">0.889</td>
+<td align="right">0.941</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
@@ -468,7 +468,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <td>No</td>
 <td align="right">408 (82.1)</td>
 <td align="right">312 (78.6)</td>
-<td align="right">0.189</td>
+<td align="right">0.219</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
@@ -1003,10 +1003,9 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb11-24" data-line-number="24">example.summary <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb11-25" data-line-number="25"><span class="st">  </span><span class="kw">finalfit_merge</span>(example.univariable) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb11-26" data-line-number="26"><span class="st">  </span><span class="kw">finalfit_merge</span>(example.multivariable) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb11-27" data-line-number="27"><span class="st">  </span><span class="kw">finalfit_merge</span>(example.multilevel) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb11-28" data-line-number="28"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span><span class="kw">c</span>(fit_id, index)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># remove unnecessary columns</span></a>
-<a class="sourceLine" id="cb11-29" data-line-number="29"><span class="st">  </span><span class="kw">dependent_label</span>(colon_s, dependent, <span class="dt">prefix=</span><span class="st">&quot;&quot;</span>) -&gt;<span class="st"> </span>t8 <span class="co"># place dependent variable label</span></a>
-<a class="sourceLine" id="cb11-30" data-line-number="30">knitr<span class="op">::</span><span class="kw">kable</span>(t8, <span class="dt">row.names=</span><span class="ot">FALSE</span>, <span class="dt">align=</span><span class="kw">c</span>(<span class="st">&quot;l&quot;</span>, <span class="st">&quot;l&quot;</span>, <span class="st">&quot;r&quot;</span>, <span class="st">&quot;r&quot;</span>, <span class="st">&quot;r&quot;</span>, <span class="st">&quot;r&quot;</span>, <span class="st">&quot;r&quot;</span>))</a></code></pre></div>
+<a class="sourceLine" id="cb11-27" data-line-number="27"><span class="st">  </span><span class="kw">finalfit_merge</span>(example.multilevel, <span class="dt">last_merge =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-28" data-line-number="28"><span class="st">  </span><span class="kw">dependent_label</span>(colon_s, dependent, <span class="dt">prefix=</span><span class="st">&quot;&quot;</span>) -&gt;<span class="st"> </span>t8 <span class="co"># place dependent variable label</span></a>
+<a class="sourceLine" id="cb11-29" data-line-number="29">knitr<span class="op">::</span><span class="kw">kable</span>(t8, <span class="dt">row.names=</span><span class="ot">FALSE</span>, <span class="dt">align=</span><span class="kw">c</span>(<span class="st">&quot;l&quot;</span>, <span class="st">&quot;l&quot;</span>, <span class="st">&quot;r&quot;</span>, <span class="st">&quot;r&quot;</span>, <span class="st">&quot;r&quot;</span>, <span class="st">&quot;r&quot;</span>, <span class="st">&quot;r&quot;</span>))</a></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -1145,8 +1144,11 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </div>
 <div id="notes" class="section level2">
 <h2>Notes</h2>
-<p>Use <code>Hmisc::label()</code> to assign labels to variables for tables and plots.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">label</span>(colon_s<span class="op">$</span>age.factor) =<span class="st"> &quot;Age (years)&quot;</span></a></code></pre></div>
+<p>Use <code>ff_label()</code> to assign labels to variables for tables and plots.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">colon_s <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb15-3" data-line-number="3">    <span class="kw">ff_label</span>(age.factor, <span class="st">&quot;Age (years)&quot;</span>)</a>
+<a class="sourceLine" id="cb15-4" data-line-number="4">  )</a></code></pre></div>
 <p>Export dataframe tables directly or to <a href="http://rmarkdown.rstudio.com">R Markdown</a> <a href="https://yihui.name/knitr/"><code>knitr::kable()</code></a>.</p>
 <p>Note wrapper <code>missing_pattern()</code> is also useful. Wraps <code>mice::md.pattern</code>.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">colon_s <span class="op">%&gt;%</span></a>

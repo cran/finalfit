@@ -637,29 +637,6 @@ ff_stratify_helper <- function(df.out, .data){
 	return(df.out)
 }
 
-
-#' Remove variable labels.
-#'
-#' @param .data Data frame
-#'
-#' @return The original data frame with variable label attributes removed.
-#' @export
-#' @keywords internal
-#'
-#' @examples
-#' colon_s %>%
-#'   remove_labels()
-remove_labels = function(.data){
-	attr_label_null <- function(x){
-		attr(x, "label") <- NULL
-		return(x)
-	}
-	
-	.data %>% 
-		purrr::map_df(attr_label_null)
-}
-
-
 #' Generate formula as character string
 #'
 #' Useful when passing finalfit dependent and explanatory lists to base R
@@ -757,7 +734,7 @@ globalVariables(c("L95", "U95", "fit_id", "Total", "dependent",
 									":=", "Mean", "SD", "Median", "Q3", "Q1", "IQR", "Formatted", 
 									"w", "Freq", "g", "total_prop", "Prop", "index_total", "vname", "Combined",
 									"2.5 %", "97.5 %", "p.value", "estimate", "index", "n", "missing_n", "var_type",
-									"missing_percent", "var1", "var2", "keep", "label", "rowid"))
+									"missing_percent", "var1", "var2", "keep", "label", "rowid", "term"))
 
 
 # Workaround ::: as summary.formula not (yet) exported from Hmisc

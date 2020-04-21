@@ -724,7 +724,7 @@ fit2df.stanfit = function(.data, condense=TRUE, metrics=FALSE, remove_intercept=
 #' Extract \code{mice} pooled fit results to dataframe: \code{finalfit} model
 #' extracters
 #'
-#' \code{fit2df.stanfit} is the model extract method for the \code{mipo} object
+#' \code{fit2df.mipo} is the model extract method for the \code{mipo} object
 #' created using \code{mice::pool}.
 #'
 #' @rdname fit2df
@@ -744,9 +744,7 @@ fit2df.mipo <- function(.data, condense=TRUE, metrics=FALSE, remove_intercept=TR
 	df.out = summary_mipo(.data, conf.int = TRUE, 
 															 conf.level = confint_level, 
 															 exponentiate = exp) %>% 
-		dplyr::select(estimate, `2.5 %`, `97.5 %`, p.value) %>% 
-		dplyr::mutate(explanatory_name = rownames(.)) %>% 
-		dplyr::select(dplyr::last_col(), dplyr::everything())
+		dplyr::select(explanatory_name = term, estimate, `2.5 %`, `97.5 %`, p.value)
 	colnames(df.out) = c(explanatory_name, estimate_name, "L95", "U95", "p")
 	
 	if (condense==TRUE){

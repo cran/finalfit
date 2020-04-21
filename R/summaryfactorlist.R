@@ -63,7 +63,7 @@
 #' @param add_row_totals Logical. Include row totals. Note this differs from
 #'   \code{total_col} above particularly for continuous explanatory variables.
 #' @param include_row_missing_col Logical. Include missing data total for each
-#'   row.
+#'   row. Only used when \code{add_row_totals} is \code{TRUE}.
 #' @param row_totals_colname Character. Column name for row totals.
 #' @param row_missing_colname Character. Column name for missing data totals for
 #'   each row.
@@ -137,10 +137,10 @@ summary_factorlist <- function(.data,
 		p_cat = "fisher"}
 	
 	# Extract explanatory terms (to support using * and :)
-	explanatory = explanatory %>% 
-		paste("~", ., collapse = "+") %>% 
+	explanatory_terms = paste("~", paste(explanatory, collapse = "+")) %>% 
 		formula() %>% 
-		all.vars()
+		terms() %>% 
+		attr("term.labels")
 	
 	if(dependent %in% explanatory) stop("Cannot have dependent variable in explanatory list.")
 	
@@ -158,11 +158,17 @@ summary_factorlist <- function(.data,
 		dependent = "all"
 		
 		# Remove strata and cluster terms - keep in table for now
-		# drop = grepl("cluster[(].*[)]", explanatory) |
-		# 	grepl("strata[(].*[)]", explanatory) |
-		# 	grepl("frailty[(].*[)]", explanatory)
-		# explanatory = explanatory[!drop]
+		drop = grepl("cluster[(].*[)]", explanatory) |
+			grepl("strata[(].*[)]", explanatory) |
+			grepl("frailty[(].*[)]", explanatory)
+		explanatory = explanatory[!drop]
 	}    
+	
+	# Remove interactions and indicator variables
+	## Intentionally done separately to above line. 
+	explanatory = paste("~", paste(explanatory, collapse = "+")) %>% 
+		formula() %>% 
+		all.vars()
 	
 	## Active dataset
 	.data = .data %>% 
@@ -560,8 +566,17 @@ summary_factorlist <- function(.data,
 			regex_sqbracket = "^(\\[).*(\\])$"
 			drop = grepl(regex_sqbracket, levels_id)
 			levels_id[drop] = ""
-			dplyr::mutate(., 
-										fit_id = paste0(label, levels_id),
+			# Where extra terms included, add these in, e.g. I(var) (not interactions)
+			extra_terms = explanatory_terms[-which(explanatory_terms %in% explanatory)]
+			drop = grepl(":", extra_terms)
+			extra_terms = extra_terms[!drop]
+			{ if(!identical(extra_terms, character(0))){
+				levels_id = c(levels_id, rep("", length(extra_terms)))
+				dplyr::add_row(., label = extra_terms)
+			} else {
+				.
+			}} %>% 
+			dplyr::mutate(., fit_id = paste0(label, levels_id),
 										index = 1:dim(.)[1])
 		} else {
 			.
@@ -577,7 +592,7 @@ summary_factorlist <- function(.data,
 		
 		# Add column totals
 		{ if(add_col_totals){
-			ff_column_totals(., .data, dependent, 
+			ff_column_totals(., df.in, dependent, 
 											 percent = include_col_totals_percent, 
 											 na_include_dependent = na_include_dependent,
 											 digits = digits[4], label = col_totals_rowname, 

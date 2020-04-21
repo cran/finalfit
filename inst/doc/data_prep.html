@@ -360,7 +360,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p><code>ff_glimpse()</code> provides a convenient overview of all data in a tibble or data frame. It is particularly important that factors are correctly specified. Hence, <code>ff_glimpse()</code> separates variables into continuous and categorcial. As expected, no factors are yet specified in the melanoma dataset.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(finalfit)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">ff_glimpse</span>(melanoma)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; Continuous</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; $Continuous</span></a>
 <a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt;               label var_type   n missing_n missing_percent   mean     sd</span></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt; time           time    &lt;dbl&gt; 205         0             0.0 2152.8 1122.1</span></a>
 <a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; status       status    &lt;dbl&gt; 205         0             0.0    1.8    0.6</span></a>
@@ -378,7 +378,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">#&gt; thickness    0.1         1.0    1.9         3.6   17.4</span></a>
 <a class="sourceLine" id="cb2-19" data-line-number="19"><span class="co">#&gt; ulcer        0.0         0.0    0.0         1.0    1.0</span></a>
 <a class="sourceLine" id="cb2-20" data-line-number="20"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="co">#&gt; Categorical</span></a>
+<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="co">#&gt; $Categorical</span></a>
 <a class="sourceLine" id="cb2-22" data-line-number="22"><span class="co">#&gt; # A tibble: 205 x 0</span></a></code></pre></div>
 <p>If you wish to see the variables in the order in which they appear in the data frame or tibble, <code>missing_glimpse()</code> or <code>tibble::glimpse()</code> are useful.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">missing_glimpse</span>(melanoma)</a>
@@ -409,7 +409,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb4-13" data-line-number="13">  ) -&gt;<span class="st"> </span>melanoma</a>
 <a class="sourceLine" id="cb4-14" data-line-number="14"></a>
 <a class="sourceLine" id="cb4-15" data-line-number="15"><span class="kw">ff_glimpse</span>(melanoma)</a>
-<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; Continuous</span></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; $Continuous</span></a>
 <a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt;               label var_type   n missing_n missing_percent   mean     sd</span></a>
 <a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt; time           time    &lt;dbl&gt; 205         0             0.0 2152.8 1122.1</span></a>
 <a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt; status       status    &lt;dbl&gt; 205         0             0.0    1.8    0.6</span></a>
@@ -427,7 +427,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb4-31" data-line-number="31"><span class="co">#&gt; thickness    0.1         1.0    1.9         3.6   17.4</span></a>
 <a class="sourceLine" id="cb4-32" data-line-number="32"><span class="co">#&gt; ulcer        0.0         0.0    0.0         1.0    1.0</span></a>
 <a class="sourceLine" id="cb4-33" data-line-number="33"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-34" data-line-number="34"><span class="co">#&gt; Categorical</span></a>
+<a class="sourceLine" id="cb4-34" data-line-number="34"><span class="co">#&gt; $Categorical</span></a>
 <a class="sourceLine" id="cb4-35" data-line-number="35"><span class="co">#&gt;                label var_type   n missing_n missing_percent levels_n</span></a>
 <a class="sourceLine" id="cb4-36" data-line-number="36"><span class="co">#&gt; status.factor Status    &lt;fct&gt; 205         0             0.0        3</span></a>
 <a class="sourceLine" id="cb4-37" data-line-number="37"><span class="co">#&gt; sex.factor       Sex    &lt;fct&gt; 205         0             0.0        2</span></a>

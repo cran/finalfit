@@ -310,6 +310,34 @@ kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 library(finalfit)
 explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
 dependent = "mort_5yr"
+colon_s %>%
+  summary_factorlist(dependent, explanatory, p = TRUE, 
+  									 na_include = TRUE, na_include_dependent = TRUE,
+  									 total_col = TRUE,
+  									 add_col_totals = TRUE, add_row_totals = TRUE) -> t
+
+## ---- echo=FALSE---------------------------------------------------------
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
+
+## ---- warning=FALSE------------------------------------------------------
+library(finalfit)
+explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
+dependent = "mort_5yr"
+colon_s %>%
+  summary_factorlist(dependent, explanatory, p = TRUE, 
+  									 na_complete_cases = TRUE,
+  									 total_col = TRUE,
+  									 add_col_totals = TRUE, add_row_totals = TRUE) -> t
+
+## ---- echo=FALSE---------------------------------------------------------
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
+
+## ---- warning=FALSE------------------------------------------------------
+library(finalfit)
+explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
+dependent = "mort_5yr"
 vlabels = colon_s %>% 
 	extract_variable_label()
 

@@ -82,8 +82,10 @@ coefficient_plot = function(.data, dependent, explanatory, random_effect = NULL,
 			dplyr::mutate(label = ifelse(label == "", NA, label)) %>% 
 			tidyr::fill(label) %>% 
 			dplyr::group_by(label) %>%
-			dplyr::slice(2:dplyr::n()) %>% 
-			rm_duplicate_labels()
+			#dplyr::slice(2:dplyr::n()) %>% 
+			dplyr::filter(dplyr::row_number() != 1 | 
+											dplyr::n() > 2) %>% 
+		rm_duplicate_labels()
 	}
 	
 	if(is.null(breaks)){
@@ -109,6 +111,7 @@ coefficient_plot = function(.data, dependent, explanatory, random_effect = NULL,
 	
 	# Fill in total for continuous variables (NA by default)
 	df.out$Total[is.na(df.out$Total)] = dim(.data)[1]
+	df.out$Total = as.numeric(df.out$Total)
 	
 	# Remove unwanted lines, where there are more variables in model than wish to display.
 	# These not named in factorlist, creating this problem. Interactions don't show on plot.

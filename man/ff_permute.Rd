@@ -63,8 +63,8 @@ colon_s \%>\%
   finalfit_permute("Surv(time, status)", explanatory_base, explanatory_permute)
 
 # Logistic regression
-colon_s \%>\%
-  finalfit_permute("mort_5yr", explanatory_base, explanatory_permute)
+# colon_s \%>\%
+#   finalfit_permute("mort_5yr", explanatory_base, explanatory_permute)
 
 # Logistic regression with random effect (glmer)
 # colon_s \%>\%

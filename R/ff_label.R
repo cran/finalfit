@@ -84,15 +84,14 @@ extract_variable_label = function(.data){
 ff_relabel <- function(.data, .labels){
 	# Keep only labels for variables in data
 	.labels = .labels[names(.labels) %in% names(.data)]
+	relabel_one <- function(.){
+		var <- as.character(match.call()[[2L]])
+		label = .labels[[var]]
+		ff_label(., label)
+	}
 	.data %>% 
-		dplyr::mutate_at(names(.labels), # Apply only to variables for which labels
-										 dplyr::funs({
-										 	label = .labels[[dplyr::quo_name(dplyr::quo(.))]]
-										 	ff_label(., label)
-										 })
-		)
+		dplyr::mutate_at(names(.labels), relabel_one) # Apply only to variables for which labels
 }
-
 #' @rdname ff_relabel
 #' @export
 #' 
@@ -112,13 +111,13 @@ finalfit_relabel <- ff_relabel
 ff_relabel_df <- function(.data, .df){
 	.labels = extract_variable_label(.df)
 	.labels = .labels[names(.labels) %in% names(.data)]
+	relabel_one <- function(.) {
+		var <- as.character(match.call()[[2L]])
+		label = .labels[[var]]
+		ff_label(., label)
+	}
 	.data %>% 
-		dplyr::mutate_at(names(.labels), # Apply only to variables for which labels
-										 dplyr::funs({
-										 	label = .labels[[dplyr::quo_name(dplyr::quo(.))]]
-										 	ff_label(., label)
-										 })
-		)
+		dplyr::mutate_at(names(.labels), relabel_one) # Apply only to variables for which labels
 }
 #' @rdname ff_relabel_df
 #' @export
@@ -148,4 +147,51 @@ remove_labels = function(.data){
 	.data %>% 
 		purrr::map_df(attr_label_null)
 	)
+}
+
+
+
+#' Labels to column names
+#'
+#' @param .data Data frame or tibble.
+#'
+#' @return Data frame or tibble
+#' @export
+#'
+#' @examples
+#' library(dplyr)
+#' colon_s %>% 
+#'   select(sex.factor) %>% 
+#'   labels_to_column()
+labels_to_column <- function(.data){
+	.labels = extract_variable_label(.data)
+	.labels2 = names(.labels)
+	names(.labels2) = .labels
+	.data %>% 
+		dplyr::rename(.labels2)
+}
+
+
+
+#' Labels to level
+#' 
+#' For use with forcats::fct_relabel.
+#'
+#' @param .data Data frame or tibble.
+#' @param .labels Output from \code{extract_variable_label}.
+#'
+#' @return Data frame or tibble
+#' @export
+#'
+#' @examples
+#' library(dplyr)
+#' vlabels = extract_variable_label(colon_s)
+#' colon_s %>%
+#'  select(sex.factor, obstruct.factor) %>% 
+#'  tidyr::gather() %>% 
+#'  mutate(
+#'   key = forcats::fct_relabel(key, labels_to_level, vlabels)
+#'  )
+labels_to_level <- function(.data, .labels){
+	.labels[.data] 
 }

@@ -611,18 +611,18 @@ colon_s %>%
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE---------------------------------------
-library(finalfit)
-explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
-dependent = "mort_5yr"
-random_effect = "(age.factor | hospital)"
-colon_s %>% 
-	lme4::glmer(mort_5yr ~ age.factor + (age.factor | hospital), family = "binomial", data = .) %>% 
-	broom::tidy() -> t
+## ----eval=FALSE, message=FALSE, warning=FALSE, include=TRUE--------------
+#  library(finalfit)
+#  explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
+#  dependent = "mort_5yr"
+#  random_effect = "(age.factor | hospital)"
+#  colon_s %>%
+#  	lme4::glmer(mort_5yr ~ age.factor + (age.factor | hospital), family = "binomial", data = .) %>%
+#  	broom::tidy() -> t
 
-## ---- echo=FALSE---------------------------------------------------------
-library(knitr)
-kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
+## ---- echo=FALSE, eval=FALSE---------------------------------------------
+#  library(knitr)
+#  kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
 ## ---- warning=FALSE, message=FALSE---------------------------------------
 library(finalfit)

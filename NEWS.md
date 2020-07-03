@@ -1,3 +1,6 @@
+# finalfit 1.0.2
+* `ff_relabel_df()` added to allow passing data frame / tibble with labels directly at bottom of pipe. 
+
 # finalfit 1.0.1
 
 * `ff_relabel()` tightend to allow mismatch between available data and labels. 
@@ -6,6 +9,8 @@
 * `cluster()`, `frailty()` and `strata()` terms shown in `finalfit()` regression tables as an indicator they have been included in model. 
 * `or_plot()` remove_ref bug fix. 
 * `ff_newdata()` bug fix. 
+* Minor changes to accommodate dplyr 1.0.0.
+* Plots bug fix when using `remove_ref` argument. 
 
 # finalfit 1.0.0
 

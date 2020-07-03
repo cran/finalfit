@@ -13,6 +13,7 @@
 \alias{fit2df.coxph}
 \alias{fit2df.coxphlist}
 \alias{fit2df.crr}
+\alias{fit2df.coxme}
 \alias{fit2df.crrlist}
 \alias{fit2df.stanfit}
 \alias{fit2df.mipo}
@@ -42,7 +43,7 @@ fit2df(...)
 \method{fit2df}{glmboot}(.data, condense = TRUE, metrics = FALSE,
   remove_intercept = TRUE, explanatory_name = "explanatory",
   estimate_name = "OR", estimate_suffix = "", p_name = "p",
-  digits = c(2, 2, 3), confint_sep = "-", ...)
+  digits = c(2, 2, 3), exp = TRUE, confint_sep = "-", ...)
 
 \method{fit2df}{glmlist}(.data, condense = TRUE, metrics = FALSE,
   remove_intercept = TRUE, explanatory_name = "explanatory",
@@ -79,6 +80,11 @@ fit2df(...)
   confint_sep = "-", ...)
 
 \method{fit2df}{crr}(.data, condense = TRUE, metrics = FALSE,
+  explanatory_name = "explanatory", estimate_name = "HR",
+  estimate_suffix = "", p_name = "p", digits = c(2, 2, 3),
+  confint_sep = "-", ...)
+
+\method{fit2df}{coxme}(.data, condense = TRUE, metrics = FALSE,
   explanatory_name = "explanatory", estimate_name = "HR",
   estimate_suffix = "", p_name = "p", digits = c(2, 2, 3),
   confint_sep = "-", ...)
@@ -132,7 +138,7 @@ interval limits, (3) p-value.}
 intervals. Defaults to TRUE.}
 
 \item{confint_type}{One of \code{c("profile", "default")} for GLM models
-(\code{\link[MASS]{confint.glm}}) or \code{c("profile", "Wald", "boot")}
+(\link[MASS:confint]{confint.glm}) or \code{c("profile", "Wald", "boot")}
 for \code{glmer/lmer} models (\code{\link[lme4]{confint.merMod}}.). Not
 implemented for \code{lm, coxph or coxphlist}.}
 }
@@ -173,6 +179,8 @@ wrappers.
 \code{fit2df.coxphlist} is the model extract method for \code{coxphuni} and \code{coxphmulti}.
 
 \code{fit2df.crr} is the model extract method for \code{cmprsk::\link[cmprsk]{crr}}.
+
+\code{fit2df.coxme} is the model extract method for \code{eoxme::\link[coxme]{coxme}}.
 
 \code{fit2df.crr} is the model extract method for
 \code{crruni} and \code{crrmulti}.

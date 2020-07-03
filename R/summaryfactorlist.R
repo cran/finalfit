@@ -191,7 +191,8 @@ summary_factorlist <- function(.data,
 		purrr::keep(~ .x < cont_cut) %>% 
 		names()
 	.data = .data %>% 
-		dplyr::mutate_at(cont_distinct, as.factor)
+		dplyr::mutate_at(cont_distinct, as.factor) %>% 
+		ff_relabel_df(.data)
 	
 	## Explanatory variable type
 	explanatory_type = .data %>% 
@@ -421,7 +422,7 @@ summary_factorlist <- function(.data,
 												 ~ if(!..2){
 												 	df.in %>% 
 												 		dplyr::group_by(!! sym(dependent)) %>% 
-												 		dplyr::count(!! sym(..1)) %>% 
+												 		dplyr::count(!! sym(..1), .drop = FALSE) %>% 
 												 		dplyr::ungroup() %>% 
 												 		tidyr::drop_na() %>% 
 												 		dplyr::mutate(grand_total = sum(n)) %>% 

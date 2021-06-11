@@ -114,7 +114,7 @@ kable(t, row.names=FALSE, align = c("l", "l", "r", "r"))
 
 ### 1.06 Non-parametric explanatory variables
 
-If desired, all continuous explanatory variables can be considered non-parametric. Summaries will be median (interquartile range) and the statistical test is Kruskal-Wallis/Mann-Whitney U.
+If desired, all continuous explanatory variables can be considered non-parametric. Summaries will be median (interquartile range) and the statistical test is Kruskal-Wallis/Mann-Whitney U. Use `cont_range = FALSE` if wish single-digit IQR, i.e. Q3-Q1. 
 
 ```{r, warning=FALSE}
 library(finalfit)
@@ -729,7 +729,7 @@ explanatory = c("obstruct.factor", "perfor.factor")
 dependent = "mort_5yr"
 colon_s %>%
 	ff_interaction(age.factor, sex.factor) %>% 
-	finalfit(dependent, c(explanatory, "age.factor__sex.factor")) -> t
+	finalfit(dependent, c(explanatory, "age.factor_sex.factor")) -> t
 ```
 
 ```{r, echo=FALSE}
@@ -843,7 +843,52 @@ library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 ```
 
-### 2.14 Remove p-value
+### 2.14 Robust standard errors / confidence intervals
+
+```{r eval=FALSE, message=FALSE, warning=FALSE}
+explanatory = c("age", "sex.factor")
+dependent = 'mort_5yr'
+
+# Standard finalfit regression table
+t1 = colon_s %>%
+  finalfit(dependent, explanatory, keep_fit_id = TRUE)
+
+# GLM with Stata-like robust standard errors
+t2 = colon_s %>% 
+  glmmulti(dependent, explanatory) %>% 
+  lmtest::coeftest(., vcov = sandwich::vcovHC(., "HC1")) %>% 
+  broom::tidy(conf.int = TRUE) %>% 
+  remove_intercept() %>% 
+  select(term, estimate, conf.low, conf.high, p.value) %>% 
+  mutate(across(c(estimate, conf.low, conf.high), exp)) %>% # or mutate_at(vars())
+  as.data.frame() %>% 
+  condense_fit(estimate_name = "OR (multivariable robust SE)")
+
+ff_merge(t1, t2, last_merge = TRUE)
+```
+
+```{r echo=FALSE}
+library(finalfit)
+explanatory = c("age", "sex.factor")
+dependent = 'mort_5yr'
+t1 = colon_s %>%
+  finalfit(dependent, explanatory, keep_fit_id = TRUE)
+
+t2 = colon_s %>% 
+  glmmulti(dependent, explanatory) %>% 
+  lmtest::coeftest(., vcov = sandwich::vcovHC(., "HC1")) %>% 
+  broom::tidy(conf.int = TRUE) %>% 
+  remove_intercept() %>% 
+  dplyr::select(term, estimate, conf.low, conf.high, p.value) %>% 
+  dplyr::mutate_at(dplyr::vars(estimate, conf.low, conf.high), exp) %>% 
+  as.data.frame() %>% 
+  condense_fit(estimate_name = "OR (multivariable robust SE)")
+
+ff_merge(t1, t2, last_merge = TRUE) %>% 
+	knitr::kable(row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
+```
+
+### 2.15 Remove p-value
 
 ```{r, warning=FALSE, message=FALSE}
 library(finalfit)
@@ -859,9 +904,9 @@ library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 ```
 
-### 2.15 Mixed effects random-intercept model
+### 2.16 Mixed effects random-intercept model
 
-At its simplest, a random-intercept model can be specified using a single quoted variable. In this example, it is the equivalent of quoting `random_effect = "(1 | hospital)"`. 
+At its simplest, a random-intercept model can be specified using a single quoted variable, e.g. `random_effect = "hospital"`. This is equivalent to  `random_effect = "(1 | hospital)"`. Alternatively you can provide the full specification including parenthesis, e.g. `random_effect = "(1 | hospital) + (1 | country)"`. 
 
 ```{r, warning=FALSE, message=FALSE}
 library(finalfit)
@@ -878,7 +923,35 @@ library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 ```
 
-### 2.16 Mixed effects random-slope model
+### 2.16b Mixed effects random-intercept model with univariable estimates including random effects
+
+Some recently asked about this and it is a good question. Here is an approach. 
+
+```{r, warning=FALSE, message=FALSE}
+library(finalfit)
+explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
+dependent = "mort_5yr"
+random_effect = "hospital"
+
+colon_s %>%
+	finalfit(dependent, explanatory, random_effect = random_effect, keep_fit_id = TRUE) %>% 
+	ff_merge(
+		explanatory %>% 
+			purrr::map_df(~ glmmixed(colon_s, dependent, .x, random_effect = random_effect) %>% 
+											fit2df(estimate_suffix = " (univariable with RE)")), 
+		last_merge = TRUE
+	) %>% 
+	dplyr::relocate(7, .before = 6) -> t
+```
+
+```{r, echo=FALSE}
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
+```
+
+
+
+### 2.17 Mixed effects random-slope model
 
 In the example below, allow the effect of age on outcome to vary by hospital. Note, this specification must have parentheses included.
 
@@ -897,7 +970,7 @@ library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 ```
 
-### 2.17 Mixed effects random-slope model directly from `lme4`
+### 2.18 Mixed effects random-slope model directly from `lme4`
 
 Clearly, as models get more complex, parameters such as random effect group variances may require to be extracted directly from model outputs. 
 
@@ -916,7 +989,7 @@ library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 ```
 
-### 2.18 Exclude all missing data in final model from univariable analyses 
+### 2.19 Exclude all missing data in final model from univariable analyses 
 
 This can be useful if you want the numbers in the final table to match the final multivariable model. However, be careful to include a full explanation of this in the methods and the reason for exluding the missing data. 
 
@@ -935,7 +1008,7 @@ library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 ```
 
-### 2.19 Linear regression
+### 2.20 Linear regression
 
 ```{r, warning=FALSE, message=FALSE}
 library(finalfit)
@@ -950,7 +1023,7 @@ library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 ```
 
-### 2.20 Mixed effects random-intercept linear regression
+### 2.21 Mixed effects random-intercept linear regression
 
 ```{r, warning=FALSE, message=FALSE}
 library(finalfit)
@@ -967,7 +1040,7 @@ library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 ```
 
-### 2.21 Mixed effects random-slope linear regression
+### 2.22 Mixed effects random-slope linear regression
 
 ```{r, warning=FALSE, message=FALSE}
 library(finalfit)
@@ -984,7 +1057,7 @@ library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 ```
 
-### 2.22 Cox proportional hazards model (survival / time to event)
+### 2.23 Cox proportional hazards model (survival / time to event)
 
 ```{r, warning=FALSE, message=FALSE}
 library(finalfit)
@@ -999,7 +1072,7 @@ library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 ```
 
-### 2.23 Cox proportional hazards model: change dependent label
+### 2.24 Cox proportional hazards model: change dependent label
 
 As above, the dependent label cannot be specfied directly in the model to avoid errors. However, in survival modelling the surivial object specification can be long or awkward. Therefore, here is the work around. 
 

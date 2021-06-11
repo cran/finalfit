@@ -1,25 +1,25 @@
-## ----setup, include = FALSE----------------------------------------------
+## ----setup, include = FALSE---------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  # Make sure finalfit is up-to-date
 #  install.packages("finalfit")
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 # For this vignette only, pre-specify table output
 mykable = function(x){
 	knitr::kable(x, row.names = FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r", "r"))
 }
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 library(finalfit)
 melanoma = boot::melanoma #F1 here for help page with data dictionary
 ff_glimpse(melanoma)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 library(dplyr)
 library(forcats)
 melanoma = melanoma %>%
@@ -53,7 +53,7 @@ melanoma = melanoma %>%
     	ff_label("Ulcerated tumour")
   )
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 library(survival)
 
 survival_object = melanoma %$% 
@@ -66,23 +66,23 @@ head(survival_object) # + marks censoring, in this case "Alive"
 survival_object = melanoma %$% 
 	Surv(time/365, status_os)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 # Overall survival in whole cohort
 my_survfit = survfit(survival_object ~ 1, data = melanoma)
 my_survfit # 205 patients, 71 events
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 summary(my_survfit, times = c(0, 1, 2, 3, 4, 5))
 # 5 year overall survival is 73%
 
-## ---- fig.width = 5, fig.height = 4--------------------------------------
+## ---- fig.width = 5, fig.height = 4-------------------------------------------
 dependent_os = "Surv(time/365, status_os)"
 explanatory = c("ulcer")
 
 melanoma %>% 
 	surv_plot(dependent_os, explanatory, pval = TRUE)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 dependent_os = "Surv(time, status_os)"
 dependent_dss = "Surv(time, status_dss)"
 dependent_crr = "Surv(time, status_crr)"
@@ -92,7 +92,7 @@ melanoma %>%
 	finalfit(dependent_os, explanatory) %>% 
 	mykable() # for vignette only
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 melanoma %>% 
 	finalfit(dependent_os, explanatory, add_dependent_label = FALSE) %>% 
 	rename("Overall survival" = label) %>% 
@@ -100,13 +100,13 @@ melanoma %>%
 	rename("  " = all) %>% 
 	mykable()
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 explanatory_multi = c("age", "thickness", "ulcer")
 melanoma %>% 
 	finalfit(dependent_os, explanatory, explanatory_multi, keep_models = TRUE) %>% 
 	mykable()
 
-## ---- fig.width = 5, fig.height = 4--------------------------------------
+## ---- fig.width = 5, fig.height = 4-------------------------------------------
 explanatory = c("age", "sex", "thickness", "ulcer", "year")
 melanoma %>% 
 	coxphmulti(dependent_os, explanatory) %>% 
@@ -115,13 +115,13 @@ melanoma %>%
 	plot(var=5)
 zph_result
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 explanatory= c("age", "sex", "ulcer", "thickness", "strata(year)")
 melanoma %>% 
 	finalfit(dependent_os, explanatory) %>% 
 	mykable()
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 # Simulate random hospital identifier
 melanoma = melanoma %>% 
 	mutate(hospital_id = c(rep(1:10, 20), rep(11, 5)))
@@ -132,25 +132,25 @@ melanoma %>%
 	finalfit(dependent_os, explanatory) %>% 
 	mykable()
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 # Frailty model
 explanatory = c("age", "sex", "thickness", "ulcer", "frailty(hospital_id)")
 melanoma %>% 
 	finalfit(dependent_os, explanatory) %>% 
 	mykable()
 
-## ----eval=FALSE----------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  melanoma %>%
 #  	hr_plot(dependent_os, explanatory)
 
-## ----echo=FALSE, fig.height=3, fig.width=7-------------------------------
+## ----echo=FALSE, fig.height=3, fig.width=7------------------------------------
 library(ggplot2)
 melanoma %>% 
 	hr_plot(dependent_os, explanatory, table_text_size = 3.5,
 					 title_text_size = 16,
 					plot_opts=list(xlab("HR, 95% CI"), theme(axis.title = element_text(size=12))))
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 explanatory = c("age", "sex", "thickness", "ulcer")
 dependent_dss = "Surv(time, status_dss)"
 dependent_crr = "Surv(time, status_crr)"

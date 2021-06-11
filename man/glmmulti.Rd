@@ -41,18 +41,24 @@ dependent = "mort_5yr"
 
 colon_s \%>\%
 	glmmulti(dependent, explanatory) \%>\%
-	fit2df(estimate_suffix=" (univariable)")
+	fit2df(estimate_suffix=" (multivariable)")
 
 }
 \seealso{
 \code{\link{fit2df}, \link{finalfit_merge}}
 
-Other finalfit model wrappers: \code{\link{coxphmulti}},
-  \code{\link{coxphuni}}, \code{\link{crrmulti}},
-  \code{\link{crruni}}, \code{\link{glmmixed}},
-  \code{\link{glmmulti_boot}}, \code{\link{glmuni}},
-  \code{\link{lmmixed}}, \code{\link{lmmulti}},
-  \code{\link{lmuni}}, \code{\link{svyglmmulti}},
-  \code{\link{svyglmuni}}
+Other finalfit model wrappers: 
+\code{\link{coxphmulti}()},
+\code{\link{coxphuni}()},
+\code{\link{crrmulti}()},
+\code{\link{crruni}()},
+\code{\link{glmmixed}()},
+\code{\link{glmmulti_boot}()},
+\code{\link{glmuni}()},
+\code{\link{lmmixed}()},
+\code{\link{lmmulti}()},
+\code{\link{lmuni}()},
+\code{\link{svyglmmulti}()},
+\code{\link{svyglmuni}()}
 }
 \concept{finalfit model wrappers}

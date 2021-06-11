@@ -1,3 +1,13 @@
+# finalfit 1.0.3
+* `add_row_total` in `summary_factorlist()` now can include proportion of complete data via `include_row_totals_percent` argument. 
+* Robust standard error approach added to vignette.
+* Support added for weights etc. to be included in `coxphmulti()`.
+* "Univariable" mixed effects models including random effects added to vignette. 
+* `summary_factorlist()`: non-parametric continuous variables now defaults to Q1 - Q3 rather than single figure IQR. 
+* `ff_interaction()`: default factor separator changed from "|" to "_" and variable separator from "__" to "_" given incompatibilities with packages such as `brms`.
+* Bug to `coefficient_plot()` fixed to bring back point estimates.
+* `na_to_prop = FALSE` in `summary_factorlist()` to not include missing data in column proportions of categorical data.
+
 # finalfit 1.0.2
 * `ff_relabel_df()` added to allow passing data frame / tibble with labels directly at bottom of pipe. 
 

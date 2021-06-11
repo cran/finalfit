@@ -1,13 +1,13 @@
-## ----setup, include = FALSE----------------------------------------------
+## ----setup, include = FALSE---------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  install.packages("finalfit")
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 library(finalfit)
 explanatory = c("age.factor", "extent.factor", "perfor.factor")
 dependent = 'mort_5yr'
@@ -20,7 +20,7 @@ colon_s %>%
     c("<40 years", "Adjacent structures", "Yes") )) -> newdata
 newdata
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 colon_s %>% 
   glmmulti(dependent, explanatory) %>% 
   boot_predict(newdata, 
@@ -28,10 +28,10 @@ colon_s %>%
     R=100, boot_compare = FALSE,
     digits = c(2,3))
 
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  knitr::kable(table, row.names = FALSE, align = c("l", "l", "l", "r"))
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 colon_s %>% 
   glmmulti(dependent, explanatory) %>% 
   boot_predict(newdata, 
@@ -39,7 +39,7 @@ colon_s %>%
     #compare_name = "Absolute risk difference",
     R=100, digits = c(2,3))
 
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  library(finalfit)
 #  library(ggplot2)
 #  theme_set(theme_bw())

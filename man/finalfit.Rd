@@ -7,29 +7,69 @@
 \alias{finalfit.coxph}
 \title{Final output tables for common regression models}
 \usage{
-finalfit(.data, dependent, explanatory, explanatory_multi = NULL,
-  random_effect = NULL, column = FALSE, keep_models = FALSE,
-  metrics = FALSE, add_dependent_label = TRUE,
-  dependent_label_prefix = "Dependent: ", dependent_label_suffix = "",
-  keep_fit_id = FALSE, ...)
+finalfit(
+  .data,
+  dependent,
+  explanatory,
+  explanatory_multi = NULL,
+  random_effect = NULL,
+  column = FALSE,
+  keep_models = FALSE,
+  metrics = FALSE,
+  add_dependent_label = TRUE,
+  dependent_label_prefix = "Dependent: ",
+  dependent_label_suffix = "",
+  keep_fit_id = FALSE,
+  ...
+)
 
-finalfit.lm(.data, dependent, explanatory, explanatory_multi = NULL,
-  random_effect = NULL, column = FALSE, keep_models = FALSE,
-  metrics = FALSE, add_dependent_label = TRUE,
-  dependent_label_prefix = "Dependent: ", dependent_label_suffix = "",
-  keep_fit_id = FALSE, ...)
+finalfit.lm(
+  .data,
+  dependent,
+  explanatory,
+  explanatory_multi = NULL,
+  random_effect = NULL,
+  column = FALSE,
+  keep_models = FALSE,
+  metrics = FALSE,
+  add_dependent_label = TRUE,
+  dependent_label_prefix = "Dependent: ",
+  dependent_label_suffix = "",
+  keep_fit_id = FALSE,
+  ...
+)
 
-finalfit.glm(.data, dependent, explanatory, explanatory_multi = NULL,
-  random_effect = NULL, column = FALSE, keep_models = FALSE,
-  metrics = FALSE, add_dependent_label = TRUE,
-  dependent_label_prefix = "Dependent: ", dependent_label_suffix = "",
-  keep_fit_id = FALSE, ...)
+finalfit.glm(
+  .data,
+  dependent,
+  explanatory,
+  explanatory_multi = NULL,
+  random_effect = NULL,
+  column = FALSE,
+  keep_models = FALSE,
+  metrics = FALSE,
+  add_dependent_label = TRUE,
+  dependent_label_prefix = "Dependent: ",
+  dependent_label_suffix = "",
+  keep_fit_id = FALSE,
+  ...
+)
 
-finalfit.coxph(.data, dependent, explanatory, explanatory_multi = NULL,
-  random_effect = NULL, column = TRUE, keep_models = FALSE,
-  metrics = FALSE, add_dependent_label = TRUE,
-  dependent_label_prefix = "Dependent: ", dependent_label_suffix = "",
-  keep_fit_id = FALSE, ...)
+finalfit.coxph(
+  .data,
+  dependent,
+  explanatory,
+  explanatory_multi = NULL,
+  random_effect = NULL,
+  column = TRUE,
+  keep_models = FALSE,
+  metrics = FALSE,
+  add_dependent_label = TRUE,
+  dependent_label_prefix = "Dependent: ",
+  dependent_label_suffix = "",
+  keep_fit_id = FALSE,
+  ...
+)
 }
 \arguments{
 \item{.data}{Data frame or tibble.}
@@ -45,9 +85,10 @@ explanatory variables.}
 subset of explanatory variables to generate reduced multivariable model
 (must only contain variables contained in \code{explanatory}).}
 
-\item{random_effect}{Character vector of length 1: quoted name of random
-effects variable. When included mixed effects model generated
-(\code{lme4::glmer lme4::lmer}).}
+\item{random_effect}{Character vector of length 1, either, (1) name of random
+intercept variable, e.g. "var1", (automatically convered to "(1 | var1)");
+or, (2) the full \code{lme4} specification, e.g. "(var1 | var2)". Note
+parenthesis MUST be included in (2) but NOT included in (1).}
 
 \item{column}{Logical: Compute margins by column rather than row.}
 

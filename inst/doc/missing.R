@@ -1,14 +1,14 @@
-## ----setup, include = FALSE----------------------------------------------
+## ----setup, include = FALSE---------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  # Make sure finalfit is up-to-date
 #  install.packages("finalfit")
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 library(finalfit) 
 
 # Create some extra missing data
@@ -44,21 +44,21 @@ dependent = "mort_5yr"
 colon_s %>% 
   ff_glimpse(dependent, explanatory)
 
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  colon_s %>%
 #    ff_glimpse()
 
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  library(dplyr)
 #  colon_s %>%
 #    select(-hospital) %>%
 #    ff_glimpse()
 
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  colon_s %>%
 #    missing_plot()
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 explanatory = c("age", "sex.factor", 
   "obstruct.factor",  
   "smoking_mcar", "smoking_mar")
@@ -67,7 +67,7 @@ dependent = "mort_5yr"
 colon_s %>% 
   missing_pattern(dependent, explanatory)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 # Explanatory or confounding variables
 explanatory = c("age", "sex.factor", 
   "nodes",  
@@ -80,7 +80,7 @@ colon_s %>%
   summary_factorlist(dependent, explanatory, 
   na_include=TRUE, p=TRUE)
 
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  explanatory = c("age", "sex.factor",
 #    "nodes", "obstruct.factor",
 #    "smoking_mcar", "smoking_mar")
@@ -88,11 +88,11 @@ colon_s %>%
 #  colon_s %>%
 #    missing_pairs(dependent, explanatory)
 
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  colon_s %>%
 #    missing_pairs(dependent, explanatory, position = "fill", )
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 explanatory = c("age", "sex.factor", 
   "nodes", "obstruct.factor")
 dependent = "smoking_mcar"
@@ -100,13 +100,13 @@ colon_s %>%
   missing_compare(dependent, explanatory) %>% 
 	knitr::kable(row.names=FALSE, align = c("l", "l", "r", "r", "r")) # Omit when you run
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 dependent = "smoking_mar"
 colon_s %>% 
   missing_compare(dependent, explanatory) %>% 
 	knitr::kable(row.names=FALSE, align = c("l", "l", "r", "r", "r")) # Omit when you run
 
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  library(finalfit)
 #  library(dplyr)
 #  library(MissMech)
@@ -117,7 +117,7 @@ colon_s %>%
 #    select(explanatory) %>%
 #    MissMech::TestMCARNormality()
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 explanatory = c("age", "sex.factor", 
   "nodes", "obstruct.factor",  
   "smoking_mcar")
@@ -126,7 +126,7 @@ colon_s %>%
 	finalfit(dependent, explanatory) %>% 
 	knitr::kable(row.names=FALSE, align = c("l", "l", "r", "r", "r", "r")) # Omit when you run
 
-## ----fig.height=3, fig.width=10, message=FALSE, warning=FALSE------------
+## ----fig.height=3, fig.width=10, message=FALSE, warning=FALSE-----------------
 # Multivariate Imputation by Chained Equations (mice)
 library(finalfit)
 library(dplyr)
@@ -204,7 +204,7 @@ summary1 %>%
   select(-fit_id, -index) %>% 
 	knitr::kable(row.names=FALSE, align = c("l", "l", "r", "r", "r","r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE---------------------------------------
+## ---- warning=FALSE, message=FALSE--------------------------------------------
 library(dplyr)
 explanatory = c("age", "sex.factor", 
   "nodes", "obstruct.factor", "smoking_mar")

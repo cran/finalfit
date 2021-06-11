@@ -1,21 +1,45 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <meta name="author" content="Ewen Harrison" />
 
 
 <title>Exporting tables and plots</title>
 
+<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
+// v0.0.1
+// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
+
+document.addEventListener('DOMContentLoaded', function() {
+  const codeList = document.getElementsByClassName("sourceCode");
+  for (var i = 0; i < codeList.length; i++) {
+    var linkList = codeList[i].getElementsByTagName('a');
+    for (var j = 0; j < linkList.length; j++) {
+      if (linkList[j].innerHTML === "") {
+        linkList[j].setAttribute('aria-hidden', 'true');
+      }
+    }
+  }
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -109,6 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
+
 <style type="text/css">body {
 background-color: #fff;
 margin: 1em auto;
@@ -119,9 +144,6 @@ padding-right: 2em;
 font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: 14px;
 line-height: 1.35;
-}
-#header {
-text-align: center;
 }
 #TOC {
 clear: both;
@@ -290,7 +312,8 @@ code > span.st { color: #d14; }
 code > span.co { color: #888888; font-style: italic; } 
 code > span.ot { color: #007020; } 
 code > span.al { color: #ff0000; font-weight: bold; } 
-code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
 
@@ -345,21 +368,16 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt; sex.factor                   Sex    &lt;fct&gt; 929         0             0.0</span></span>
 <span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt; extent.factor   Extent of spread    &lt;fct&gt; 929         0             0.0</span></span>
 <span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt; obstruct.factor      Obstruction    &lt;fct&gt; 908        21             2.3</span></span>
-<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#&gt;                 levels_n</span></span>
-<span id="cb4-18"><a href="#cb4-18"></a><span class="co">#&gt; differ.factor          3</span></span>
-<span id="cb4-19"><a href="#cb4-19"></a><span class="co">#&gt; sex.factor             2</span></span>
-<span id="cb4-20"><a href="#cb4-20"></a><span class="co">#&gt; extent.factor          4</span></span>
-<span id="cb4-21"><a href="#cb4-21"></a><span class="co">#&gt; obstruct.factor        2</span></span>
-<span id="cb4-22"><a href="#cb4-22"></a><span class="co">#&gt;                                                                 levels</span></span>
-<span id="cb4-23"><a href="#cb4-23"></a><span class="co">#&gt; differ.factor                  &quot;Well&quot;, &quot;Moderate&quot;, &quot;Poor&quot;, &quot;(Missing)&quot;</span></span>
-<span id="cb4-24"><a href="#cb4-24"></a><span class="co">#&gt; sex.factor                                            &quot;Female&quot;, &quot;Male&quot;</span></span>
-<span id="cb4-25"><a href="#cb4-25"></a><span class="co">#&gt; extent.factor   &quot;Submucosa&quot;, &quot;Muscle&quot;, &quot;Serosa&quot;, &quot;Adjacent structures&quot;</span></span>
-<span id="cb4-26"><a href="#cb4-26"></a><span class="co">#&gt; obstruct.factor                               &quot;No&quot;, &quot;Yes&quot;, &quot;(Missing)&quot;</span></span>
-<span id="cb4-27"><a href="#cb4-27"></a><span class="co">#&gt;                     levels_count         levels_percent</span></span>
-<span id="cb4-28"><a href="#cb4-28"></a><span class="co">#&gt; differ.factor   93, 663, 150, 23 10.0, 71.4, 16.1,  2.5</span></span>
-<span id="cb4-29"><a href="#cb4-29"></a><span class="co">#&gt; sex.factor              445, 484                 48, 52</span></span>
-<span id="cb4-30"><a href="#cb4-30"></a><span class="co">#&gt; extent.factor   21, 106, 759, 43  2.3, 11.4, 81.7,  4.6</span></span>
-<span id="cb4-31"><a href="#cb4-31"></a><span class="co">#&gt; obstruct.factor     732, 176, 21       78.8, 18.9,  2.3</span></span></code></pre></div>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#&gt;                 levels_n                                                 levels</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="co">#&gt; differ.factor          3                &quot;Well&quot;, &quot;Moderate&quot;, &quot;Poor&quot;, &quot;(Missing)&quot;</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a><span class="co">#&gt; sex.factor             2                                       &quot;Female&quot;, &quot;Male&quot;</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="co">#&gt; extent.factor          4 &quot;Submucosa&quot;, &quot;Muscle&quot;, &quot;Serosa&quot;, &quot;Adjacent structures&quot;</span></span>
+<span id="cb4-21"><a href="#cb4-21"></a><span class="co">#&gt; obstruct.factor        2                               &quot;No&quot;, &quot;Yes&quot;, &quot;(Missing)&quot;</span></span>
+<span id="cb4-22"><a href="#cb4-22"></a><span class="co">#&gt;                     levels_count         levels_percent</span></span>
+<span id="cb4-23"><a href="#cb4-23"></a><span class="co">#&gt; differ.factor   93, 663, 150, 23 10.0, 71.4, 16.1,  2.5</span></span>
+<span id="cb4-24"><a href="#cb4-24"></a><span class="co">#&gt; sex.factor              445, 484                 48, 52</span></span>
+<span id="cb4-25"><a href="#cb4-25"></a><span class="co">#&gt; extent.factor   21, 106, 759, 43  2.3, 11.4, 81.7,  4.6</span></span>
+<span id="cb4-26"><a href="#cb4-26"></a><span class="co">#&gt; obstruct.factor     732, 176, 21       78.8, 18.9,  2.3</span></span></code></pre></div>
 </div>
 <div id="demographics-table" class="section level2">
 <h2>Demographics table</h2>
@@ -486,7 +504,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <thead>
 <tr class="header">
 <th align="left">Dependent: Differentiation</th>
-<th></th>
+<th align="left"></th>
 <th align="right">Well</th>
 <th align="right">Moderate</th>
 <th align="right">Poor</th>
@@ -496,7 +514,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <tbody>
 <tr class="odd">
 <td align="left">Age (years)</td>
-<td>Mean (SD)</td>
+<td align="left">Mean (SD)</td>
 <td align="right">60.2 (12.8)</td>
 <td align="right">59.9 (11.7)</td>
 <td align="right">59.0 (12.8)</td>
@@ -504,7 +522,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </tr>
 <tr class="even">
 <td align="left">Sex</td>
-<td>Female</td>
+<td align="left">Female</td>
 <td align="right">51 (54.8)</td>
 <td align="right">314 (47.4)</td>
 <td align="right">73 (48.7)</td>
@@ -512,7 +530,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </tr>
 <tr class="odd">
 <td align="left"></td>
-<td>Male</td>
+<td align="left">Male</td>
 <td align="right">42 (45.2)</td>
 <td align="right">349 (52.6)</td>
 <td align="right">77 (51.3)</td>
@@ -520,7 +538,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </tr>
 <tr class="even">
 <td align="left">Extent of spread</td>
-<td>Submucosa</td>
+<td align="left">Submucosa</td>
 <td align="right">5 (5.4)</td>
 <td align="right">12 (1.8)</td>
 <td align="right">3 (2.0)</td>
@@ -528,7 +546,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </tr>
 <tr class="odd">
 <td align="left"></td>
-<td>Muscle</td>
+<td align="left">Muscle</td>
 <td align="right">12 (12.9)</td>
 <td align="right">78 (11.8)</td>
 <td align="right">12 (8.0)</td>
@@ -536,7 +554,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </tr>
 <tr class="even">
 <td align="left"></td>
-<td>Serosa</td>
+<td align="left">Serosa</td>
 <td align="right">76 (81.7)</td>
 <td align="right">542 (81.7)</td>
 <td align="right">127 (84.7)</td>
@@ -544,7 +562,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </tr>
 <tr class="odd">
 <td align="left"></td>
-<td>Adjacent structures</td>
+<td align="left">Adjacent structures</td>
 <td align="right">0 (0.0)</td>
 <td align="right">31 (4.7)</td>
 <td align="right">8 (5.3)</td>
@@ -552,7 +570,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </tr>
 <tr class="even">
 <td align="left">Lymph nodes involved</td>
-<td>Mean (SD)</td>
+<td align="left">Mean (SD)</td>
 <td align="right">2.7 (2.2)</td>
 <td align="right">3.6 (3.4)</td>
 <td align="right">4.7 (4.4)</td>
@@ -572,10 +590,18 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <span id="cb7-6"><a href="#cb7-6"></a>  <span class="dt">dependent_label_prefix =</span> <span class="st">&quot;&quot;</span>) -&gt;<span class="st"> </span>table2</span>
 <span id="cb7-7"><a href="#cb7-7"></a>table2</span></code></pre></div>
 <table>
+<colgroup>
+<col width="14%"></col>
+<col width="17%"></col>
+<col width="10%"></col>
+<col width="10%"></col>
+<col width="23%"></col>
+<col width="23%"></col>
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Mortality 5 year</th>
-<th></th>
+<th align="left"></th>
 <th align="right">Alive</th>
 <th align="right">Died</th>
 <th align="right">OR (univariable)</th>
@@ -585,7 +611,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <tbody>
 <tr class="odd">
 <td align="left">Age (years)</td>
-<td>Mean (SD)</td>
+<td align="left">Mean (SD)</td>
 <td align="right">59.8 (11.4)</td>
 <td align="right">59.9 (12.5)</td>
 <td align="right">1.00 (0.99-1.01, p=0.986)</td>
@@ -593,7 +619,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </tr>
 <tr class="even">
 <td align="left">Sex</td>
-<td>Female</td>
+<td align="left">Female</td>
 <td align="right">243 (55.6)</td>
 <td align="right">194 (44.4)</td>
 <td align="right">-</td>
@@ -601,7 +627,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </tr>
 <tr class="odd">
 <td align="left"></td>
-<td>Male</td>
+<td align="left">Male</td>
 <td align="right">268 (56.1)</td>
 <td align="right">210 (43.9)</td>
 <td align="right">0.98 (0.76-1.27, p=0.889)</td>
@@ -609,7 +635,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </tr>
 <tr class="even">
 <td align="left">Extent of spread</td>
-<td>Submucosa</td>
+<td align="left">Submucosa</td>
 <td align="right">16 (80.0)</td>
 <td align="right">4 (20.0)</td>
 <td align="right">-</td>
@@ -617,7 +643,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </tr>
 <tr class="odd">
 <td align="left"></td>
-<td>Muscle</td>
+<td align="left">Muscle</td>
 <td align="right">78 (75.7)</td>
 <td align="right">25 (24.3)</td>
 <td align="right">1.28 (0.42-4.79, p=0.681)</td>
@@ -625,7 +651,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </tr>
 <tr class="even">
 <td align="left"></td>
-<td>Serosa</td>
+<td align="left">Serosa</td>
 <td align="right">401 (53.5)</td>
 <td align="right">349 (46.5)</td>
 <td align="right">3.48 (1.26-12.24, p=0.027)</td>
@@ -633,7 +659,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </tr>
 <tr class="odd">
 <td align="left"></td>
-<td>Adjacent structures</td>
+<td align="left">Adjacent structures</td>
 <td align="right">16 (38.1)</td>
 <td align="right">26 (61.9)</td>
 <td align="right">6.50 (1.98-25.93, p=0.004)</td>
@@ -641,7 +667,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </tr>
 <tr class="even">
 <td align="left">nodes</td>
-<td>Mean (SD)</td>
+<td align="left">Mean (SD)</td>
 <td align="right">2.7 (2.4)</td>
 <td align="right">4.9 (4.4)</td>
 <td align="right">1.24 (1.18-1.30, p&lt;0.001)</td>
@@ -649,7 +675,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </tr>
 <tr class="odd">
 <td align="left">Differentiation</td>
-<td>Well</td>
+<td align="left">Well</td>
 <td align="right">52 (56.5)</td>
 <td align="right">40 (43.5)</td>
 <td align="right">-</td>
@@ -657,7 +683,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </tr>
 <tr class="even">
 <td align="left"></td>
-<td>Moderate</td>
+<td align="left">Moderate</td>
 <td align="right">382 (58.7)</td>
 <td align="right">269 (41.3)</td>
 <td align="right">0.92 (0.59-1.43, p=0.694)</td>
@@ -665,7 +691,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </tr>
 <tr class="odd">
 <td align="left"></td>
-<td>Poor</td>
+<td align="left">Poor</td>
 <td align="right">63 (42.3)</td>
 <td align="right">86 (57.7)</td>
 <td align="right">1.77 (1.05-3.01, p=0.032)</td>

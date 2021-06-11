@@ -4,7 +4,7 @@
 \alias{coxphmulti}
 \title{Cox proprotional hazards multivariable models: \code{finalfit} model wrapper}
 \usage{
-coxphmulti(.data, dependent, explanatory)
+coxphmulti(.data, dependent, explanatory, ...)
 }
 \arguments{
 \item{.data}{Data frame.}
@@ -14,6 +14,8 @@ form \code{Surv(time, status)}.}
 
 \item{explanatory}{Character vector of any length: name(s) of explanatory
 variables.}
+
+\item{...}{Other arguments to pass to \code{\link[survival]{coxph}}.}
 }
 \value{
 A multivariable \code{\link[survival]{coxph}} fitted model
@@ -42,12 +44,18 @@ colon_s \%>\%
 \seealso{
 \code{\link{fit2df}, \link{finalfit_merge}}
 
-Other finalfit model wrappers: \code{\link{coxphuni}},
-  \code{\link{crrmulti}}, \code{\link{crruni}},
-  \code{\link{glmmixed}}, \code{\link{glmmulti_boot}},
-  \code{\link{glmmulti}}, \code{\link{glmuni}},
-  \code{\link{lmmixed}}, \code{\link{lmmulti}},
-  \code{\link{lmuni}}, \code{\link{svyglmmulti}},
-  \code{\link{svyglmuni}}
+Other finalfit model wrappers: 
+\code{\link{coxphuni}()},
+\code{\link{crrmulti}()},
+\code{\link{crruni}()},
+\code{\link{glmmixed}()},
+\code{\link{glmmulti_boot}()},
+\code{\link{glmmulti}()},
+\code{\link{glmuni}()},
+\code{\link{lmmixed}()},
+\code{\link{lmmulti}()},
+\code{\link{lmuni}()},
+\code{\link{svyglmmulti}()},
+\code{\link{svyglmuni}()}
 }
 \concept{finalfit model wrappers}

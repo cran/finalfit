@@ -51,6 +51,7 @@
 #'   explicit.
 #' @param na_complete_cases Logical: include only rows with complete data.
 #' @param na_to_p Logical: include missing as group in statistical test.
+#' @param na_to_prop Logical: include missing in calculation of column proportions.
 #' @param fit_id Logical: allows merging via \code{\link{finalfit_merge}}.
 #' @param add_dependent_label Add the name of the dependent label to the top
 #'   left of table.
@@ -62,6 +63,7 @@
 #' @param col_totals_prefix Character. Prefix to column totals, e.g. "N=".
 #' @param add_row_totals Logical. Include row totals. Note this differs from
 #'   \code{total_col} above particularly for continuous explanatory variables.
+#' @param include_row_totals_percent Include row percentage of total.
 #' @param include_row_missing_col Logical. Include missing data total for each
 #'   row. Only used when \code{add_row_totals} is \code{TRUE}.
 #' @param row_totals_colname Character. Column name for row totals.
@@ -99,18 +101,19 @@
 #'   summary_factorlist(dependent, explanatory)
 summary_factorlist <- function(.data, 
 															 dependent = NULL, explanatory, 
-															 cont = "mean", cont_nonpara = NULL, cont_cut = 5, cont_range = FALSE, 
+															 cont = "mean", cont_nonpara = NULL, cont_cut = 5, cont_range = TRUE, 
 															 p = FALSE, p_cont_para = "aov", p_cat = "chisq",
 															 column = TRUE, total_col = FALSE, orderbytotal = FALSE,
 															 digits = c(1, 1, 3, 1), 
 															 na_include = FALSE, na_include_dependent = FALSE, 
-															 na_complete_cases = FALSE, na_to_p = FALSE,
+															 na_complete_cases = FALSE, na_to_p = FALSE, na_to_prop = TRUE,
 															 fit_id = FALSE,
 															 add_dependent_label = FALSE,  
 															 dependent_label_prefix = "Dependent: ", dependent_label_suffix = "",
 															 add_col_totals = FALSE, include_col_totals_percent = TRUE,
 															 col_totals_rowname = NULL, col_totals_prefix = "",
-															 add_row_totals = FALSE, include_row_missing_col = TRUE,
+															 add_row_totals = FALSE, include_row_totals_percent = TRUE,
+															 include_row_missing_col = TRUE,
 															 row_totals_colname = "Total N", row_missing_colname = "Missing N",
 															 catTest = NULL){
 	
@@ -425,17 +428,35 @@ summary_factorlist <- function(.data,
 												 		dplyr::count(!! sym(..1), .drop = FALSE) %>% 
 												 		dplyr::ungroup() %>% 
 												 		tidyr::drop_na() %>% 
-												 		dplyr::mutate(grand_total = sum(n)) %>% 
+												 		{ if(na_to_prop) {
+												 			dplyr::mutate(., grand_total = sum(n))
+												 		} else {
+												 			dplyr::mutate(., grand_total = sum(n[.[[2]] != "(Missing)"], na.rm = TRUE))
+												 		}
+												 		} %>% 
 												 		dplyr::group_by_at(2) %>% 
 												 		dplyr::mutate(row_total = sum(n),
 												 									col_total_prop = 100 * row_total / grand_total) %>% 
 												 		{ if(column) {
 												 			dplyr::group_by(., !! sym(dependent)) %>% 
-												 				dplyr::mutate(
-												 					col_total = sum(n),
-												 					prop = 100 * n / col_total,
-												 					Total = format_n_percent(row_total, col_total_prop, digits[[4]])
-												 				) %>% 
+												 				# Choose to include missing in column proportions 
+												 				{ if(na_to_prop) {
+												 					dplyr::mutate(., 
+												 												col_total = sum(n),
+												 												prop = 100 * n / col_total,
+												 												Total = format_n_percent(row_total, col_total_prop, digits[[4]])
+												 					)
+												 				} else {
+												 					dplyr::mutate(., 
+												 												col_total = sum(n[.[[2]] != "(Missing)"], na.rm = TRUE),
+												 												prop = 100 * n / col_total,
+												 												prop = if_else(!! sym(names(.)[2]) == "(Missing)", NA_real_, prop),
+												 												col_total_prop = if_else(!! sym(names(.)[2]) == "(Missing)", 
+												 																								 NA_real_, col_total_prop),
+												 												Total = format_n_percent(row_total, col_total_prop, digits[[4]], 
+												 																								 na_include = FALSE)
+												 				)}
+												 				} %>% 
 												 				dplyr::select(-col_total)
 												 		} else { 
 												 			dplyr::group_by_at(., 2) %>% 
@@ -447,7 +468,7 @@ summary_factorlist <- function(.data,
 												 		} %>% 
 												 		dplyr::ungroup() %>% 
 												 		dplyr::mutate(
-												 			value = format_n_percent(n, prop, digits[4])
+												 			value = format_n_percent(n, prop, digits[4], na_include = FALSE)
 												 		) %>%
 												 		dplyr::select(-prop, -n, -grand_total, -col_total_prop) %>% 
 												 		tidyr::pivot_wider(names_from = !! dependent, values_from = value) %>% 

@@ -9,10 +9,12 @@
 \usage{
 finalfit(
   .data,
-  dependent,
-  explanatory,
+  dependent = NULL,
+  explanatory = NULL,
   explanatory_multi = NULL,
   random_effect = NULL,
+  formula = NULL,
+  model_args = list(),
   column = NULL,
   keep_models = FALSE,
   metrics = FALSE,
@@ -29,6 +31,7 @@ finalfit.lm(
   explanatory,
   explanatory_multi = NULL,
   random_effect = NULL,
+  model_args,
   column = FALSE,
   keep_models = FALSE,
   metrics = FALSE,
@@ -45,6 +48,7 @@ finalfit.glm(
   explanatory,
   explanatory_multi = NULL,
   random_effect = NULL,
+  model_args,
   column = FALSE,
   keep_models = FALSE,
   metrics = FALSE,
@@ -61,6 +65,7 @@ finalfit.coxph(
   explanatory,
   explanatory_multi = NULL,
   random_effect = NULL,
+  model_args,
   column = TRUE,
   keep_models = FALSE,
   metrics = FALSE,
@@ -89,6 +94,13 @@ subset of explanatory variables to generate reduced multivariable model
 intercept variable, e.g. "var1", (automatically convered to "(1 | var1)");
 or, (2) the full \code{lme4} specification, e.g. "(var1 | var2)". Note
 parenthesis MUST be included in (2) but NOT included in (1).}
+
+\item{formula}{an object of class "formula" (or one that can be coerced to 
+that class). Optional instead of standard dependent/explanatory format. 
+Do not include if using dependent/explanatory.}
+
+\item{model_args}{List. A list of arguments to pass to 
+\code{\link{lm}}, \code{\link{glm}}, \code{\link{coxph}}.}
 
 \item{column}{Logical: Compute margins by column rather than row.}
 

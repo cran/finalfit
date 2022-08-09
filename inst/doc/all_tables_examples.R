@@ -368,13 +368,17 @@ colon_s %>%
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE-----------------------------------------------------------
+## ----message=FALSE, warning=FALSE---------------------------------------------
 library(finalfit)
-explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
+
+# Here, `extent` is a continuous variable with 4 distinct values. 
+# Any continuous variable with 5 or fewer unique values is converted silently to factor 
+# e.g.
+explanatory = c("extent")
 dependent = "mort_5yr"
 colon_s %>%
-  summary_factorlist(dependent, explanatory, p = TRUE, 
-  									 digits = c(1,2,3,4)) -> t
+  summary_factorlist(dependent, explanatory, 
+  									 cont_cut = 0) -> t
 
 ## ---- echo=FALSE--------------------------------------------------------------
 library(knitr)
@@ -403,7 +407,18 @@ kable(t, row.names=FALSE, align = c("l", "l", "l", "l", "r", "r", "r"))
 explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
 dependent = "perfor.factor"
 colon_s %>%
-  summary_factorlist(dependent, explanatory, p = TRUE, digits = c(1,2,3,4)) -> t
+  summary_factorlist(dependent, explanatory, p = TRUE, digits = c(1,2,3,4,0)) -> t
+
+## ---- echo=FALSE--------------------------------------------------------------
+library(knitr)
+kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
+
+## ---- warning=FALSE-----------------------------------------------------------
+explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
+dependent = "perfor.factor"
+colon_s %>%
+	mutate(my_weights = runif(929, 0, 1)) %>% # Random just to demonstrate
+	summary_factorlist(dependent, explanatory, weights = "my_weights", digits = c(1, 1, 3, 1, 1))-> t
 
 ## ---- echo=FALSE--------------------------------------------------------------
 library(knitr)

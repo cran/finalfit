@@ -17,6 +17,9 @@
 #'   to 5 factor levels).
 #' @param explanatory Character vector of any length: name(s) of explanatory
 #'   variables.
+#' @param formula an object of class "formula" (or one that can be coerced to 
+#'   that class). Optional instead of standard dependent/explanatory format. 
+#'   Do not include if using dependent/explanatory. 
 #' @param cont Summary for continuous explanatory variables: "mean" (standard
 #'   deviation) or "median" (interquartile range). If "median" then
 #'   non-parametric hypothesis test performed (see below).
@@ -69,14 +72,17 @@
 #' @param row_totals_colname Character. Column name for row totals.
 #' @param row_missing_colname Character. Column name for missing data totals for
 #'   each row.
+#' @param weights Character vector of length 1: name of column to use for weights. 
+#' Explanatory continuous variables are multiplied by weights. 
+#' Explanatory categorical variables are counted with a frequency weight (sum(weights)).
 #' @param catTest Deprecated. See \code{p_cat} above.
-#'
+#' 
 #' @return Returns a \code{factorlist} dataframe.
 #'
 #' @family finalfit wrappers
 #' @seealso \code{\link{fit2df}} \code{\link{ff_column_totals}}
 #'   \code{\link{ff_row_totals}} \code{\link{ff_label}} \code{\link{ff_glimpse}}
-#'   \code{\link{ff_percent_only}}
+#'   \code{\link{ff_percent_only}}. For lots of examples, see \url{https://finalfit.org/}
 #' @export
 #'
 #' @examples
@@ -100,11 +106,12 @@
 #' colon_s %>%
 #'   summary_factorlist(dependent, explanatory)
 summary_factorlist <- function(.data, 
-															 dependent = NULL, explanatory, 
+															 dependent = NULL, explanatory = NULL, 
+															 formula = NULL, 
 															 cont = "mean", cont_nonpara = NULL, cont_cut = 5, cont_range = TRUE, 
 															 p = FALSE, p_cont_para = "aov", p_cat = "chisq",
 															 column = TRUE, total_col = FALSE, orderbytotal = FALSE,
-															 digits = c(1, 1, 3, 1), 
+															 digits = c(1, 1, 3, 1, 0), 
 															 na_include = FALSE, na_include_dependent = FALSE, 
 															 na_complete_cases = FALSE, na_to_p = FALSE, na_to_prop = TRUE,
 															 fit_id = FALSE,
@@ -115,8 +122,17 @@ summary_factorlist <- function(.data,
 															 add_row_totals = FALSE, include_row_totals_percent = TRUE,
 															 include_row_missing_col = TRUE,
 															 row_totals_colname = "Total N", row_missing_colname = "Missing N",
-															 catTest = NULL){
+															 catTest = NULL,
+															 weights = NULL){
 	
+	# Formula interface -----------------
+	## Added at request
+	if(!is.null(formula) & (!is.null(dependent) | !is.null(explanatory))) stop("Formula OR dependent/explanatory terms, not both")
+	if(!is.null(formula)){
+		.terms = ff_parse_formula(formula)
+		dependent = .terms$dependent
+		explanatory = .terms$explanatory
+	}
 	
 	# Warnings/Checks --------------
 	if(!is.data.frame(.data)) stop(".data is not dataframe")
@@ -133,6 +149,9 @@ summary_factorlist <- function(.data,
 		.data$all = factor(1, labels="all")
 	}
 	if(na_to_p & !na_include) warning("If wish to pass missing to hypothesis test (na_to_p), must have na_include = TRUE")
+	if(!is.null(weights) & p) {
+		warning("Hypothesis tests (probably) not valid for weighted data. Setting p = FALSE")
+		p = FALSE}
 	
 	# Deprecated catTest from Hmisc for reverse dependencies
 	if(!is.null(catTest)){
@@ -173,10 +192,6 @@ summary_factorlist <- function(.data,
 		formula() %>% 
 		all.vars()
 	
-	## Active dataset
-	.data = .data %>% 
-		dplyr::select(dependent, explanatory)
-	
 	## Dependent is numeric
 	d_is.numeric = .data %>% 
 		dplyr::pull(dependent) %>% 
@@ -211,6 +226,12 @@ summary_factorlist <- function(.data,
 	var_labels = .data %>% 
 		dplyr::select(explanatory) %>% 
 		extract_variable_label()
+	
+	## Weights
+	if(!is.null(weights)){
+		.data = .data %>% 
+			dplyr::mutate(dplyr::across(where(is.numeric) & dplyr::any_of(explanatory), ~ .x * !! sym(weights)))
+	}
 	
 	# Missing data handling ------------------------------------------------------------
 	df.in = .data
@@ -309,7 +330,7 @@ summary_factorlist <- function(.data,
 												 		dplyr::mutate(
 												 			col_total = sum(n),
 												 			col_total_prop = 100 * n/col_total,
-												 			Total = format_n_percent(n, col_total_prop, digits[[4]]),
+												 			Total = format_n_percent(n, col_total_prop, digits[4], digits[5]),
 												 			label = ..1,
 												 			unit = ..4,
 												 		)  %>% 
@@ -353,7 +374,7 @@ summary_factorlist <- function(.data,
 												 										 n = (!is.na(!! sym(..1))) %>% sum(),
 												 										 # row_total = dplyr::n(), # think about whether prop of df length
 												 										 # row_prop = 100 * n/row_total,
-												 										 Total = format_n_percent(n, 100, digits[[4]])) %>%
+												 										 Total = format_n_percent(n, 100, digits[4], digits[5])) %>%
 												 		dplyr::mutate(
 												 			label = ..1,
 												 			levels = paste0("[", value_min %>% round_tidy(digits[1]), ",", 
@@ -425,7 +446,12 @@ summary_factorlist <- function(.data,
 												 ~ if(!..2){
 												 	df.in %>% 
 												 		dplyr::group_by(!! sym(dependent)) %>% 
-												 		dplyr::count(!! sym(..1), .drop = FALSE) %>% 
+												 		{ if(is.null(weights)){
+												 			dplyr::count(., !! sym(..1), .drop = FALSE)
+												 		} else {
+												 			dplyr::count(., !! sym(..1), .drop = FALSE, wt = !! sym(weights))
+												 		}
+												 		} %>%  
 												 		dplyr::ungroup() %>% 
 												 		tidyr::drop_na() %>% 
 												 		{ if(na_to_prop) {
@@ -444,7 +470,7 @@ summary_factorlist <- function(.data,
 												 					dplyr::mutate(., 
 												 												col_total = sum(n),
 												 												prop = 100 * n / col_total,
-												 												Total = format_n_percent(row_total, col_total_prop, digits[[4]])
+												 												Total = format_n_percent(row_total, col_total_prop, digits[4], digits[5])
 												 					)
 												 				} else {
 												 					dplyr::mutate(., 
@@ -453,7 +479,7 @@ summary_factorlist <- function(.data,
 												 												prop = if_else(!! sym(names(.)[2]) == "(Missing)", NA_real_, prop),
 												 												col_total_prop = if_else(!! sym(names(.)[2]) == "(Missing)", 
 												 																								 NA_real_, col_total_prop),
-												 												Total = format_n_percent(row_total, col_total_prop, digits[[4]], 
+												 												Total = format_n_percent(row_total, col_total_prop, digits[4], digits[5], 
 												 																								 na_include = FALSE)
 												 				)}
 												 				} %>% 
@@ -468,7 +494,7 @@ summary_factorlist <- function(.data,
 												 		} %>% 
 												 		dplyr::ungroup() %>% 
 												 		dplyr::mutate(
-												 			value = format_n_percent(n, prop, digits[4], na_include = FALSE)
+												 			value = format_n_percent(n, prop, digits[4], digits[5], na_include = FALSE)
 												 		) %>%
 												 		dplyr::select(-prop, -n, -grand_total, -col_total_prop) %>% 
 												 		tidyr::pivot_wider(names_from = !! dependent, values_from = value) %>% 
@@ -695,22 +721,9 @@ summary_factorlist <- function(.data,
 
 summary_factorlist_stratified <- function(.data, ..., split, colname_sep = "|", level_max_length = 10,
 																					n_common_cols = 2){
-	# Warnings/Checks --------------
-	if(!is.data.frame(.data)) stop(".data is not dataframe")
-	if(any(class(.data) %in% c("tbl_df", "tbl"))) .data = data.frame(.data)
-	if(is.null(explanatory)) stop("No explanatory variable(s) provided")
-	if(any(explanatory == ".")){
-		explanatory = .data %>% 
-			dplyr::select(-dependent) %>% 
-			names()
-	}
-	if(is.null(dependent)){
-		message("No dependent variable(s) provided; defaulting to single-level factor")
-		dependent = "all"
-		.data$all = factor(1, labels="all")
-	}
+	dots = list(...)
 	if(is.null(split)) stop("No split variable provided")
-	if(any(split %in% explanatory | split %in% dependent)) stop("Split variable cannot be dependent or explanatory")
+	if(any(split %in% dots$explanatory | split %in% dots$dependent)) stop("Split variable cannot be dependent or explanatory")
 	
 	df.out = .data %>% 
 		dplyr::group_by(!!! rlang::syms(split)) %>% 

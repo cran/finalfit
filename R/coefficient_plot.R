@@ -57,8 +57,8 @@ coefficient_plot = function(.data, dependent, explanatory, random_effect = NULL,
 														breaks=NULL, column_space=c(-0.5, -0.1, 0.5),
 														dependent_label = NULL,
 														prefix = "", suffix = ": Coefficient, 95% CI, p-value)",
-														table_text_size = 5,
-														title_text_size = 18,
+														table_text_size = 4,
+														title_text_size = 13,
 														plot_opts = NULL, table_opts = NULL, ...){
 	
 	requireNamespace("ggplot2")
@@ -107,6 +107,14 @@ coefficient_plot = function(.data, dependent, explanatory, random_effect = NULL,
 												 confint_type = confint_type, ...)
 	}
 	
+	if(!is.null(lmfit) && is.null(random_effect)){
+		lmfit_df_c = fit2df(lmfit, condense = TRUE, estimate_suffix = " (multivariable)",
+												 confint_type = confint_type, ...)
+	} else if(!is.null(lmfit) && !is.null(random_effect)){
+		lmfit_df_c = fit2df(lmfit, condense = TRUE, estimate_suffix = " (multilevel)",
+												 confint_type = confint_type, ...)
+	}
+	
 	lmfit_df = fit2df(lmfit, condense = FALSE, confint_type = confint_type,  ...)
 
 	# Merge
@@ -136,12 +144,12 @@ coefficient_plot = function(.data, dependent, explanatory, random_effect = NULL,
 	# Plot
 	g1 = ggplot(df.out, aes(x = as.numeric(Coefficient), xmin = as.numeric(L95), xmax  = as.numeric(U95),
 													y = fit_id))+
-		geom_point(aes(size = Total), shape=22, fill="darkblue")+
 		geom_errorbarh(height=0.2) +
 		geom_vline(xintercept = 0, linetype = "longdash", colour = "black")+
+		geom_point(aes(size = Total), shape=22, fill="darkblue")+
 		scale_x_continuous(breaks= breaks)+
 		xlab("Coefficient (95% CI)")+
-		theme_classic(14)+
+		theme_classic(11)+
 		theme(axis.title.x = element_text(),
 					axis.title.y = element_blank(),
 					axis.text.y = element_blank(),

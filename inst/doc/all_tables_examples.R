@@ -910,26 +910,10 @@ library(finalfit)
 library(dplyr)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 dependent = "mort_5yr"
-weights = runif(dim(colon_s)[1]) # random just for example
 
-# All in one pipe
 colon_s %>%
-	## Crosstable
-	summary_factorlist(dependent, explanatory, fit_id=TRUE)  %>% 
-	
-	## Add univariable
-	ff_merge(
-		glmuni(colon_s, dependent, explanatory, weights = weights, family = quasibinomial) %>%
-			fit2df(estimate_suffix=" (univariable)")
-	) %>% 
-	
-	## Add multivariable
-	ff_merge(
-		glmmulti(colon_s, dependent, explanatory, weights = weights, family = quasibinomial) %>%
-			fit2df(estimate_suffix=" (multivariable)"),
-		last_merge = TRUE
-	) %>% 
-	dependent_label(colon_s, dependent) -> t
+	mutate(myweights = runif(dim(colon_s)[1])) %>% # random just for example
+	finalfit(dependent, explanatory, weights = "myweights") -> t
 
 ## ---- echo=FALSE--------------------------------------------------------------
 library(knitr)

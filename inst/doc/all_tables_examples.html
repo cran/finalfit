@@ -15,26 +15,38 @@
 
 <title>All tables examples</title>
 
-<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
 
 <style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
 
 
 
 <style type="text/css">
-  code {
-    white-space: pre;
-  }
-  .sourceCode {
-    overflow: visible;
-  }
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
@@ -52,55 +64,54 @@ pre > code.sourceCode { white-space: pre-wrap; }
 pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
-  { counter-reset: source-line 0; }
+{ counter-reset: source-line 0; }
 pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
+{ position: relative; left: -4em; counter-increment: source-line; }
 pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
 div.sourceCode
-  {   }
+{ }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -109,13 +120,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -127,7 +145,187 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
 
 
 
@@ -147,8 +345,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;finalfit&quot;</span>)</span></code></pre></div>
 <div id="cross-tables" class="section level2">
 <h2>1 Cross tables</h2>
-<p>Two-way tables are used extensively in healthcare research, e.g. a 2x2 table comparing two factors with two levels each, or table 1 from a typical clinical study or trial</p>
-<p>The main functions all take a <code>dependent</code> variable - the outcome - and <code>explanatory</code> variables - predictors or exposures (any number categorical or continuous variables).</p>
+<p>Two-way tables are used extensively in healthcare research, e.g. a
+2x2 table comparing two factors with two levels each, or table 1 from a
+typical clinical study or trial</p>
+<p>The main functions all take a <code>dependent</code> variable - the
+outcome - and <code>explanatory</code> variables - predictors or
+exposures (any number categorical or continuous variables).</p>
 <div id="default" class="section level3">
 <h3>1.01 Default</h3>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
@@ -216,7 +418,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<p>Note, chi-squared warnings will be generated when the expected count in any cell is less than 5. Fisher’s exact test can be used as below, or go straight to a univariable logistic regression, e.g. <code>colon_s %&gt;% finalfit(dependent, explanatory)</code></p>
+<p>Note, chi-squared warnings will be generated when the expected count
+in any cell is less than 5. Fisher’s exact test can be used as below, or
+go straight to a univariable logistic regression,
+e.g. <code>colon_s %&gt;% finalfit(dependent, explanatory)</code></p>
 </div>
 <div id="add-or-edit-variable-labels" class="section level3">
 <h3>1.02 Add or edit variable labels</h3>
@@ -292,7 +497,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="p-value-for-hypothesis-test" class="section level3">
 <h3>1.03 P-value for hypothesis test</h3>
-<p>Defaults are chi-squared for categorical explanatory variables and an F-test for continuous (<code>aov</code>, analysis of variance). Alternatives can be specified as per below.</p>
+<p>Defaults are chi-squared for categorical explanatory variables and an
+F-test for continuous (<code>aov</code>, analysis of variance).
+Alternatives can be specified as per below.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;perfor.factor&quot;</span></span>
@@ -447,7 +654,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="parametric-explanatory-variables" class="section level3">
 <h3>1.05 Parametric explanatory variables</h3>
-<p>Summaries for continuous explanatory variables are mean (standard deviation) with <code>aov</code> statistical test by default. The statistical test can be changed to the Welch t-test when there are two dependent variable levels if desired.</p>
+<p>Summaries for continuous explanatory variables are mean (standard
+deviation) with <code>aov</code> statistical test by default. The
+statistical test can be changed to the Welch t-test when there are two
+dependent variable levels if desired.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;perfor.factor&quot;</span></span>
@@ -527,13 +737,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="non-parametric-explanatory-variables" class="section level3">
 <h3>1.06 Non-parametric explanatory variables</h3>
-<p>If desired, all continuous explanatory variables can be considered non-parametric. Summaries will be median (interquartile range) and the statistical test is Kruskal-Wallis/Mann-Whitney U. Use <code>cont_range = FALSE</code> if wish single-digit IQR, i.e. Q3-Q1.</p>
+<p>If desired, all continuous explanatory variables can be considered
+non-parametric. Summaries will be median (interquartile range) and the
+statistical test is Kruskal-Wallis/Mann-Whitney U. Use
+<code>cont_range = FALSE</code> if wish single-digit IQR,
+i.e. Q3-Q1.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;nodes&quot;</span>, <span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;perfor.factor&quot;</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>colon_s <span class="sc">%&gt;%</span></span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summary_factorlist</span>(dependent, explanatory, <span class="at">p =</span> <span class="cn">TRUE</span>, <span class="at">cont =</span> <span class="st">&quot;median&quot;</span>) <span class="ot">-&gt;</span> t</span></code></pre></div>
 <table>
+<colgroup>
+<col width="16%" />
+<col width="18%" />
+<col width="28%" />
+<col width="28%" />
+<col width="8%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">label</th>
@@ -612,7 +833,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="select-specific-non-parametric-variables" class="section level3">
 <h3>1.07 Select specific non-parametric variables</h3>
-<p>Many have asked in the past if only particular variables can be considered non-parametric. The argument <code>cont_nonpara</code> can take a vector (e.g. <code>c(1, 2, 3, 4)</code>) of values corresponding to the explanatory variable to specify which should be summarised as a median and be passed to a non-parametric test.</p>
+<p>Many have asked in the past if only particular variables can be
+considered non-parametric. The argument <code>cont_nonpara</code> can
+take a vector (e.g. <code>c(1, 2, 3, 4)</code>) of values corresponding
+to the explanatory variable to specify which should be summarised as a
+median and be passed to a non-parametric test.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;nodes&quot;</span>, <span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;perfor.factor&quot;</span></span>
@@ -697,7 +922,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="missing-values-for-the-explanatory-variables" class="section level3">
 <h3>1.08 Missing values for the explanatory variables</h3>
-<p>Always consider summarising missing values when describing your data.</p>
+<p>Always consider summarising missing values when describing your
+data.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;perfor.factor&quot;</span></span>
@@ -782,7 +1008,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="pass-missing-values-to-statistical-tests" class="section level3">
 <h3>1.09 Pass missing values to statistical tests</h3>
-<p>This is a change from the default behaviour introduced in Finalfit 1.0.0. Previously, when missing data was presented it was also considered as a level in the statistical test. This may or may not be desired. Control this now using <code>na_to_p = TRUE</code> to include missing data in test. A message is produced reminding you that you are doing that.</p>
+<p>This is a change from the default behaviour introduced in Finalfit
+1.0.0. Previously, when missing data was presented it was also
+considered as a level in the statistical test. This may or may not be
+desired. Control this now using <code>na_to_p = TRUE</code> to include
+missing data in test. A message is produced reminding you that you are
+doing that.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;perfor.factor&quot;</span></span>
@@ -954,7 +1185,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="total-column" class="section level3">
 <h3>1.11 Total column</h3>
-<p>The terms total column was introduced before this function summarised continuous variables. It would be better to be “All data” or something similar, as the continous explanatory variables a summary statistic is produced for all data. However, to keep backwards compatibility we have left it unchanged for now. For producing row totals including continous explanatory variables, see <code>add_row_total</code> below.</p>
+<p>The terms total column was introduced before this function summarised
+continuous variables. It would be better to be “All data” or something
+similar, as the continous explanatory variables a summary statistic is
+produced for all data. However, to keep backwards compatibility we have
+left it unchanged for now. For producing row totals including continous
+explanatory variables, see <code>add_row_total</code> below.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;perfor.factor&quot;</span></span>
@@ -1058,7 +1294,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="row-totals-with-missing" class="section level3">
 <h3>1.12 Row totals with missing</h3>
-<p>This was introduced to deal with the problem of summarising missing data for continuous variables. By default, it provides the total N for the variable and includes a column enumerating missing values.</p>
+<p>This was introduced to deal with the problem of summarising missing
+data for continuous variables. By default, it provides the total N for
+the variable and includes a column enumerating missing values.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;perfor.factor&quot;</span></span>
@@ -1067,6 +1305,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">total_col =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">add_row_total =</span> <span class="cn">TRUE</span>) <span class="ot">-&gt;</span> t</span></code></pre></div>
 <table>
+<colgroup>
+<col width="13%" />
+<col width="13%" />
+<col width="11%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="6%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">label</th>
@@ -1185,6 +1433,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">add_row_total =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">include_row_missing_col =</span> <span class="cn">FALSE</span>) <span class="ot">-&gt;</span> t</span></code></pre></div>
 <table>
+<colgroup>
+<col width="15%" />
+<col width="15%" />
+<col width="15%" />
+<col width="15%" />
+<col width="15%" />
+<col width="15%" />
+<col width="7%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">label</th>
@@ -1292,7 +1549,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">add_row_total =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">row_totals_colname =</span> <span class="st">&quot;N (total)&quot;</span>,</span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">row_missing_colname =</span> <span class="st">&quot;N (missing)&quot;</span>) <span class="ot">-&gt;</span> t</span></code></pre></div>
-<table>
+<table style="width:100%;">
+<colgroup>
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="6%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">label</th>
@@ -1391,14 +1658,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="order-a-variable-by-total" class="section level3">
 <h3>1.15 Order a variable by total</h3>
-<p>This is intended for when there is only one <code>explanatory</code> variable.</p>
+<p>This is intended for when there is only one <code>explanatory</code>
+variable.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;extent.factor&quot;</span>)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;perfor.factor&quot;</span></span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>colon_s <span class="sc">%&gt;%</span></span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summary_factorlist</span>(dependent, explanatory, <span class="at">p =</span> <span class="cn">TRUE</span>, <span class="at">cont =</span> <span class="st">&quot;median&quot;</span>, <span class="at">na_include =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">column =</span> <span class="cn">TRUE</span>, <span class="at">total_col =</span> <span class="cn">TRUE</span>, <span class="at">orderbytotal =</span> <span class="cn">TRUE</span>) <span class="ot">-&gt;</span> t</span></code></pre></div>
-<table>
+<table style="width:100%;">
+<colgroup>
+<col width="22%" />
+<col width="26%" />
+<col width="14%" />
+<col width="13%" />
+<col width="14%" />
+<col width="8%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">label</th>
@@ -1447,7 +1723,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="add-column-totals" class="section level3">
 <h3>1.17 Add column totals</h3>
-<p>Column totals can be added, and by default are presented with a row percentage.</p>
+<p>Column totals can be added, and by default are presented with a row
+percentage.</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;rx.factor&quot;</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1765,7 +2042,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<p>The dependent name cannot be passed directly to the table intentionally. This is to avoid errors when code is copied and the name is not updated. Change the dependent label using the following. The prefix (“Dependent:”) and any suffix can be altered.</p>
+<p>The dependent name cannot be passed directly to the table
+intentionally. This is to avoid errors when code is copied and the name
+is not updated. Change the dependent label using the following. The
+prefix (“Dependent:”) and any suffix can be altered.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>)</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;perfor.factor&quot;</span></span>
@@ -1871,7 +2151,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 </div>
 <div id="dependent-variable-with-any-number-of-factor-levels-supported" class="section level3">
-<h3>1.21 Dependent variable with any number of factor levels supported</h3>
+<h3>1.21 Dependent variable with any number of factor levels
+supported</h3>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>)</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;extent.factor&quot;</span></span>
@@ -2000,7 +2281,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="missing-data-in-the-dependent" class="section level3">
 <h3>1.22 Missing data in the dependent</h3>
-<p>If you are careful to count totals and you know your data, you should realise when there is data missing from the dependent, e.g.:</p>
+<p>If you are careful to count totals and you know your data, you should
+realise when there is data missing from the dependent, e.g.:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>)</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;mort_5yr&quot;</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>colon_s <span class="sc">%&gt;%</span> </span>
@@ -2027,7 +2309,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; age.factor       7.5, 37.0, 55.4</span></span>
 <span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sex.factor                48, 52</span></span>
 <span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; obstruct.factor 78.8, 18.9,  2.3</span></span></code></pre></div>
-<p>To make sure, a warning is generated when data are dropped from the dependent:</p>
+<p>To make sure, a warning is generated when data are dropped from the
+dependent:</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;mort_5yr&quot;</span></span>
@@ -2037,6 +2320,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">add_col_totals =</span> <span class="cn">TRUE</span>, <span class="at">add_row_totals =</span> <span class="cn">TRUE</span>) <span class="ot">-&gt;</span> t</span>
 <span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note: dependent includes missing data. These are dropped.</span></span></code></pre></div>
 <table>
+<colgroup>
+<col width="13%" />
+<col width="13%" />
+<col width="11%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="6%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">label</th>
@@ -2304,7 +2597,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="directly-include-missing-data-in-dependent" class="section level3">
 <h3>1.23 Directly include missing data in dependent</h3>
-<p>Rather than making the data explicit in the dataset, you can use <code>na_include_dependent = TRUE</code> to do the same in <code>summary_factorlist()</code>.</p>
+<p>Rather than making the data explicit in the dataset, you can use
+<code>na_include_dependent = TRUE</code> to do the same in
+<code>summary_factorlist()</code>.</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>)</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;mort_5yr&quot;</span></span>
@@ -2454,7 +2749,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="summarise-complete-cases" class="section level3">
 <h3>1.24 Summarise complete cases</h3>
-<p>You may wish to see summaries for complete cases across included variables. Rather than selecting including variables and <code>drop_na()</code>, you can pass <code>na_complete_cases = TRUE</code> to <code>summary_factorlist()</code> to do the same.</p>
+<p>You may wish to see summaries for complete cases across included
+variables. Rather than selecting including variables and
+<code>drop_na()</code>, you can pass
+<code>na_complete_cases = TRUE</code> to
+<code>summary_factorlist()</code> to do the same.</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>)</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;mort_5yr&quot;</span></span>
@@ -2465,6 +2764,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">add_col_totals =</span> <span class="cn">TRUE</span>, <span class="at">add_row_totals =</span> <span class="cn">TRUE</span>) <span class="ot">-&gt;</span> t</span>
 <span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note: dependent includes missing data. These are dropped.</span></span></code></pre></div>
 <table>
+<colgroup>
+<col width="13%" />
+<col width="12%" />
+<col width="11%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="6%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">label</th>
@@ -2572,8 +2881,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 </div>
 <div id="actively-dropping-missing-data-and-tidyverse-functions-that-strip-attributes" class="section level3">
-<h3>1.25 Actively dropping missing data (and tidyverse functions that strip attributes)</h3>
-<p>You may wish to actively remove any rows with missing data, so you are explicit around which data are being used in models. Unfortunately some tidyverse functions silently remove variable attributes (labels). This is complained about then put right. But here is a workaround if it is happening with a variable you wish to use, such as <code>tidyr::drop_na()</code>.</p>
+<h3>1.25 Actively dropping missing data (and tidyverse functions that
+strip attributes)</h3>
+<p>You may wish to actively remove any rows with missing data, so you
+are explicit around which data are being used in models. Unfortunately
+some tidyverse functions silently remove variable attributes (labels).
+This is complained about then put right. But here is a workaround if it
+is happening with a variable you wish to use, such as
+<code>tidyr::drop_na()</code>.</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>)</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;mort_5yr&quot;</span></span>
@@ -2586,16 +2901,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ff_relabel</span>(vlabels) <span class="sc">%&gt;%</span> <span class="co"># Relabel</span></span>
 <span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary_factorlist</span>(dependent, explanatory, <span class="at">p =</span> <span class="cn">TRUE</span>, <span class="at">na_include =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">total_col =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">add_col_totals =</span> <span class="cn">TRUE</span>, <span class="at">add_row_totals =</span> <span class="cn">TRUE</span>) <span class="ot">-&gt;</span> t</span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note: Using an external vector in selections is ambiguous.</span></span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ℹ Use `all_of(dependent)` instead of `dependent` to silence this message.</span></span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ℹ See &lt;https://tidyselect.r-lib.org/reference/faq-external-vector.html&gt;.</span></span>
-<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; This message is displayed once per session.</span></span>
-<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Note: Using an external vector in selections is ambiguous.</span></span>
-<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ℹ Use `all_of(explanatory)` instead of `explanatory` to silence this message.</span></span>
-<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ℹ See &lt;https://tidyselect.r-lib.org/reference/faq-external-vector.html&gt;.</span></span>
-<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; This message is displayed once per session.</span></span></code></pre></div>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">add_col_totals =</span> <span class="cn">TRUE</span>, <span class="at">add_row_totals =</span> <span class="cn">TRUE</span>) <span class="ot">-&gt;</span> t</span></code></pre></div>
 <table>
+<colgroup>
+<col width="13%" />
+<col width="13%" />
+<col width="11%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="6%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">label</th>
@@ -2703,7 +3020,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 </div>
 <div id="explanatory-variable-defaults-to-factor-when-5-distinct-values" class="section level3">
-<h3>1.26 Explanatory variable defaults to factor when ≤5 distinct values</h3>
+<h3>1.26 Explanatory variable defaults to factor when ≤5 distinct
+values</h3>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Here, `extent` is a continuous variable with 4 distinct values. </span></span>
@@ -2783,10 +3101,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="stratified-crosstables" class="section level3">
 <h3>1.28 Stratified crosstables</h3>
-<p>I’ve been meaning to include support for table stratification for a while. I have delayed for a good reason. Perhaps the most straightforward way to implement stratificiation is with <code>dplyr::group_by()</code>. However, the non-standard evaluation required for multiple strata may confuse as it is not implemented else where in the package.</p>
-<p>This translates to whether variable names are passed in quotes or not.</p>
+<p>I’ve been meaning to include support for table stratification for a
+while. I have delayed for a good reason. Perhaps the most
+straightforward way to implement stratificiation is with
+<code>dplyr::group_by()</code>. However, the non-standard evaluation
+required for multiple strata may confuse as it is not implemented else
+where in the package.</p>
+<p>This translates to whether variable names are passed in quotes or
+not.</p>
 <p>Here is a solution, which while not that pretty, is effective.</p>
-<p>Note that <code>tidyverse</code> functions every so often start stripping labels/attributes. Hence the addition of the help function.</p>
+<p>Note that <code>tidyverse</code> functions every so often start
+stripping labels/attributes. Hence the addition of the help
+function.</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>)</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;perfor.factor&quot;</span></span>
@@ -2801,6 +3127,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_modify</span>(<span class="sc">~</span> <span class="fu">summary_factorlist</span>(.x, dependent, explanatory)) <span class="sc">%&gt;%</span></span>
 <span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ff_stratify_helper</span>(colon_s) <span class="ot">-&gt;</span> t</span></code></pre></div>
 <table>
+<colgroup>
+<col width="15%" />
+<col width="27%" />
+<col width="9%" />
+<col width="18%" />
+<col width="16%" />
+<col width="13%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Treatment</th>
@@ -3133,7 +3467,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="weighted-tables" class="section level3">
 <h3>1.30 Weighted tables</h3>
-<p>A simple weighting can be applied to tables. Explanatory continuous variables are multiplied by weights. Explanatory categorical variables are counted with a frequency weight (<code>sum(weights)</code>). This could be used with, say, inverse probability of treatment weightings (IPTW). The example uses random weights for demonstration purposes only. Hypothesis tests are not run on weighted data, p is set to FALSE.</p>
+<p>A simple weighting can be applied to tables. Explanatory continuous
+variables are multiplied by weights. Explanatory categorical variables
+are counted with a frequency weight (<code>sum(weights)</code>). This
+could be used with, say, inverse probability of treatment weightings
+(IPTW). The example uses random weights for demonstration purposes only.
+Hypothesis tests are not run on weighted data, p is set to FALSE.</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>)</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;perfor.factor&quot;</span></span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>colon_s <span class="sc">%&gt;%</span></span>
@@ -3152,62 +3491,55 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tr class="odd">
 <td align="left">Age (years)</td>
 <td align="left">Mean (SD)</td>
-<td align="right">29.7 (17.8)</td>
-<td align="right">29.8 (17.5)</td>
+<td align="right">60.0 (12.0)</td>
+<td align="right">59.2 (13.1)</td>
 </tr>
 <tr class="even">
 <td align="left">Age</td>
 <td align="left">&lt;40 years</td>
-<td align="right">33.7 (7.5)</td>
-<td align="right">1.0 (7.4)</td>
+<td align="right">35.9 (7.7)</td>
+<td align="right">0.8 (6.4)</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td align="left">40-59 years</td>
-<td align="right">167.3 (37.3)</td>
-<td align="right">4.7 (35.0)</td>
+<td align="right">166.4 (35.8)</td>
+<td align="right">4.1 (33.8)</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td align="left">60+ years</td>
-<td align="right">247.9 (55.2)</td>
-<td align="right">7.8 (57.7)</td>
+<td align="right">263.0 (56.5)</td>
+<td align="right">7.3 (59.8)</td>
 </tr>
 <tr class="odd">
 <td align="left">Sex</td>
 <td align="left">Female</td>
-<td align="right">216.7 (48.3)</td>
-<td align="right">6.1 (44.7)</td>
+<td align="right">218.5 (47.0)</td>
+<td align="right">6.0 (48.7)</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td align="left">Male</td>
-<td align="right">232.2 (51.7)</td>
-<td align="right">7.5 (55.3)</td>
+<td align="right">246.7 (53.0)</td>
+<td align="right">6.3 (51.3)</td>
 </tr>
 <tr class="odd">
 <td align="left">Obstruction</td>
 <td align="left">No</td>
-<td align="right">350.9 (80.2)</td>
-<td align="right">8.9 (65.3)</td>
+<td align="right">373.2 (81.9)</td>
+<td align="right">7.3 (59.5)</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td align="left">Yes</td>
-<td align="right">86.5 (19.8)</td>
-<td align="right">4.7 (34.7)</td>
+<td align="right">82.5 (18.1)</td>
+<td align="right">5.0 (40.5)</td>
 </tr>
 </tbody>
 </table>
-<p>dim(colon_s) colon_s = colon_s %&gt;% mutate(my_weights = runif(929, 0, 1))</p>
 </div>
 </div>
-<div id="table-1---patient-demographics--" class="section level1">
-<h1>Table 1 - Patient demographics —-</h1>
-<p>explanatory = c(“age”, “age.factor”, “sex.factor”, “obstruct.factor”) dependent = “perfor.factor”</p>
-<p>colon_s %&gt;% summary_factorlist(dependent, explanatory, p=TRUE)</p>
-<p>colon_s %&gt;% summary_factorlist(dependent, explanatory, p=TRUE, weights = “my_weights”, total_col = TRUE, digits = c(1, 1, 3, 1, 1))</p>
-<p>colon_s %&gt;% mutate(across(where(is.numeric) &amp; any_of(explanatory), ~ .x * my_weights))</p>
 <div id="model-tables-with-finalfit" class="section level2">
 <h2>2 Model tables with <code>finalfit()</code></h2>
 <div id="default-1" class="section level3">
@@ -3315,7 +3647,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="hide-reference-levels" class="section level3">
 <h3>2.02 Hide reference levels</h3>
-<p>Most appropriate when all explanatory variables are continuous or well-known binary variables, such as sex.</p>
+<p>Most appropriate when all explanatory variables are continuous or
+well-known binary variables, such as sex.</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>)</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;mort_5yr&quot;</span></span>
@@ -3469,7 +3802,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </colgroup>
 <tbody>
 <tr class="odd">
-<td align="left">Number in dataframe = 929, Number in model = 894, Missing = 35, AIC = 1230.7, C-statistic = 0.56, H&amp;L = Chi-sq(8) 5.69 (p=0.682)</td>
+<td align="left">Number in dataframe = 929, Number in model = 894,
+Missing = 35, AIC = 1230.7, C-statistic = 0.56, H&amp;L = Chi-sq(8) 5.69
+(p=0.682)</td>
 </tr>
 </tbody>
 </table>
@@ -3485,7 +3820,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </colgroup>
 <tbody>
 <tr class="odd">
-<td align="left">Number in dataframe = 929, Number in model = 894, Missing = 35, AIC = 1230.7, C-statistic = 0.56, H&amp;L = Chi-sq(8) 5.69 (p=0.682)</td>
+<td align="left">Number in dataframe = 929, Number in model = 894,
+Missing = 35, AIC = 1230.7, C-statistic = 0.56, H&amp;L = Chi-sq(8) 5.69
+(p=0.682)</td>
 </tr>
 </tbody>
 </table>
@@ -3716,7 +4053,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </colgroup>
 <tbody>
 <tr class="odd">
-<td align="left">Number in dataframe = 929, Number in model = 894, Missing = 35, AIC = 1230.7, C-statistic = 0.56, H&amp;L = Chi-sq(8) 5.69 (p=0.682)</td>
+<td align="left">Number in dataframe = 929, Number in model = 894,
+Missing = 35, AIC = 1230.7, C-statistic = 0.56, H&amp;L = Chi-sq(8) 5.69
+(p=0.682)</td>
 </tr>
 </tbody>
 </table>
@@ -3728,7 +4067,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </colgroup>
 <tbody>
 <tr class="odd">
-<td align="left">Number in dataframe = 929, Number in model = 894, Missing = 35, AIC = 1226.8, C-statistic = 0.555, H&amp;L = Chi-sq(8) 0.06 (p=1.000)</td>
+<td align="left">Number in dataframe = 929, Number in model = 894,
+Missing = 35, AIC = 1226.8, C-statistic = 0.555, H&amp;L = Chi-sq(8)
+0.06 (p=1.000)</td>
 </tr>
 </tbody>
 </table>
@@ -3739,7 +4080,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="interactions" class="section level3">
 <h3>2.06 Interactions</h3>
-<p>Interactions can be specified in the normal way. Formatting the output is trickier. At the moment, we have left the default model output. This can be adjusted as necessary.</p>
+<p>Interactions can be specified in the normal way. Formatting the
+output is trickier. At the moment, we have left the default model
+output. This can be adjusted as necessary.</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age.factor*sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>, <span class="st">&quot;perfor.factor&quot;</span>)</span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;mort_5yr&quot;</span></span>
@@ -3970,7 +4313,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="dependent-name" class="section level3">
 <h3>2.08 Dependent name</h3>
-<p>The dependent name cannot be specified directly intentionally. This is to prevent errors when copying code. Re-label using <code>ff_label()</code>. The dependent prefix and suffix can also be altered.</p>
+<p>The dependent name cannot be specified directly intentionally. This
+is to prevent errors when copying code. Re-label using
+<code>ff_label()</code>. The dependent prefix and suffix can also be
+altered.</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>, <span class="st">&quot;perfor.factor&quot;</span>)</span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;mort_5yr&quot;</span></span>
@@ -4179,7 +4525,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="digits-decimal-places-1" class="section level3">
 <h3>2.10 Digits / decimal places</h3>
-<p>Number of digits to round to regression results. (1) estimate, (2) confidence interval limits, (3) p-value. Default is c(2,2,3). Trailing zeros are preserved. Number of decimal places for counts and mean (sd) / median (IQR) not currently supported. Defaults are senisble :)</p>
+<p>Number of digits to round to regression results. (1) estimate, (2)
+confidence interval limits, (3) p-value. Default is c(2,2,3). Trailing
+zeros are preserved. Number of decimal places for counts and mean (sd) /
+median (IQR) not currently supported. Defaults are senisble :)</p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>, <span class="st">&quot;perfor.factor&quot;</span>)</span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;mort_5yr&quot;</span></span>
@@ -4282,8 +4631,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="confidence-interval-type" class="section level3">
 <h3>2.11 Confidence interval type</h3>
-<p>One of <code>c(&quot;profile&quot;, &quot;default&quot;)</code> for GLM models (<code>confint.glm()</code>). Note, a little awkwardly, the ‘default’ setting is <code>profile</code>, rather than <code>default</code>. Profile levels are probably a little more accurate. Only go to default if taking a significant length of time for profile, i.e. data is greater than hundreds of thousands of lines.</p>
-<p>For glmer/lmer models (<code>confint.merMod()</code>), <code>c(&quot;profile&quot;, &quot;Wald&quot;, &quot;boot&quot;)</code>. Not implemented for <code>lm()</code>, <code>coxph()</code> or <code>coxphlist</code>, which use default.</p>
+<p>One of <code>c(&quot;profile&quot;, &quot;default&quot;)</code> for GLM models
+(<code>confint.glm()</code>). Note, a little awkwardly, the ‘default’
+setting is <code>profile</code>, rather than <code>default</code>.
+Profile levels are probably a little more accurate. Only go to default
+if taking a significant length of time for profile, i.e. data is greater
+than hundreds of thousands of lines.</p>
+<p>For glmer/lmer models (<code>confint.merMod()</code>),
+<code>c(&quot;profile&quot;, &quot;Wald&quot;, &quot;boot&quot;)</code>. Not implemented for
+<code>lm()</code>, <code>coxph()</code> or <code>coxphlist</code>, which
+use default.</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>, <span class="st">&quot;perfor.factor&quot;</span>)</span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;mort_5yr&quot;</span></span>
@@ -4386,13 +4743,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="confidence-interval-level" class="section level3">
 <h3>2.12 Confidence interval level</h3>
-<p>Probably never change this :) Note, the p-value is intentionally not included for confidence levels other than 95% to avoid confusion.</p>
+<p>Probably never change this :) Note, the p-value is intentionally not
+included for confidence levels other than 95% to avoid confusion.</p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>, <span class="st">&quot;perfor.factor&quot;</span>)</span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;mort_5yr&quot;</span></span>
 <span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>colon_s <span class="sc">%&gt;%</span></span>
 <span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">finalfit</span>(dependent, explanatory, <span class="at">confint_level =</span> <span class="fl">0.90</span>) <span class="ot">-&gt;</span> t</span></code></pre></div>
 <table>
+<colgroup>
+<col width="28%" />
+<col width="12%" />
+<col width="11%" />
+<col width="11%" />
+<col width="17%" />
+<col width="19%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Dependent: Mortality 5 year</th>
@@ -4481,7 +4847,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="confidence-interval-separation" class="section level3">
 <h3>2.13 Confidence interval separation</h3>
-<p>Some like to avoid the hyphen so as not to confuse with minus sign. Obviously not an issue in logistic regression.</p>
+<p>Some like to avoid the hyphen so as not to confuse with minus sign.
+Obviously not an issue in logistic regression.</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>, <span class="st">&quot;perfor.factor&quot;</span>)</span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;mort_5yr&quot;</span></span>
@@ -4668,6 +5035,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">finalfit</span>(dependent, explanatory) <span class="sc">%&gt;%</span> </span>
 <span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ff_remove_p</span>() <span class="ot">-&gt;</span> t</span></code></pre></div>
 <table>
+<colgroup>
+<col width="28%" />
+<col width="12%" />
+<col width="11%" />
+<col width="11%" />
+<col width="17%" />
+<col width="19%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Dependent: Mortality 5 year</th>
@@ -4756,7 +5131,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="mixed-effects-random-intercept-model" class="section level3">
 <h3>2.16 Mixed effects random-intercept model</h3>
-<p>At its simplest, a random-intercept model can be specified using a single quoted variable, e.g. <code>random_effect = &quot;hospital&quot;</code>. This is equivalent to <code>random_effect = &quot;(1 | hospital)&quot;</code>. Alternatively you can provide the full specification including parenthesis, e.g. <code>random_effect = &quot;(1 | hospital) + (1 | country)&quot;</code>.</p>
+<p>At its simplest, a random-intercept model can be specified using a
+single quoted variable, e.g. <code>random_effect = &quot;hospital&quot;</code>.
+This is equivalent to <code>random_effect = &quot;(1 | hospital)&quot;</code>.
+Alternatively you can provide the full specification including
+parenthesis,
+e.g. <code>random_effect = &quot;(1 | hospital) + (1 | country)&quot;</code>.</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>, <span class="st">&quot;perfor.factor&quot;</span>)</span>
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;mort_5yr&quot;</span></span>
@@ -4860,8 +5240,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 </div>
 <div id="b-mixed-effects-random-intercept-model-with-univariable-estimates-including-random-effects" class="section level3">
-<h3>2.16b Mixed effects random-intercept model with univariable estimates including random effects</h3>
-<p>Some recently asked about this and it is a good question. Here is an approach.</p>
+<h3>2.16b Mixed effects random-intercept model with univariable
+estimates including random effects</h3>
+<p>Some recently asked about this and it is a good question. Here is an
+approach.</p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>, <span class="st">&quot;perfor.factor&quot;</span>)</span>
 <span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;mort_5yr&quot;</span></span>
@@ -4984,7 +5366,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="mixed-effects-random-slope-model" class="section level3">
 <h3>2.17 Mixed effects random-slope model</h3>
-<p>In the example below, allow the effect of age on outcome to vary by hospital. Note, this specification must have parentheses included.</p>
+<p>In the example below, allow the effect of age on outcome to vary by
+hospital. Note, this specification must have parentheses included.</p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>, <span class="st">&quot;perfor.factor&quot;</span>)</span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;mort_5yr&quot;</span></span>
@@ -5088,8 +5471,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 </div>
 <div id="mixed-effects-random-slope-model-directly-from-lme4" class="section level3">
-<h3>2.18 Mixed effects random-slope model directly from <code>lme4</code></h3>
-<p>Clearly, as models get more complex, parameters such as random effect group variances may require to be extracted directly from model outputs.</p>
+<h3>2.18 Mixed effects random-slope model directly from
+<code>lme4</code></h3>
+<p>Clearly, as models get more complex, parameters such as random effect
+group variances may require to be extracted directly from model
+outputs.</p>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>, <span class="st">&quot;perfor.factor&quot;</span>)</span>
 <span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;mort_5yr&quot;</span></span>
@@ -5099,8 +5485,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>    broom<span class="sc">::</span><span class="fu">tidy</span>() <span class="ot">-&gt;</span> t</span></code></pre></div>
 </div>
 <div id="exclude-all-missing-data-in-final-model-from-univariable-analyses" class="section level3">
-<h3>2.19 Exclude all missing data in final model from univariable analyses</h3>
-<p>This can be useful if you want the numbers in the final table to match the final multivariable model. However, be careful to include a full explanation of this in the methods and the reason for exluding the missing data.</p>
+<h3>2.19 Exclude all missing data in final model from univariable
+analyses</h3>
+<p>This can be useful if you want the numbers in the final table to
+match the final multivariable model. However, be careful to include a
+full explanation of this in the methods and the reason for exluding the
+missing data.</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>, <span class="st">&quot;perfor.factor&quot;</span>)</span>
 <span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&#39;mort_5yr&#39;</span></span>
@@ -5110,16 +5500,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">finalfit</span>(dependent, explanatory) <span class="ot">-&gt;</span> t</span></code></pre></div>
 <table>
 <colgroup>
-<col width="18%" />
-<col width="11%" />
-<col width="10%" />
-<col width="10%" />
 <col width="24%" />
-<col width="24%" />
+<col width="10%" />
+<col width="9%" />
+<col width="9%" />
+<col width="22%" />
+<col width="22%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th align="left">Dependent: mort_5yr</th>
+<th align="left">Dependent: Mortality 5 year</th>
 <th align="left"></th>
 <th align="right">Alive</th>
 <th align="right">Died</th>
@@ -5129,7 +5519,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">age.factor</td>
+<td align="left">Age</td>
 <td align="left">&lt;40 years</td>
 <td align="right">31 (47.0)</td>
 <td align="right">35 (53.0)</td>
@@ -5153,7 +5543,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="right">0.81 (0.48-1.36, p=0.426)</td>
 </tr>
 <tr class="even">
-<td align="left">sex.factor</td>
+<td align="left">Sex</td>
 <td align="left">Female</td>
 <td align="right">237 (55.2)</td>
 <td align="right">192 (44.8)</td>
@@ -5169,7 +5559,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="right">0.98 (0.75-1.28, p=0.902)</td>
 </tr>
 <tr class="even">
-<td align="left">obstruct.factor</td>
+<td align="left">Obstruction</td>
 <td align="left">No</td>
 <td align="right">408 (56.7)</td>
 <td align="right">312 (43.3)</td>
@@ -5185,7 +5575,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="right">1.25 (0.90-1.76, p=0.186)</td>
 </tr>
 <tr class="even">
-<td align="left">perfor.factor</td>
+<td align="left">Perforation</td>
 <td align="left">No</td>
 <td align="right">483 (55.7)</td>
 <td align="right">384 (44.3)</td>
@@ -5225,8 +5615,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <th align="left"></th>
 <th align="right">unit</th>
 <th align="right">value</th>
-<th align="right">OR (univariable)</th>
-<th align="right">OR (multivariable)</th>
+<th align="right">Coefficient (univariable)</th>
+<th align="right">Coefficient (multivariable)</th>
 </tr>
 </thead>
 <tbody>
@@ -5329,8 +5719,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <th align="left"></th>
 <th align="right">unit</th>
 <th align="right">value</th>
-<th align="right">OR (univariable)</th>
-<th align="right">OR (multilevel)</th>
+<th align="right">Coefficient (univariable)</th>
+<th align="right">Coefficient (multilevel)</th>
 </tr>
 </thead>
 <tbody>
@@ -5433,8 +5823,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <th align="left"></th>
 <th align="right">unit</th>
 <th align="right">value</th>
-<th align="right">OR (univariable)</th>
-<th align="right">OR (multilevel)</th>
+<th align="right">Coefficient (univariable)</th>
+<th align="right">Coefficient (multilevel)</th>
 </tr>
 </thead>
 <tbody>
@@ -5521,6 +5911,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>colon_s <span class="sc">%&gt;%</span></span>
 <span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">finalfit</span>(dependent, explanatory) <span class="ot">-&gt;</span> t</span></code></pre></div>
 <table>
+<colgroup>
+<col width="28%" />
+<col width="11%" />
+<col width="10%" />
+<col width="24%" />
+<col width="24%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Dependent: Surv(time, status)</th>
@@ -5599,7 +5996,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="cox-proportional-hazards-model-change-dependent-label" class="section level3">
 <h3>2.24 Cox proportional hazards model: change dependent label</h3>
-<p>As above, the dependent label cannot be specfied directly in the model to avoid errors. However, in survival modelling the surivial object specification can be long or awkward. Therefore, here is the work around.</p>
+<p>As above, the dependent label cannot be specfied directly in the
+model to avoid errors. However, in survival modelling the surivial
+object specification can be long or awkward. Therefore, here is the work
+around.</p>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>, <span class="st">&quot;perfor.factor&quot;</span>)</span>
 <span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;Surv(time, status)&quot;</span></span>
@@ -5607,7 +6007,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">finalfit</span>(dependent, explanatory, <span class="at">add_dependent_label =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot;Overall survival&quot;</span> <span class="ot">=</span> label) <span class="sc">%&gt;%</span> </span>
 <span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">&quot; &quot;</span> <span class="ot">=</span> levels) <span class="ot">-&gt;</span> t</span></code></pre></div>
-<table>
+<table style="width:100%;">
+<colgroup>
+<col width="18%" />
+<col width="13%" />
+<col width="11%" />
+<col width="28%" />
+<col width="28%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Overall survival</th>
@@ -5689,7 +6096,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>3 Model tables manually using <code>ff_merge()</code></h2>
 <div id="basic-table" class="section level3">
 <h3>3.1 Basic table</h3>
-<p>Note <code>summary_factorlist()</code> needs argument, <code>fit_id = TRUE</code>.</p>
+<p>Note <code>summary_factorlist()</code> needs argument,
+<code>fit_id = TRUE</code>.</p>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>, <span class="st">&quot;perfor.factor&quot;</span>)</span>
@@ -5711,6 +6119,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb61-19"><a href="#cb61-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(fit_id, index)) <span class="sc">%&gt;%</span> </span>
 <span id="cb61-20"><a href="#cb61-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dependent_label</span>(colon_s, dependent)<span class="ot">-&gt;</span> t</span></code></pre></div>
 <table>
+<colgroup>
+<col width="31%" />
+<col width="13%" />
+<col width="12%" />
+<col width="12%" />
+<col width="29%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Dependent: Mortality 5 year</th>
@@ -6060,6 +6475,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb64-23"><a href="#cb64-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ff_merge</span>(fit_uni, <span class="at">last_merge =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb64-24"><a href="#cb64-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dependent_label</span>(colon_s, dependent) <span class="ot">-&gt;</span> t</span></code></pre></div>
 <table>
+<colgroup>
+<col width="17%" />
+<col width="13%" />
+<col width="14%" />
+<col width="21%" />
+<col width="32%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Dependent: lot1</th>
@@ -6090,30 +6512,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="weighted-regression" class="section level3">
 <h3>3.4 Weighted regression</h3>
+<p>Note this is updated August 2022. Weights can specified from data and
+<code>summary_factorlist()</code> table is now weighted.</p>
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>, <span class="st">&quot;perfor.factor&quot;</span>)</span>
 <span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;mort_5yr&quot;</span></span>
-<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>weights <span class="ot">=</span> <span class="fu">runif</span>(<span class="fu">dim</span>(colon_s)[<span class="dv">1</span>]) <span class="co"># random just for example</span></span>
-<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a><span class="co"># All in one pipe</span></span>
-<span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a>colon_s <span class="sc">%&gt;%</span></span>
-<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a>    <span class="do">## Crosstable</span></span>
-<span id="cb65-10"><a href="#cb65-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summary_factorlist</span>(dependent, explanatory, <span class="at">fit_id=</span><span class="cn">TRUE</span>)  <span class="sc">%&gt;%</span> </span>
-<span id="cb65-11"><a href="#cb65-11" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb65-12"><a href="#cb65-12" aria-hidden="true" tabindex="-1"></a>    <span class="do">## Add univariable</span></span>
-<span id="cb65-13"><a href="#cb65-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ff_merge</span>(</span>
-<span id="cb65-14"><a href="#cb65-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">glmuni</span>(colon_s, dependent, explanatory, <span class="at">weights =</span> weights, <span class="at">family =</span> quasibinomial) <span class="sc">%&gt;%</span></span>
-<span id="cb65-15"><a href="#cb65-15" aria-hidden="true" tabindex="-1"></a>            <span class="fu">fit2df</span>(<span class="at">estimate_suffix=</span><span class="st">&quot; (univariable)&quot;</span>)</span>
-<span id="cb65-16"><a href="#cb65-16" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
-<span id="cb65-17"><a href="#cb65-17" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb65-18"><a href="#cb65-18" aria-hidden="true" tabindex="-1"></a>    <span class="do">## Add multivariable</span></span>
-<span id="cb65-19"><a href="#cb65-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ff_merge</span>(</span>
-<span id="cb65-20"><a href="#cb65-20" aria-hidden="true" tabindex="-1"></a>        <span class="fu">glmmulti</span>(colon_s, dependent, explanatory, <span class="at">weights =</span> weights, <span class="at">family =</span> quasibinomial) <span class="sc">%&gt;%</span></span>
-<span id="cb65-21"><a href="#cb65-21" aria-hidden="true" tabindex="-1"></a>            <span class="fu">fit2df</span>(<span class="at">estimate_suffix=</span><span class="st">&quot; (multivariable)&quot;</span>),</span>
-<span id="cb65-22"><a href="#cb65-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">last_merge =</span> <span class="cn">TRUE</span></span>
-<span id="cb65-23"><a href="#cb65-23" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
-<span id="cb65-24"><a href="#cb65-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dependent_label</span>(colon_s, dependent) <span class="ot">-&gt;</span> t</span></code></pre></div>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>colon_s <span class="sc">%&gt;%</span></span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">myweights =</span> <span class="fu">runif</span>(<span class="fu">dim</span>(colon_s)[<span class="dv">1</span>])) <span class="sc">%&gt;%</span> <span class="co"># random just for example</span></span>
+<span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">finalfit</span>(dependent, explanatory, <span class="at">weights =</span> <span class="st">&quot;myweights&quot;</span>) <span class="ot">-&gt;</span> t</span></code></pre></div>
 <table>
 <colgroup>
 <col width="24%" />
@@ -6137,81 +6545,83 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tr class="odd">
 <td align="left">Age</td>
 <td align="left">&lt;40 years</td>
-<td align="right">31 (6.1)</td>
-<td align="right">36 (8.9)</td>
+<td align="right">31 (46.3)</td>
+<td align="right">36 (53.7)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td align="left">40-59 years</td>
-<td align="right">208 (40.7)</td>
-<td align="right">131 (32.4)</td>
-<td align="right">0.60 (0.34-1.05, p=0.073)</td>
-<td align="right">0.65 (0.37-1.14, p=0.131)</td>
+<td align="right">208 (61.4)</td>
+<td align="right">131 (38.6)</td>
+<td align="right">0.54 (0.32-0.92, p=0.023)</td>
+<td align="right">0.57 (0.34-0.98, p=0.041)</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td align="left">60+ years</td>
-<td align="right">272 (53.2)</td>
-<td align="right">237 (58.7)</td>
-<td align="right">0.81 (0.47-1.38, p=0.439)</td>
-<td align="right">0.89 (0.51-1.54, p=0.678)</td>
+<td align="right">272 (53.4)</td>
+<td align="right">237 (46.6)</td>
+<td align="right">0.75 (0.45-1.25, p=0.270)</td>
+<td align="right">0.81 (0.48-1.36, p=0.426)</td>
 </tr>
 <tr class="even">
 <td align="left">Sex</td>
 <td align="left">Female</td>
-<td align="right">243 (47.6)</td>
-<td align="right">194 (48.0)</td>
+<td align="right">243 (55.6)</td>
+<td align="right">194 (44.4)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td align="left">Male</td>
-<td align="right">268 (52.4)</td>
-<td align="right">210 (52.0)</td>
-<td align="right">1.03 (0.79-1.33, p=0.838)</td>
-<td align="right">1.02 (0.78-1.34, p=0.870)</td>
+<td align="right">268 (56.1)</td>
+<td align="right">210 (43.9)</td>
+<td align="right">0.98 (0.76-1.27, p=0.889)</td>
+<td align="right">0.98 (0.75-1.28, p=0.902)</td>
 </tr>
 <tr class="even">
 <td align="left">Obstruction</td>
 <td align="left">No</td>
-<td align="right">408 (82.1)</td>
-<td align="right">312 (78.6)</td>
+<td align="right">408 (56.7)</td>
+<td align="right">312 (43.3)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td align="left">Yes</td>
-<td align="right">89 (17.9)</td>
-<td align="right">85 (21.4)</td>
-<td align="right">1.13 (0.81-1.57, p=0.468)</td>
-<td align="right">1.15 (0.82-1.61, p=0.408)</td>
+<td align="right">89 (51.1)</td>
+<td align="right">85 (48.9)</td>
+<td align="right">1.25 (0.90-1.74, p=0.189)</td>
+<td align="right">1.25 (0.90-1.76, p=0.186)</td>
 </tr>
 <tr class="even">
 <td align="left">Perforation</td>
 <td align="left">No</td>
-<td align="right">497 (97.3)</td>
-<td align="right">391 (96.8)</td>
+<td align="right">497 (56.0)</td>
+<td align="right">391 (44.0)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td align="left">Yes</td>
-<td align="right">14 (2.7)</td>
-<td align="right">13 (3.2)</td>
-<td align="right">1.53 (0.70-3.39, p=0.284)</td>
-<td align="right">1.46 (0.67-3.25, p=0.346)</td>
+<td align="right">14 (51.9)</td>
+<td align="right">13 (48.1)</td>
+<td align="right">1.18 (0.54-2.55, p=0.672)</td>
+<td align="right">1.12 (0.51-2.44, p=0.770)</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div id="using-base-r-functions" class="section level3">
 <h3>3.5 Using base R functions</h3>
-<p>Note <code>ff_formula()</code> convenience function to make multivariable formula (<code>y ~ x1 + x2 + x3</code> etc.) from a <code>dependent</code> and <code>explanatory</code> vector of names.</p>
+<p>Note <code>ff_formula()</code> convenience function to make
+multivariable formula (<code>y ~ x1 + x2 + x3</code> etc.) from a
+<code>dependent</code> and <code>explanatory</code> vector of names.</p>
 <div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
 <span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>explanatory <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;age.factor&quot;</span>, <span class="st">&quot;sex.factor&quot;</span>, <span class="st">&quot;obstruct.factor&quot;</span>, <span class="st">&quot;perfor.factor&quot;</span>)</span>
@@ -6482,13 +6892,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="base-model-individual-explanatory-variables" class="section level3">
 <h3>3.7 Base model + individual explanatory variables</h3>
-<p>This was an email enquiry about how to build on a base model. The example request was in a survival context.</p>
-<p>This has been updated August 2019. We have left the original example of building the table from scratch as a comparison.</p>
-<p><code>ff_permute()</code> allows combinations of variables to be built on a base model. See options on help page to,</p>
+<p>This was an email enquiry about how to build on a base model. The
+example request was in a survival context.</p>
+<p>This has been updated August 2019. We have left the original example
+of building the table from scratch as a comparison.</p>
+<p><code>ff_permute()</code> allows combinations of variables to be
+built on a base model. See options on help page to,</p>
 <ul>
 <li>include the base model and/or the full model,</li>
-<li>present the permuted variables at the top or bottom of the table,</li>
-<li>produce separate model tables, or the default which is a single table.</li>
+<li>present the permuted variables at the top or bottom of the
+table,</li>
+<li>produce separate model tables, or the default which is a single
+table.</li>
 </ul>
 <div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">=</span> colon_s</span>
@@ -6857,7 +7272,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <div id="support-for-complex-survey-structures-via-librarysurvey" class="section level2">
-<h2>4 Support for complex survey structures via <code>library(survey)</code></h2>
+<h2>4 Support for complex survey structures via
+<code>library(survey)</code></h2>
 <div id="linear-regression-1" class="section level3">
 <h3>4.1 Linear regression</h3>
 <p>Examples taken from <code>survey::svyglm()</code> help page.</p>
@@ -6950,7 +7366,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="binomial-example" class="section level3">
 <h3>4.2 Binomial example</h3>
-<p>Note model family needs specified and exponentiation set to <code>TRUE</code> if desired.</p>
+<p>Note model family needs specified and exponentiation set to
+<code>TRUE</code> if desired.</p>
 <div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
 <span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -7030,7 +7447,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-</div>
 </div>
 </div>
 

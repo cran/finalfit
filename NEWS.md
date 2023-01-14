@@ -1,3 +1,26 @@
+# finalfit 1.0.6
+* new plots example vignette https://finalfit.org/articles/all_plots_examples.html
+* bug fix for `cont_cut` argument in `finalfit()`. #78
+* bug fix for column totals with weighted data. 
+* correction to weighting of continuous explanatory variables in `summary_factorlist()`.
+* fix bug to `coefficient_plot()` when passing `lmmixed()` object. 
+* weighting now available directly in `finalfit()`. 
+* formula parsed correctly in `lmuni()`, `lmmulti()`, `glmuni()`, `glmmulti()`, `coxphuni()`, coxphmulti().
+
+# finalfit 1.0.55
+* bug fix for `cont_cut` argument in `finalfit()`. #78
+
+# finalfit 1.0.54
+* bug fix for column totals with weighted data. 
+
+# finalfit 1.0.53
+* correction to weighting of continuous explanatory variables in `summary_factorlist()`.
+* fix bug to `coefficient_plot()` when passing `lmmixed()` object. 
+
+# finalfit 1.0.52
+* weighting now available directly in `finalfit()`. 
+* formula parsed correctly in `lmuni()`, `lmmulti()`, `glmuni()`, `glmmulti()`, `coxphuni()`, coxphmulti().
+
 # finalfit 1.0.5
 * formula interface added to `finalfit()` and `summary_factorlist()`. 
 * weights argument added to `summary_factorlist()` for weighted tables. 

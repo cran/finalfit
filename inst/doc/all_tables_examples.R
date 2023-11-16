@@ -4,7 +4,7 @@ knitr::opts_chunk$set(
 	comment = "#>"
 )
 
-## ---- eval=FALSE--------------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  install.packages("finalfit")
 
 ## -----------------------------------------------------------------------------
@@ -14,7 +14,7 @@ dependent = "perfor.factor"
 colon_s %>%
   summary_factorlist(dependent, explanatory) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r"))
 
@@ -29,18 +29,18 @@ colon_s %>%
 	) %>% 
   summary_factorlist(dependent, explanatory) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r"))
 
-## ---- warning=FALSE-----------------------------------------------------------
+## ----warning=FALSE------------------------------------------------------------
 library(finalfit)
 explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
 dependent = "perfor.factor"
 colon_s %>%
 	summary_factorlist(dependent, explanatory, p = TRUE) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r"))
 
@@ -51,7 +51,7 @@ dependent = "perfor.factor"
 colon_s %>%
   summary_factorlist(dependent, explanatory, p = TRUE, p_cat = "fisher") -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r"))
 
@@ -62,44 +62,44 @@ dependent = "perfor.factor"
 colon_s %>%
   summary_factorlist(dependent, explanatory, p = TRUE, p_cont_para = "t.test") -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r"))
 
-## ---- warning=FALSE-----------------------------------------------------------
+## ----warning=FALSE------------------------------------------------------------
 library(finalfit)
 explanatory = c("age", "nodes", "age.factor", "sex.factor", "obstruct.factor")
 dependent = "perfor.factor"
 colon_s %>%
 	summary_factorlist(dependent, explanatory, p = TRUE, cont = "median") -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r"))
 
-## ---- warning=FALSE-----------------------------------------------------------
+## ----warning=FALSE------------------------------------------------------------
 library(finalfit)
 explanatory = c("age", "nodes", "age.factor", "sex.factor", "obstruct.factor")
 dependent = "perfor.factor"
 colon_s %>%
 	summary_factorlist(dependent, explanatory, p = TRUE, cont_nonpara = c(2)) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r"))
 
-## ---- warning=FALSE-----------------------------------------------------------
+## ----warning=FALSE------------------------------------------------------------
 library(finalfit)
 explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
 dependent = "perfor.factor"
 colon_s %>%
 	summary_factorlist(dependent, explanatory, p = TRUE, na_include = TRUE) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r"))
 
-## ---- warning=FALSE-----------------------------------------------------------
+## ----warning=FALSE------------------------------------------------------------
 library(finalfit)
 explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
 dependent = "perfor.factor"
@@ -107,11 +107,11 @@ colon_s %>%
 	summary_factorlist(dependent, explanatory, p = TRUE, na_include = TRUE, 
 										 na_to_p = TRUE) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r"))
 
-## ---- warning=FALSE-----------------------------------------------------------
+## ----warning=FALSE------------------------------------------------------------
 library(finalfit)
 explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
 dependent = "perfor.factor"
@@ -119,11 +119,11 @@ colon_s %>%
 	summary_factorlist(dependent, explanatory, p = TRUE, na_include = TRUE,
 										 column = FALSE) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r"))
 
-## ---- warning=FALSE-----------------------------------------------------------
+## ----warning=FALSE------------------------------------------------------------
 library(finalfit)
 explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
 dependent = "perfor.factor"
@@ -131,7 +131,7 @@ colon_s %>%
 	summary_factorlist(dependent, explanatory, p = TRUE, cont = "median", na_include = TRUE,
 										 column = TRUE, total_col = TRUE) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r"))
 
@@ -144,7 +144,7 @@ colon_s %>%
 										 total_col = TRUE,
 										 add_row_total = TRUE) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r"))
 
@@ -158,7 +158,7 @@ colon_s %>%
 										 add_row_total = TRUE,
 										 include_row_missing_col = FALSE) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r"))
 
@@ -173,11 +173,11 @@ colon_s %>%
 										 row_totals_colname = "N (total)",
 										 row_missing_colname = "N (missing)") -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r"))
 
-## ---- warning=FALSE-----------------------------------------------------------
+## ----warning=FALSE------------------------------------------------------------
 library(finalfit)
 explanatory = c("extent.factor")
 dependent = "perfor.factor"
@@ -185,11 +185,11 @@ colon_s %>%
 	summary_factorlist(dependent, explanatory, p = TRUE, cont = "median", na_include = TRUE,
 										 column = TRUE, total_col = TRUE, orderbytotal = TRUE) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r"))
 
-## ---- warning=FALSE-----------------------------------------------------------
+## ----warning=FALSE------------------------------------------------------------
 explanatory = c("age.factor", "sex.factor")
 dependent = "rx.factor"
 
@@ -197,11 +197,11 @@ colon_s %>%
 	summary_factorlist(dependent, explanatory, p = TRUE,
 										 add_col_totals = TRUE)	-> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "l", "l", "r", "r", "r"))
 
-## ---- warning=FALSE-----------------------------------------------------------
+## ----warning=FALSE------------------------------------------------------------
 explanatory = c("age.factor", "sex.factor")
 dependent = "rx.factor"
 
@@ -210,11 +210,11 @@ colon_s %>%
 										 add_col_totals = TRUE,
 										 include_col_totals_percent = FALSE)	-> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "l", "l", "r", "r", "r"))
 
-## ---- warning=FALSE-----------------------------------------------------------
+## ----warning=FALSE------------------------------------------------------------
 explanatory = c("age.factor", "sex.factor")
 dependent = "rx.factor"
 
@@ -225,11 +225,11 @@ colon_s %>%
 										 col_totals_rowname = "",
 										 col_totals_prefix = "N=")	-> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "l", "l", "r", "r", "r"))
 
-## ---- warning=FALSE-----------------------------------------------------------
+## ----warning=FALSE------------------------------------------------------------
 library(finalfit)
 explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
 dependent = "perfor.factor"
@@ -237,11 +237,11 @@ colon_s %>%
 	summary_factorlist(dependent, explanatory, p = TRUE, cont = "median", na_include = TRUE,
 										 column = TRUE, total_col = TRUE, add_dependent_label = TRUE) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r"))
 
-## ---- warning=FALSE-----------------------------------------------------------
+## ----warning=FALSE------------------------------------------------------------
 library(finalfit)
 explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
 dependent = "perfor.factor"
@@ -252,11 +252,11 @@ colon_s %>%
   summary_factorlist(dependent, explanatory, p = TRUE, cont = "median", na_include = TRUE,
     column = TRUE, total_col = TRUE, add_dependent_label = TRUE, dependent_label_prefix = "") -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r"))
 
-## ---- warning=FALSE-----------------------------------------------------------
+## ----warning=FALSE------------------------------------------------------------
 library(finalfit)
 explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
 dependent = "extent.factor"
@@ -267,7 +267,7 @@ colon_s %>%
   summary_factorlist(dependent, explanatory, p = TRUE, cont = "median", na_include = TRUE,
     column = TRUE, total_col = TRUE, add_dependent_label = TRUE, dependent_label_prefix = "") -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
@@ -277,7 +277,7 @@ dependent = "mort_5yr"
 colon_s %>% 
 	ff_glimpse(dependent, explanatory)
 
-## ---- warning=FALSE-----------------------------------------------------------
+## ----warning=FALSE------------------------------------------------------------
 library(finalfit)
 explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
 dependent = "mort_5yr"
@@ -286,27 +286,27 @@ colon_s %>%
   									 total_col = TRUE,
   									 add_col_totals = TRUE, add_row_totals = TRUE) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE-----------------------------------------------------------
+## ----warning=FALSE------------------------------------------------------------
 library(finalfit)
 explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
 dependent = "mort_5yr"
 colon_s %>%
 	mutate(
-		mort_5yr = forcats::fct_explicit_na(mort_5yr)
+		mort_5yr = forcats::fct_na_value_to_level(mort_5yr, level = "(Missing)")
 	) %>% 
   summary_factorlist(dependent, explanatory, p = TRUE, na_include = TRUE,
   									 total_col = TRUE,
   									 add_col_totals = TRUE, add_row_totals = TRUE) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE-----------------------------------------------------------
+## ----warning=FALSE------------------------------------------------------------
 library(finalfit)
 explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
 dependent = "mort_5yr"
@@ -316,11 +316,11 @@ colon_s %>%
   									 total_col = TRUE,
   									 add_col_totals = TRUE, add_row_totals = TRUE) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE-----------------------------------------------------------
+## ----warning=FALSE------------------------------------------------------------
 library(finalfit)
 explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
 dependent = "mort_5yr"
@@ -330,11 +330,11 @@ colon_s %>%
   									 total_col = TRUE,
   									 add_col_totals = TRUE, add_row_totals = TRUE) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE-----------------------------------------------------------
+## ----warning=FALSE------------------------------------------------------------
 library(finalfit)
 explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
 dependent = "mort_5yr"
@@ -349,7 +349,7 @@ colon_s %>%
   									 total_col = TRUE,
   									 add_col_totals = TRUE, add_row_totals = TRUE) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
@@ -364,7 +364,7 @@ dependent = "mort_5yr"
 colon_s %>%
   summary_factorlist(dependent, explanatory) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
@@ -380,11 +380,11 @@ colon_s %>%
   summary_factorlist(dependent, explanatory, 
   									 cont_cut = 0) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE-----------------------------------------------------------
+## ----warning=FALSE------------------------------------------------------------
 library(dplyr)
 explanatory = c("age.factor", "sex.factor")
 dependent = "perfor.factor"
@@ -399,43 +399,43 @@ colon_s %>%
   group_modify(~ summary_factorlist(.x, dependent, explanatory)) %>%
   ff_stratify_helper(colon_s) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "l", "l", "r", "r", "r"))
 
-## ---- warning=FALSE-----------------------------------------------------------
+## ----warning=FALSE------------------------------------------------------------
 explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
 dependent = "perfor.factor"
 colon_s %>%
   summary_factorlist(dependent, explanatory, p = TRUE, digits = c(1,2,3,4,0)) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE-----------------------------------------------------------
+## ----warning=FALSE------------------------------------------------------------
 explanatory = c("age", "age.factor", "sex.factor", "obstruct.factor")
 dependent = "perfor.factor"
 colon_s %>%
 	mutate(my_weights = runif(929, 0, 1)) %>% # Random just to demonstrate
 	summary_factorlist(dependent, explanatory, weights = "my_weights", digits = c(1, 1, 3, 1, 1))-> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 dependent = "mort_5yr"
 colon_s %>%
 	finalfit(dependent, explanatory) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 explanatory = c("age", "sex.factor")
 dependent = "mort_5yr"
@@ -444,32 +444,32 @@ colon_s %>%
 	ff_remove_ref() %>% 
 	dependent_label(colon_s, dependent)-> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 dependent = "mort_5yr"
 colon_s %>%
 	finalfit(dependent, explanatory, metrics = TRUE) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t[[1]], row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 kable(t[[2]], row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"), col.names = "")
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 glm(mort_5yr ~ age.factor + sex.factor + obstruct.factor + perfor.factor, data = colon_s, family = "binomial") %>% 
 	ff_metrics() -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"), col.names = "")
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 explanatory_multi = c("age.factor", "obstruct.factor")
@@ -477,11 +477,11 @@ dependent = "mort_5yr"
 colon_s %>%
 	finalfit(dependent, explanatory, explanatory_multi) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 explanatory_multi = c("age.factor", "obstruct.factor")
@@ -489,23 +489,23 @@ dependent = "mort_5yr"
 colon_s %>%
 	finalfit(dependent, explanatory, explanatory_multi, metrics = TRUE, keep_models = TRUE) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t[[1]], row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 kable(t[[2]], row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"), col.names = "")
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 explanatory = c("age.factor*sex.factor", "obstruct.factor", "perfor.factor")
 dependent = "mort_5yr"
 colon_s %>%
 	finalfit(dependent, explanatory) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 #explanatory = c("age.factor*sex.factor", "obstruct.factor", "perfor.factor")
 explanatory = c("obstruct.factor", "perfor.factor")
@@ -514,11 +514,11 @@ colon_s %>%
 	ff_interaction(age.factor, sex.factor) %>% 
 	finalfit(dependent, c(explanatory, "age.factor_sex.factor")) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 dependent = "mort_5yr"
@@ -529,62 +529,62 @@ colon_s %>%
 	finalfit(dependent, explanatory, dependent_label_prefix = "",
 					 dependent_label_suffix = " (full model)") -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 dependent = "mort_5yr"
 colon_s %>%
 	finalfit(dependent, explanatory, estimate_name = "Odds ratio") -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 dependent = "mort_5yr"
 colon_s %>%
 	finalfit(dependent, explanatory, digits = c(3,3,4)) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 dependent = "mort_5yr"
 colon_s %>%
 	finalfit(dependent, explanatory, confint_type = "default") -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 dependent = "mort_5yr"
 colon_s %>%
 	finalfit(dependent, explanatory, confint_level = 0.90) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 dependent = "mort_5yr"
 colon_s %>%
 	finalfit(dependent, explanatory, confint_sep = " to ") -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
@@ -629,7 +629,7 @@ t2 = colon_s %>%
 ff_merge(t1, t2, last_merge = TRUE) %>% 
 	knitr::kable(row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 dependent = "mort_5yr"
@@ -637,11 +637,11 @@ colon_s %>%
 	finalfit(dependent, explanatory) %>% 
 	ff_remove_p() -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 dependent = "mort_5yr"
@@ -650,11 +650,11 @@ colon_s %>%
 	finalfit(dependent, explanatory, random_effect = random_effect,
 					 dependent_label_suffix = " (random intercept)") -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 dependent = "mort_5yr"
@@ -670,11 +670,11 @@ colon_s %>%
 	) %>% 
 	dplyr::relocate(7, .before = 6) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 dependent = "mort_5yr"
@@ -683,7 +683,7 @@ colon_s %>%
 	finalfit(dependent, explanatory, random_effect = random_effect,
 					 dependent_label_suffix = " (random slope: age)") -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
@@ -696,11 +696,11 @@ kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 #  	lme4::glmer(mort_5yr ~ age.factor + (age.factor | hospital), family = "binomial", data = .) %>%
 #  	broom::tidy() -> t
 
-## ---- echo=FALSE, eval=FALSE--------------------------------------------------
+## ----echo=FALSE, eval=FALSE---------------------------------------------------
 #  library(knitr)
 #  kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 dependent = 'mort_5yr'
@@ -709,22 +709,22 @@ colon_s %>%
 	na.omit() %>%
 	finalfit(dependent, explanatory) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 dependent = 'nodes'
 colon_s %>%
 	finalfit(dependent, explanatory) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 dependent = "nodes"
@@ -733,11 +733,11 @@ colon_s %>%
 	finalfit(dependent, explanatory, random_effect = random_effect,
 					 dependent_label_suffix = " (random intercept)") -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 dependent = "nodes"
@@ -746,22 +746,22 @@ colon_s %>%
 	finalfit(dependent, explanatory, random_effect = random_effect,
 					 dependent_label_suffix = " (random slope: age)") -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 dependent = "Surv(time, status)"
 colon_s %>%
 	finalfit(dependent, explanatory) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 dependent = "Surv(time, status)"
@@ -770,11 +770,11 @@ colon_s %>%
 	dplyr::rename("Overall survival" = label) %>% 
 	dplyr::rename(" " = levels)	-> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 library(dplyr)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
@@ -796,11 +796,11 @@ table_1 %>%
 	select(-c(fit_id, index)) %>% 
 	dependent_label(colon_s, dependent)-> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 library(dplyr)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
@@ -833,11 +833,11 @@ colon_s %>%
 	) %>% 
 	dependent_label(colon_s, dependent) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 library(dplyr)
 
@@ -871,11 +871,11 @@ d.AD %>%
 					 last_merge = TRUE) %>% 
 	dependent_label(d.AD, dependent) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 library(dplyr)
 
@@ -901,11 +901,11 @@ clotting %>%
 	ff_merge(fit_uni, last_merge = TRUE) %>% 
 	dependent_label(colon_s, dependent) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 library(dplyr)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
@@ -915,11 +915,11 @@ colon_s %>%
 	mutate(myweights = runif(dim(colon_s)[1])) %>% # random just for example
 	finalfit(dependent, explanatory, weights = "myweights") -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 library(dplyr)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
@@ -947,11 +947,11 @@ colon_s %>%
 	) %>% 
 	dependent_label(colon_s, dependent) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 library(dplyr)
 explanatory = c("age.factor*sex.factor", "obstruct.factor", "perfor.factor")
@@ -978,11 +978,11 @@ colon_s %>%
 		paste0("p = 0.775")
 	))-> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(dplyr)
 mydata = colon_s
 explanatory_base = c("age.factor", "sex.factor")
@@ -994,11 +994,11 @@ mydata %>%
 	rename("Overall survival" = `Dependent: Surv(time, status)`, # optional tidying
 				 `n (%)` = "all") -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
 library(dplyr)
 
@@ -1056,11 +1056,11 @@ mydata %>%
 	rename(" " = levels) %>% 
 	rename(`n (%)` = all) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(survey)
 library(dplyr)
 
@@ -1102,11 +1102,11 @@ apistrat %>%
   ff_merge(fit_multi, last_merge = TRUE) %>%
   dependent_label(apistrat, dependent) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(survey)
 library(dplyr)
 
@@ -1141,7 +1141,7 @@ apistrat %>%
   ff_merge(fit_multi, last_merge = TRUE) %>%
   dependent_label(apistrat, dependent) -> t
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r", "r", "r"))
 

@@ -663,8 +663,10 @@ dependent variable levels if desired.</p>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;perfor.factor&quot;</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>colon_s <span class="sc">%&gt;%</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary_factorlist</span>(dependent, explanatory, <span class="at">p =</span> <span class="cn">TRUE</span>, <span class="at">p_cont_para =</span> <span class="st">&quot;t.test&quot;</span>) <span class="ot">-&gt;</span> t</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning in chisq.test(age.factor, perfor.factor): Chi-squared approximation may</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; be incorrect</span></span></code></pre></div>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning: There was 1 warning in `dplyr::summarise()`.</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ℹ In argument: `chisq.test(age.factor, perfor.factor)$p.value`.</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Caused by warning in `chisq.test()`:</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ! Chi-squared approximation may be incorrect</span></span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -969,17 +971,31 @@ data.</p>
 <td align="right"></td>
 </tr>
 <tr class="odd">
+<td align="left"></td>
+<td align="left">(Missing)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
 <td align="left">Sex</td>
 <td align="left">Female</td>
 <td align="right">432 (47.9)</td>
 <td align="right">13 (48.1)</td>
 <td align="right">1.000</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"></td>
 <td align="left">Male</td>
 <td align="right">470 (52.1)</td>
 <td align="right">14 (51.9)</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">(Missing)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
 <td align="right"></td>
 </tr>
 <tr class="odd">
@@ -1061,17 +1077,31 @@ doing that.</p>
 <td align="right"></td>
 </tr>
 <tr class="odd">
+<td align="left"></td>
+<td align="left">(Missing)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
 <td align="left">Sex</td>
 <td align="left">Female</td>
 <td align="right">432 (47.9)</td>
 <td align="right">13 (48.1)</td>
 <td align="right">1.000</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"></td>
 <td align="left">Male</td>
 <td align="right">470 (52.1)</td>
 <td align="right">14 (51.9)</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">(Missing)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
 <td align="right"></td>
 </tr>
 <tr class="odd">
@@ -1146,17 +1176,31 @@ doing that.</p>
 <td align="right"></td>
 </tr>
 <tr class="odd">
+<td align="left"></td>
+<td align="left">(Missing)</td>
+<td align="right">0 (NaN)</td>
+<td align="right">0 (NaN)</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
 <td align="left">Sex</td>
 <td align="left">Female</td>
 <td align="right">432 (97.1)</td>
 <td align="right">13 (2.9)</td>
 <td align="right">1.000</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"></td>
 <td align="left">Male</td>
 <td align="right">470 (97.1)</td>
 <td align="right">14 (2.9)</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">(Missing)</td>
+<td align="right">0 (NaN)</td>
+<td align="right">0 (NaN)</td>
 <td align="right"></td>
 </tr>
 <tr class="odd">
@@ -1250,6 +1294,14 @@ explanatory variables, see <code>add_row_total</code> below.</p>
 <td align="right"></td>
 </tr>
 <tr class="odd">
+<td align="left"></td>
+<td align="left">(Missing)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
 <td align="left">Sex</td>
 <td align="left">Female</td>
 <td align="right">432 (47.9)</td>
@@ -1257,12 +1309,20 @@ explanatory variables, see <code>add_row_total</code> below.</p>
 <td align="right">445 (47.9)</td>
 <td align="right">1.000</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"></td>
 <td align="left">Male</td>
 <td align="right">470 (52.1)</td>
 <td align="right">14 (51.9)</td>
 <td align="right">484 (52.1)</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">(Missing)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
 <td align="right"></td>
 </tr>
 <tr class="odd">
@@ -1369,6 +1429,16 @@ the variable and includes a column enumerating missing values.</p>
 <td align="left"></td>
 </tr>
 <tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="right">(Missing)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="left">0 (0.0)</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
 <td align="left">Sex</td>
 <td align="left">929 (100.0)</td>
 <td align="right">0</td>
@@ -1378,7 +1448,7 @@ the variable and includes a column enumerating missing values.</p>
 <td align="left">445 (47.9)</td>
 <td align="left">1.000</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"></td>
 <td align="left"></td>
 <td align="right"></td>
@@ -1386,6 +1456,16 @@ the variable and includes a column enumerating missing values.</p>
 <td align="right">470 (52.1)</td>
 <td align="right">14 (51.9)</td>
 <td align="left">484 (52.1)</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="right">(Missing)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="left">0 (0.0)</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1491,6 +1571,15 @@ the variable and includes a column enumerating missing values.</p>
 <td align="left"></td>
 </tr>
 <tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="right">(Missing)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
 <td align="left">Sex</td>
 <td align="left">929 (100.0)</td>
 <td align="right">Female</td>
@@ -1499,13 +1588,22 @@ the variable and includes a column enumerating missing values.</p>
 <td align="right">445 (47.9)</td>
 <td align="left">1.000</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"></td>
 <td align="left"></td>
 <td align="right">Male</td>
 <td align="right">470 (52.1)</td>
 <td align="right">14 (51.9)</td>
 <td align="right">484 (52.1)</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="right">(Missing)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1716,6 +1814,14 @@ variable.</p>
 <td align="right">21 (2.3)</td>
 <td align="right">0 (0.0)</td>
 <td align="right">21 (2.3)</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">(Missing)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
 <td align="right"></td>
 </tr>
 </tbody>
@@ -2001,6 +2107,14 @@ percentage.</p>
 <td align="right"></td>
 </tr>
 <tr class="odd">
+<td align="left"></td>
+<td align="left">(Missing)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
 <td align="left">Sex</td>
 <td align="left">Female</td>
 <td align="right">432 (47.9)</td>
@@ -2008,12 +2122,20 @@ percentage.</p>
 <td align="right">445 (47.9)</td>
 <td align="right">1.000</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"></td>
 <td align="left">Male</td>
 <td align="right">470 (52.1)</td>
 <td align="right">14 (51.9)</td>
 <td align="right">484 (52.1)</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">(Missing)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
 <td align="right"></td>
 </tr>
 <tr class="odd">
@@ -2108,6 +2230,14 @@ prefix (“Dependent:”) and any suffix can be altered.</p>
 <td align="right"></td>
 </tr>
 <tr class="odd">
+<td align="left"></td>
+<td align="left">(Missing)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
 <td align="left">Sex</td>
 <td align="left">Female</td>
 <td align="right">432 (47.9)</td>
@@ -2115,12 +2245,20 @@ prefix (“Dependent:”) and any suffix can be altered.</p>
 <td align="right">445 (47.9)</td>
 <td align="right">1.000</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"></td>
 <td align="left">Male</td>
 <td align="right">470 (52.1)</td>
 <td align="right">14 (51.9)</td>
 <td align="right">484 (52.1)</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">(Missing)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
 <td align="right"></td>
 </tr>
 <tr class="odd">
@@ -2227,6 +2365,16 @@ supported</h3>
 <td align="right"></td>
 </tr>
 <tr class="odd">
+<td align="left"></td>
+<td align="left">(Missing)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
 <td align="left">Sex</td>
 <td align="left">Female</td>
 <td align="right">13 (61.9)</td>
@@ -2236,7 +2384,7 @@ supported</h3>
 <td align="right">445 (47.9)</td>
 <td align="right">0.483</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"></td>
 <td align="left">Male</td>
 <td align="right">8 (38.1)</td>
@@ -2244,6 +2392,16 @@ supported</h3>
 <td align="right">393 (51.8)</td>
 <td align="right">24 (55.8)</td>
 <td align="right">484 (52.1)</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">(Missing)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
 <td align="right"></td>
 </tr>
 <tr class="odd">
@@ -2299,16 +2457,16 @@ realise when there is data missing from the dependent, e.g.:</p>
 <span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; age.factor                   Age    &lt;fct&gt; 929         0             0.0</span></span>
 <span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sex.factor                   Sex    &lt;fct&gt; 929         0             0.0</span></span>
 <span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; obstruct.factor      Obstruction    &lt;fct&gt; 908        21             2.3</span></span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 levels_n                                  levels levels_count</span></span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mort_5yr               2            &quot;Alive&quot;, &quot;Died&quot;, &quot;(Missing)&quot; 511, 404, 14</span></span>
-<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; age.factor             3 &quot;&lt;40 years&quot;, &quot;40-59 years&quot;, &quot;60+ years&quot; 70, 344, 515</span></span>
-<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sex.factor             2                        &quot;Female&quot;, &quot;Male&quot;     445, 484</span></span>
-<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; obstruct.factor        2                &quot;No&quot;, &quot;Yes&quot;, &quot;(Missing)&quot; 732, 176, 21</span></span>
-<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                   levels_percent</span></span>
-<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mort_5yr        55.0, 43.5,  1.5</span></span>
-<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; age.factor       7.5, 37.0, 55.4</span></span>
-<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sex.factor                48, 52</span></span>
-<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; obstruct.factor 78.8, 18.9,  2.3</span></span></code></pre></div>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 levels_n                                               levels</span></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mort_5yr               2                         &quot;Alive&quot;, &quot;Died&quot;, &quot;(Missing)&quot;</span></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; age.factor             3 &quot;&lt;40 years&quot;, &quot;40-59 years&quot;, &quot;60+ years&quot;, &quot;(Missing)&quot;</span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sex.factor             2                        &quot;Female&quot;, &quot;Male&quot;, &quot;(Missing)&quot;</span></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; obstruct.factor        2                             &quot;No&quot;, &quot;Yes&quot;, &quot;(Missing)&quot;</span></span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 levels_count   levels_percent</span></span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mort_5yr        511, 404, 14 55.0, 43.5,  1.5</span></span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; age.factor      70, 344, 515  7.5, 37.0, 55.4</span></span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sex.factor          445, 484           48, 52</span></span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; obstruct.factor 732, 176, 21 78.8, 18.9,  2.3</span></span></code></pre></div>
 <p>To make sure, a warning is generated when data are dropped from the
 dependent:</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finalfit)</span>
@@ -2394,6 +2552,16 @@ dependent:</p>
 <td align="right"></td>
 </tr>
 <tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="right">(Missing)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
 <td align="left">Sex</td>
 <td align="left">915 (100.0)</td>
 <td align="right">0</td>
@@ -2403,7 +2571,7 @@ dependent:</p>
 <td align="right">437 (47.8)</td>
 <td align="right">0.941</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"></td>
 <td align="left"></td>
 <td align="right"></td>
@@ -2411,6 +2579,16 @@ dependent:</p>
 <td align="right">268 (52.4)</td>
 <td align="right">210 (52.0)</td>
 <td align="right">478 (52.2)</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="right">(Missing)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
 <td align="right"></td>
 </tr>
 <tr class="even">
@@ -2451,7 +2629,7 @@ dependent:</p>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>dependent <span class="ot">=</span> <span class="st">&quot;mort_5yr&quot;</span></span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>colon_s <span class="sc">%&gt;%</span></span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">mort_5yr =</span> forcats<span class="sc">::</span><span class="fu">fct_explicit_na</span>(mort_5yr)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">mort_5yr =</span> forcats<span class="sc">::</span><span class="fu">fct_na_value_to_level</span>(mort_5yr, <span class="at">level =</span> <span class="st">&quot;(Missing)&quot;</span>)</span>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary_factorlist</span>(dependent, explanatory, <span class="at">p =</span> <span class="cn">TRUE</span>, <span class="at">na_include =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">total_col =</span> <span class="cn">TRUE</span>,</span>
@@ -2538,6 +2716,17 @@ dependent:</p>
 <td align="left"></td>
 </tr>
 <tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="right">(Missing)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
 <td align="left">Sex</td>
 <td align="left">929 (100.0)</td>
 <td align="right">0</td>
@@ -2548,7 +2737,7 @@ dependent:</p>
 <td align="right">445 (47.9)</td>
 <td align="left">0.776</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"></td>
 <td align="left"></td>
 <td align="right"></td>
@@ -2557,6 +2746,17 @@ dependent:</p>
 <td align="right">210 (52.0)</td>
 <td align="right">6 (42.9)</td>
 <td align="right">484 (52.1)</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="right">(Missing)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2690,6 +2890,17 @@ dependent:</p>
 <td align="left"></td>
 </tr>
 <tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="right">(Missing)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
 <td align="left">Sex</td>
 <td align="left">915 (100.0)</td>
 <td align="right">0</td>
@@ -2700,7 +2911,7 @@ dependent:</p>
 <td align="right">445 (47.9)</td>
 <td align="left">0.941</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"></td>
 <td align="left"></td>
 <td align="right"></td>
@@ -2709,6 +2920,17 @@ dependent:</p>
 <td align="right">210 (52.0)</td>
 <td align="right">6 (42.9)</td>
 <td align="right">484 (52.1)</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="right">(Missing)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2977,6 +3199,16 @@ is happening with a variable you wish to use, such as
 <td align="right"></td>
 </tr>
 <tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="right">(Missing)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
 <td align="left">Sex</td>
 <td align="left">894 (100.0)</td>
 <td align="right">0</td>
@@ -2986,7 +3218,7 @@ is happening with a variable you wish to use, such as
 <td align="right">429 (48.0)</td>
 <td align="right">0.894</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"></td>
 <td align="left"></td>
 <td align="right"></td>
@@ -2994,6 +3226,16 @@ is happening with a variable you wish to use, such as
 <td align="right">260 (52.3)</td>
 <td align="right">205 (51.6)</td>
 <td align="right">465 (52.0)</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="right">(Missing)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
 <td align="right"></td>
 </tr>
 <tr class="even">
@@ -3014,6 +3256,16 @@ is happening with a variable you wish to use, such as
 <td align="right">89 (17.9)</td>
 <td align="right">85 (21.4)</td>
 <td align="right">174 (19.5)</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="right">(Missing)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
+<td align="right">0 (0.0)</td>
 <td align="right"></td>
 </tr>
 </tbody>
@@ -3491,50 +3743,50 @@ Hypothesis tests are not run on weighted data, p is set to FALSE.</p>
 <tr class="odd">
 <td align="left">Age (years)</td>
 <td align="left">Mean (SD)</td>
-<td align="right">60.0 (12.0)</td>
-<td align="right">59.2 (13.1)</td>
+<td align="right">59.6 (11.9)</td>
+<td align="right">57.4 (13.8)</td>
 </tr>
 <tr class="even">
 <td align="left">Age</td>
 <td align="left">&lt;40 years</td>
-<td align="right">35.9 (7.7)</td>
-<td align="right">0.8 (6.4)</td>
+<td align="right">33.0 (7.6)</td>
+<td align="right">1.0 (7.4)</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td align="left">40-59 years</td>
-<td align="right">166.4 (35.8)</td>
-<td align="right">4.1 (33.8)</td>
+<td align="right">165.2 (38.0)</td>
+<td align="right">5.4 (38.9)</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td align="left">60+ years</td>
-<td align="right">263.0 (56.5)</td>
-<td align="right">7.3 (59.8)</td>
+<td align="right">237.0 (54.5)</td>
+<td align="right">7.5 (53.6)</td>
 </tr>
 <tr class="odd">
 <td align="left">Sex</td>
 <td align="left">Female</td>
-<td align="right">218.5 (47.0)</td>
-<td align="right">6.0 (48.7)</td>
+<td align="right">209.4 (48.1)</td>
+<td align="right">5.1 (36.5)</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td align="left">Male</td>
-<td align="right">246.7 (53.0)</td>
-<td align="right">6.3 (51.3)</td>
+<td align="right">225.8 (51.9)</td>
+<td align="right">8.8 (63.5)</td>
 </tr>
 <tr class="odd">
 <td align="left">Obstruction</td>
 <td align="left">No</td>
-<td align="right">373.2 (81.9)</td>
-<td align="right">7.3 (59.5)</td>
+<td align="right">350.6 (82.7)</td>
+<td align="right">6.9 (49.4)</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td align="left">Yes</td>
-<td align="right">82.5 (18.1)</td>
-<td align="right">5.0 (40.5)</td>
+<td align="right">73.3 (17.3)</td>
+<td align="right">7.0 (50.6)</td>
 </tr>
 </tbody>
 </table>
@@ -5711,7 +5963,7 @@ missing data.</p>
 <col width="7%" />
 <col width="7%" />
 <col width="24%" />
-<col width="22%" />
+<col width="24%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -5738,7 +5990,7 @@ missing data.</p>
 <td align="right">Mean (sd)</td>
 <td align="right">3.6 (3.3)</td>
 <td align="right">-1.14 (-2.08 to -0.21, p=0.016)</td>
-<td align="right">-0.79 (-1.65-0.07, p=0.035)</td>
+<td align="right">-0.79 (-1.65 to 0.07, p=0.035)</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
@@ -5746,7 +5998,7 @@ missing data.</p>
 <td align="right">Mean (sd)</td>
 <td align="right">3.6 (3.6)</td>
 <td align="right">-1.19 (-2.10 to -0.28, p=0.010)</td>
-<td align="right">-0.98 (-1.81–0.14, p=0.011)</td>
+<td align="right">-0.98 (-1.81 to -0.14, p=0.011)</td>
 </tr>
 <tr class="even">
 <td align="left">Sex</td>
@@ -5762,7 +6014,7 @@ missing data.</p>
 <td align="right">Mean (sd)</td>
 <td align="right">3.6 (3.6)</td>
 <td align="right">-0.14 (-0.60 to 0.33, p=0.565)</td>
-<td align="right">-0.19 (-0.62-0.24, p=0.195)</td>
+<td align="right">-0.19 (-0.62 to 0.24, p=0.195)</td>
 </tr>
 <tr class="even">
 <td align="left">Obstruction</td>
@@ -5778,7 +6030,7 @@ missing data.</p>
 <td align="right">Mean (sd)</td>
 <td align="right">3.5 (3.2)</td>
 <td align="right">-0.24 (-0.83 to 0.36, p=0.435)</td>
-<td align="right">-0.37 (-0.92-0.17, p=0.091)</td>
+<td align="right">-0.37 (-0.92 to 0.17, p=0.091)</td>
 </tr>
 <tr class="even">
 <td align="left">Perforation</td>
@@ -5794,7 +6046,7 @@ missing data.</p>
 <td align="right">Mean (sd)</td>
 <td align="right">3.9 (2.8)</td>
 <td align="right">0.24 (-1.13 to 1.61, p=0.735)</td>
-<td align="right">0.23 (-1.01-1.48, p=0.357)</td>
+<td align="right">0.23 (-1.01 to 1.48, p=0.357)</td>
 </tr>
 </tbody>
 </table>
@@ -5810,12 +6062,12 @@ missing data.</p>
 <span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">dependent_label_suffix =</span> <span class="st">&quot; (random slope: age)&quot;</span>) <span class="ot">-&gt;</span> t</span></code></pre></div>
 <table>
 <colgroup>
-<col width="28%" />
+<col width="27%" />
 <col width="9%" />
 <col width="7%" />
 <col width="7%" />
 <col width="24%" />
-<col width="22%" />
+<col width="24%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -5842,7 +6094,7 @@ missing data.</p>
 <td align="right">Mean (sd)</td>
 <td align="right">3.6 (3.3)</td>
 <td align="right">-1.14 (-2.08 to -0.21, p=0.016)</td>
-<td align="right">-0.76 (-1.73-0.22, p=0.065)</td>
+<td align="right">-0.76 (-1.73 to 0.22, p=0.065)</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
@@ -5850,7 +6102,7 @@ missing data.</p>
 <td align="right">Mean (sd)</td>
 <td align="right">3.6 (3.6)</td>
 <td align="right">-1.19 (-2.10 to -0.28, p=0.010)</td>
-<td align="right">-0.93 (-1.77–0.08, p=0.016)</td>
+<td align="right">-0.93 (-1.77 to -0.08, p=0.016)</td>
 </tr>
 <tr class="even">
 <td align="left">Sex</td>
@@ -5866,7 +6118,7 @@ missing data.</p>
 <td align="right">Mean (sd)</td>
 <td align="right">3.6 (3.6)</td>
 <td align="right">-0.14 (-0.60 to 0.33, p=0.565)</td>
-<td align="right">-0.19 (-0.62-0.24, p=0.196)</td>
+<td align="right">-0.19 (-0.62 to 0.24, p=0.196)</td>
 </tr>
 <tr class="even">
 <td align="left">Obstruction</td>
@@ -5882,7 +6134,7 @@ missing data.</p>
 <td align="right">Mean (sd)</td>
 <td align="right">3.5 (3.2)</td>
 <td align="right">-0.24 (-0.83 to 0.36, p=0.435)</td>
-<td align="right">-0.34 (-0.88-0.21, p=0.112)</td>
+<td align="right">-0.34 (-0.88 to 0.21, p=0.112)</td>
 </tr>
 <tr class="even">
 <td align="left">Perforation</td>
@@ -5898,7 +6150,7 @@ missing data.</p>
 <td align="right">Mean (sd)</td>
 <td align="right">3.9 (2.8)</td>
 <td align="right">0.24 (-1.13 to 1.61, p=0.735)</td>
-<td align="right">0.20 (-1.05-1.45, p=0.377)</td>
+<td align="right">0.20 (-1.05 to 1.45, p=0.377)</td>
 </tr>
 </tbody>
 </table>
@@ -6522,18 +6774,18 @@ around.</p>
 <span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>colon_s <span class="sc">%&gt;%</span></span>
 <span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">myweights =</span> <span class="fu">runif</span>(<span class="fu">dim</span>(colon_s)[<span class="dv">1</span>])) <span class="sc">%&gt;%</span> <span class="co"># random just for example</span></span>
 <span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">finalfit</span>(dependent, explanatory, <span class="at">weights =</span> <span class="st">&quot;myweights&quot;</span>) <span class="ot">-&gt;</span> t</span></code></pre></div>
-<table>
+<table style="width:100%;">
 <colgroup>
-<col width="24%" />
-<col width="10%" />
+<col width="31%" />
 <col width="9%" />
-<col width="9%" />
-<col width="22%" />
-<col width="22%" />
+<col width="8%" />
+<col width="8%" />
+<col width="20%" />
+<col width="20%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th align="left">Dependent: Mortality 5 year</th>
+<th align="left">Dependent: Mortality 5 year (weighted)</th>
 <th align="left"></th>
 <th align="right">Alive</th>
 <th align="right">Died</th>
@@ -6545,74 +6797,74 @@ around.</p>
 <tr class="odd">
 <td align="left">Age</td>
 <td align="left">&lt;40 years</td>
-<td align="right">31 (46.3)</td>
-<td align="right">36 (53.7)</td>
+<td align="right">16 (49.3)</td>
+<td align="right">17 (50.7)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td align="left">40-59 years</td>
-<td align="right">208 (61.4)</td>
-<td align="right">131 (38.6)</td>
-<td align="right">0.54 (0.32-0.92, p=0.023)</td>
-<td align="right">0.57 (0.34-0.98, p=0.041)</td>
+<td align="right">102 (61.3)</td>
+<td align="right">64 (38.7)</td>
+<td align="right">0.61 (0.29-1.31, p=0.204)</td>
+<td align="right">0.63 (0.29-1.34, p=0.226)</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td align="left">60+ years</td>
-<td align="right">272 (53.4)</td>
-<td align="right">237 (46.6)</td>
-<td align="right">0.75 (0.45-1.25, p=0.270)</td>
-<td align="right">0.81 (0.48-1.36, p=0.426)</td>
+<td align="right">135 (54.8)</td>
+<td align="right">111 (45.2)</td>
+<td align="right">0.80 (0.38-1.67, p=0.554)</td>
+<td align="right">0.85 (0.41-1.79, p=0.671)</td>
 </tr>
 <tr class="even">
 <td align="left">Sex</td>
 <td align="left">Female</td>
-<td align="right">243 (55.6)</td>
-<td align="right">194 (44.4)</td>
+<td align="right">119 (57.8)</td>
+<td align="right">87 (42.2)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td align="left">Male</td>
-<td align="right">268 (56.1)</td>
-<td align="right">210 (43.9)</td>
-<td align="right">0.98 (0.76-1.27, p=0.889)</td>
-<td align="right">0.98 (0.75-1.28, p=0.902)</td>
+<td align="right">135 (56.0)</td>
+<td align="right">106 (44.0)</td>
+<td align="right">1.07 (0.74-1.56, p=0.715)</td>
+<td align="right">1.10 (0.75-1.61, p=0.637)</td>
 </tr>
 <tr class="even">
 <td align="left">Obstruction</td>
 <td align="left">No</td>
-<td align="right">408 (56.7)</td>
-<td align="right">312 (43.3)</td>
+<td align="right">204 (57.5)</td>
+<td align="right">151 (42.5)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td align="left">Yes</td>
-<td align="right">89 (51.1)</td>
-<td align="right">85 (48.9)</td>
-<td align="right">1.25 (0.90-1.74, p=0.189)</td>
-<td align="right">1.25 (0.90-1.76, p=0.186)</td>
+<td align="right">42 (52.2)</td>
+<td align="right">39 (47.8)</td>
+<td align="right">1.24 (0.76-2.01, p=0.388)</td>
+<td align="right">1.26 (0.77-2.05, p=0.363)</td>
 </tr>
 <tr class="even">
 <td align="left">Perforation</td>
 <td align="left">No</td>
-<td align="right">497 (56.0)</td>
-<td align="right">391 (44.0)</td>
+<td align="right">247 (57.1)</td>
+<td align="right">185 (42.9)</td>
 <td align="right">-</td>
 <td align="right">-</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td align="left">Yes</td>
-<td align="right">14 (51.9)</td>
-<td align="right">13 (48.1)</td>
-<td align="right">1.18 (0.54-2.55, p=0.672)</td>
-<td align="right">1.12 (0.51-2.44, p=0.770)</td>
+<td align="right">6 (46.4)</td>
+<td align="right">7 (53.6)</td>
+<td align="right">1.54 (0.51-4.81, p=0.442)</td>
+<td align="right">1.52 (0.49-4.78, p=0.463)</td>
 </tr>
 </tbody>
 </table>

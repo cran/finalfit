@@ -363,11 +363,11 @@ don’t use it as standard and so need to convert all the models first,
 e.g. to lrm. Again, for my needs it tries to do too much and I find
 datadist awkward.</p>
 <p>Thirdly, I love <a href="https://mc-stan.org/users/interfaces/rstan">Stan</a> for this,
-e.g. used in this <a href="https://www.thelancet.com/journals/laninf/article/PIIS1473-3099(18)30101-4/fulltext">paper</a>.
-The generated quantities block allows great flexibility to simulate
-whatever you wish from the posterior. I’m a Bayesian at heart will
-always come back to this. But for some applications it’s a bit much, and
-takes some time to get running as I want.</p>
+e.g. used in this <a href="https://doi.org/10.1016/S1473-3099(18)30101-4">paper</a>. The
+generated quantities block allows great flexibility to simulate whatever
+you wish from the posterior. I’m a Bayesian at heart will always come
+back to this. But for some applications it’s a bit much, and takes some
+time to get running as I want.</p>
 <p>I often simply want to predict y-hat from lm and glm with
 bootstrapped intervals and ideally a comparison of explanatory levels
 sets. Just like <code>sim</code> does in <code>Zelig</code>. But I want
@@ -420,10 +420,10 @@ those model acronyms, it is straightforward.</p>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">R=</span><span class="dv">100</span>, <span class="at">boot_compare =</span> <span class="cn">FALSE</span>,</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">digits =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>))</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         Age    Extent of spread Perforation Predicted probability of death</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 &lt;40 years           Submucosa          No            0.28 (0.09 to 0.60)</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 &lt;40 years           Submucosa         Yes            0.29 (0.06 to 0.70)</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 &lt;40 years Adjacent structures          No            0.71 (0.53 to 0.86)</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 &lt;40 years Adjacent structures         Yes            0.72 (0.47 to 0.91)</span></span></code></pre></div>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 &lt;40 years           Submucosa          No            0.28 (0.00 to 0.51)</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 &lt;40 years           Submucosa         Yes            0.29 (0.00 to 0.65)</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 &lt;40 years Adjacent structures          No            0.71 (0.51 to 0.88)</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 &lt;40 years Adjacent structures         Yes            0.72 (0.39 to 0.89)</span></span></code></pre></div>
 <p>Note that the number of simulations (<code>R</code>) here is low for
 demonstration purposes. You should expect to use 1000 to 10000 to ensure
 you have stable estimates.</p>
@@ -456,15 +456,15 @@ predictions under 1.0. Multiplied by two so it is two-sided.</p>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">#compare_name = &quot;Absolute risk difference&quot;,</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">R=</span><span class="dv">100</span>, <span class="at">digits =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>))</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         Age    Extent of spread Perforation Predicted probability of death</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 &lt;40 years           Submucosa          No            0.28 (0.05 to 0.63)</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 &lt;40 years           Submucosa         Yes            0.29 (0.04 to 0.65)</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 &lt;40 years Adjacent structures          No            0.71 (0.49 to 0.88)</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 &lt;40 years Adjacent structures         Yes            0.72 (0.41 to 0.90)</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 &lt;40 years           Submucosa          No            0.28 (0.06 to 0.57)</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 &lt;40 years           Submucosa         Yes            0.29 (0.07 to 0.67)</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 &lt;40 years Adjacent structures          No            0.71 (0.50 to 0.86)</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 &lt;40 years Adjacent structures         Yes            0.72 (0.40 to 0.88)</span></span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                      Difference</span></span>
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1                             -</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 0.00 (-0.15 to 0.16, p=0.920)</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  0.41 (0.22 to 0.78, p&lt;0.001)</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  0.41 (0.14 to 0.78, p&lt;0.001)</span></span></code></pre></div>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 0.01 (-0.12 to 0.18, p=0.880)</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  0.43 (0.16 to 0.65, p&lt;0.001)</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  0.45 (0.17 to 0.70, p&lt;0.001)</span></span></code></pre></div>
 </div>
 <div id="what-is-not-included" class="section level2">
 <h2>What is not included?</h2>

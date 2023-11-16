@@ -4,7 +4,7 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-## ---- eval=FALSE--------------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  # Make sure finalfit is up-to-date
 #  install.packages("finalfit")
 
@@ -44,17 +44,17 @@ dependent = "mort_5yr"
 colon_s %>% 
   ff_glimpse(dependent, explanatory)
 
-## ---- eval=FALSE--------------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  colon_s %>%
 #    ff_glimpse()
 
-## ---- eval=FALSE--------------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  library(dplyr)
 #  colon_s %>%
 #    select(-hospital) %>%
 #    ff_glimpse()
 
-## ---- eval=FALSE--------------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  colon_s %>%
 #    missing_plot()
 
@@ -80,7 +80,7 @@ colon_s %>%
   summary_factorlist(dependent, explanatory, 
   na_include=TRUE, p=TRUE)
 
-## ---- eval=FALSE--------------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  explanatory = c("age", "sex.factor",
 #    "nodes", "obstruct.factor",
 #    "smoking_mcar", "smoking_mar")
@@ -88,7 +88,7 @@ colon_s %>%
 #  colon_s %>%
 #    missing_pairs(dependent, explanatory)
 
-## ---- eval=FALSE--------------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  colon_s %>%
 #    missing_pairs(dependent, explanatory, position = "fill", )
 
@@ -106,7 +106,7 @@ colon_s %>%
   missing_compare(dependent, explanatory) %>% 
 	knitr::kable(row.names=FALSE, align = c("l", "l", "r", "r", "r")) # Omit when you run
 
-## ---- eval=FALSE--------------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  library(finalfit)
 #  library(dplyr)
 #  library(MissMech)
@@ -210,13 +210,13 @@ summary1 %>%
   select(-fit_id, -index) %>% 
 	knitr::kable(row.names=FALSE, align = c("l", "l", "r", "r", "r","r", "r", "r"))
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(dplyr)
 explanatory = c("age", "sex.factor", 
   "nodes", "obstruct.factor", "smoking_mar")
 colon_s %>% 
   mutate(
-    smoking_mar = forcats::fct_explicit_na(smoking_mar)
+    smoking_mar = forcats::fct_na_value_to_level(smoking_mar, level = "(Missing)")
   ) %>% 
   finalfit(dependent, explanatory) %>% 
 	knitr::kable(row.names=FALSE, align = c("l", "l", "r", "r", "r", "r"))

@@ -27,6 +27,7 @@
 
 ff_glimpse <- function(.data, dependent=NULL, explanatory=NULL, digits = 1,
 											 levels_cut = 5){
+	if(any(class(.data) %in% c("tbl_df", "tbl"))) .data = data.frame(.data)
 	if(is.null(dependent) && is.null(explanatory)){
 		df.in = .data
 	} else {
@@ -81,7 +82,7 @@ ff_glimpse <- function(.data, dependent=NULL, explanatory=NULL, digits = 1,
 			purrr::map_df(function(x){
 				levels_n = length(levels(as.factor(x)))
 				levels = ifelse(is.factor(x),
-												forcats::fct_explicit_na(x) %>%
+				                forcats::fct_na_value_to_level(x, level = "(Missing)") %>%
 													levels() %>%
 													paste0("\"", ., "\"", collapse = ", "),
 												"-")

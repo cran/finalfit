@@ -4,7 +4,7 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-## ---- eval=FALSE--------------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  # Make sure finalfit is up-to-date
 #  install.packages("finalfit")
 
@@ -75,7 +75,7 @@ my_survfit # 205 patients, 71 events
 summary(my_survfit, times = c(0, 1, 2, 3, 4, 5))
 # 5 year overall survival is 73%
 
-## ---- fig.width = 5, fig.height = 4-------------------------------------------
+## ----fig.width = 5, fig.height = 4--------------------------------------------
 dependent_os = "Surv(time/365, status_os)"
 explanatory = c("ulcer")
 
@@ -106,7 +106,7 @@ melanoma %>%
 	finalfit(dependent_os, explanatory, explanatory_multi, keep_models = TRUE) %>% 
 	mykable()
 
-## ---- fig.width = 5, fig.height = 4-------------------------------------------
+## ----fig.width = 5, fig.height = 4--------------------------------------------
 explanatory = c("age", "sex", "thickness", "ulcer", "year")
 melanoma %>% 
 	coxphmulti(dependent_os, explanatory) %>% 

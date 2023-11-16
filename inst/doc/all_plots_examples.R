@@ -170,14 +170,14 @@ colon_s %>%
 	)
 # Note this example uses fig.height=3, fig.width=9
 
-## ----fig.height=3, fig.width=9------------------------------------------------
+## ----fig.height=3, fig.width=10-----------------------------------------------
 library(finalfit)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 dependent = 'mort_5yr'
 colon_s %>%
   or_plot(dependent, explanatory,
-  				digits = c(3,3,3), confint_sep = " to ")
-# Note this example uses fig.height=3, fig.width=9
+  				digits = c(3,3,3), confint_sep = " to ", column_space = c(-0.5, -0.1, 0.5))
+# Note this example uses fig.height=3, fig.width=10
 
 ## -----------------------------------------------------------------------------
 library(finalfit)

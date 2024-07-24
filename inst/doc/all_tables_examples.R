@@ -693,8 +693,8 @@ kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 #  dependent = "mort_5yr"
 #  random_effect = "(age.factor | hospital)"
 #  colon_s %>%
-#  	lme4::glmer(mort_5yr ~ age.factor + (age.factor | hospital), family = "binomial", data = .) %>%
-#  	broom::tidy() -> t
+#  	glmmixed(dependent, explanatory, random_effect = random_effect) %>%
+#  	broom.mixed::tidy() -> t
 
 ## ----echo=FALSE, eval=FALSE---------------------------------------------------
 #  library(knitr)
@@ -706,7 +706,7 @@ explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
 dependent = 'mort_5yr'
 colon_s %>%
 	dplyr::select(explanatory, dependent) %>%
-	na.omit() %>%
+	tidyr::drop_na() %>%
 	finalfit(dependent, explanatory) -> t
 
 ## ----echo=FALSE---------------------------------------------------------------

@@ -21,6 +21,12 @@ colon_s %>%
 newdata
 
 ## -----------------------------------------------------------------------------
+library(dplyr)
+colon_s %>% 
+	select(-hospital) %>% 
+	ff_expand(age.factor, sex.factor)
+
+## -----------------------------------------------------------------------------
 colon_s %>% 
   glmmulti(dependent, explanatory) %>% 
   boot_predict(newdata, 

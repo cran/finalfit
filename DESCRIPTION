@@ -2,7 +2,7 @@ Package: finalfit
 Type: Package
 Title: Quickly Create Elegant Regression Results Tables and Plots when
         Modelling
-Version: 1.0.7
+Version: 1.0.8
 Authors@R: c(
   person(given = "Ewen", family = "Harrison", role = c("aut", "cre"), email = "ewen.harrison@ed.ac.uk"),
   person(given = "Tom", family = "Drake", role = c("aut")),
@@ -18,15 +18,15 @@ BugReports: https://github.com/ewenharrison/finalfit/issues
 URL: https://github.com/ewenharrison/finalfit
 Imports: bdsmatrix, boot, broom, dplyr, forcats, GGally, ggplot2, grid,
         gridExtra, lme4, magrittr, mice, pillar, pROC, purrr, scales,
-        stats, stringr, survival, tidyr (>= 1.0.0), tidyselect
+        stats, stringr, survival, tidyr (>= 1.0.0),
 RoxygenNote: 7.2.3
 Suggests: cmprsk, coxme, Hmisc, knitr, lmtest, readr, rlang, rmarkdown,
         rstan, sandwich, survey, survminer, testthat, tibble
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2023-11-16 14:14:01 UTC; eharrison
+Packaged: 2024-07-24 14:49:58 UTC; eharrison
 Author: Ewen Harrison [aut, cre],
   Tom Drake [aut],
   Riinu Pius [aut]
 Repository: CRAN
-Date/Publication: 2023-11-16 17:40:02 UTC
+Date/Publication: 2024-07-24 15:20:01 UTC

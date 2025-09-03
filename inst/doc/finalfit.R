@@ -5,11 +5,11 @@ knitr::opts_chunk$set(
 )
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  install.packages("finalfit")
+# install.packages("finalfit")
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  install.packages("rstan")
-#  install.packages("boot")
+# install.packages("rstan")
+# install.packages("boot")
 
 ## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)
@@ -107,31 +107,31 @@ example.summary %>%
 knitr::kable(t8, row.names=FALSE, align=c("l", "l", "r", "r", "r", "r", "r"))
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
-#  dependent = 'mort_5yr'
-#  colon_s %>%
-#    or_plot(dependent, explanatory)
-#  # Previously fitted models (`glmmulti()` or # `glmmixed()`) can be provided directly to `glmfit`
+# explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
+# dependent = 'mort_5yr'
+# colon_s %>%
+#   or_plot(dependent, explanatory)
+# # Previously fitted models (`glmmulti()` or # `glmmixed()`) can be provided directly to `glmfit`
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
-#  dependent = "Surv(time, status)"
-#  colon_s %>%
-#    hr_plot(dependent, explanatory, dependent_label = "Survival")
-#  # Previously fitted models (`coxphmulti`) can be provided directly using `coxfit`
+# explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
+# dependent = "Surv(time, status)"
+# colon_s %>%
+#   hr_plot(dependent, explanatory, dependent_label = "Survival")
+# # Previously fitted models (`coxphmulti`) can be provided directly using `coxfit`
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  explanatory = c("perfor.factor")
-#  dependent = "Surv(time, status)"
-#  colon_s %>%
-#    surv_plot(dependent, explanatory,
-#    xlab="Time (days)", pval=TRUE, legend="none")
+# explanatory = c("perfor.factor")
+# dependent = "Surv(time, status)"
+# colon_s %>%
+#   surv_plot(dependent, explanatory,
+#   xlab="Time (days)", pval=TRUE, legend="none")
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  colon_s %>%
-#    mutate(
-#      ff_label(age.factor, "Age (years)")
-#    )
+# colon_s %>%
+#   mutate(
+#     ff_label(age.factor, "Age (years)")
+#   )
 
 ## ----warning=FALSE, message=FALSE---------------------------------------------
 colon_s %>%

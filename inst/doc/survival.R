@@ -5,8 +5,8 @@ knitr::opts_chunk$set(
 )
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  # Make sure finalfit is up-to-date
-#  install.packages("finalfit")
+# # Make sure finalfit is up-to-date
+# install.packages("finalfit")
 
 ## -----------------------------------------------------------------------------
 # For this vignette only, pre-specify table output
@@ -140,8 +140,8 @@ melanoma %>%
 	mykable()
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  melanoma %>%
-#  	hr_plot(dependent_os, explanatory)
+# melanoma %>%
+# 	hr_plot(dependent_os, explanatory)
 
 ## ----echo=FALSE, fig.height=3, fig.width=7------------------------------------
 library(ggplot2)

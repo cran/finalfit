@@ -80,6 +80,24 @@ system.time(colon_s %>%
 )
 # Note this example uses fig.height=3, fig.width=9
 
+## ----fig.height=6, fig.width=9------------------------------------------------
+library(finalfit)
+
+explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
+dependent = "mort_5yr"
+
+fit_uni = colon_s %>% 
+	glmuni(dependent, explanatory)
+
+p_uni = colon_s %>%
+	or_plot(dependent, explanatory, suffix = " (univariable)", remove_ref = TRUE, 
+					glmfit = fit_uni)
+p_multi = colon_s %>%
+	or_plot(dependent, explanatory, suffix = " (multivariable)", remove_ref = TRUE)
+
+cowplot::plot_grid(p_uni, p_multi, ncol = 1)
+
+
 ## ----fig.height=3, fig.width=9------------------------------------------------
 library(finalfit)
 explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
@@ -219,14 +237,14 @@ colon_s %>%
   ff_plot(dependent, explanatory)
 # Note this example uses fig.height=3, fig.width=9
 
-## ----fig.height=4.5, fig.width=6----------------------------------------------
+## ----fig.height=6, fig.width=9------------------------------------------------
 library(finalfit)
 explanatory = "perfor.factor"
 dependent = "Surv(time, status)"
 colon_s %>%
 	surv_plot(dependent, explanatory)
 
-## ----fig.height=4.5, fig.width=6----------------------------------------------
+## ----fig.height=6, fig.width=9------------------------------------------------
 library(finalfit)
 explanatory = "perfor.factor"
 dependent = "Surv(time, status)"

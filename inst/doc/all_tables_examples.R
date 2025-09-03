@@ -5,7 +5,7 @@ knitr::opts_chunk$set(
 )
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  install.packages("finalfit")
+# install.packages("finalfit")
 
 ## -----------------------------------------------------------------------------
 library(finalfit)
@@ -589,25 +589,25 @@ library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
 ## ----eval=FALSE, message=FALSE, warning=FALSE---------------------------------
-#  explanatory = c("age", "sex.factor")
-#  dependent = 'mort_5yr'
-#  
-#  # Standard finalfit regression table
-#  t1 = colon_s %>%
-#    finalfit(dependent, explanatory, keep_fit_id = TRUE)
-#  
-#  # GLM with Stata-like robust standard errors
-#  t2 = colon_s %>%
-#    glmmulti(dependent, explanatory) %>%
-#    lmtest::coeftest(., vcov = sandwich::vcovHC(., "HC1")) %>%
-#    broom::tidy(conf.int = TRUE) %>%
-#    remove_intercept() %>%
-#    select(term, estimate, conf.low, conf.high, p.value) %>%
-#    mutate(across(c(estimate, conf.low, conf.high), exp)) %>% # or mutate_at(vars())
-#    as.data.frame() %>%
-#    condense_fit(estimate_name = "OR (multivariable robust SE)")
-#  
-#  ff_merge(t1, t2, last_merge = TRUE)
+# explanatory = c("age", "sex.factor")
+# dependent = 'mort_5yr'
+# 
+# # Standard finalfit regression table
+# t1 = colon_s %>%
+#   finalfit(dependent, explanatory, keep_fit_id = TRUE)
+# 
+# # GLM with Stata-like robust standard errors
+# t2 = colon_s %>%
+#   glmmulti(dependent, explanatory) %>%
+#   lmtest::coeftest(., vcov = sandwich::vcovHC(., "HC1")) %>%
+#   broom::tidy(conf.int = TRUE) %>%
+#   remove_intercept() %>%
+#   select(term, estimate, conf.low, conf.high, p.value) %>%
+#   mutate(across(c(estimate, conf.low, conf.high), exp)) %>% # or mutate_at(vars())
+#   as.data.frame() %>%
+#   condense_fit(estimate_name = "OR (multivariable robust SE)")
+# 
+# ff_merge(t1, t2, last_merge = TRUE)
 
 ## ----echo=FALSE---------------------------------------------------------------
 library(finalfit)
@@ -688,17 +688,17 @@ library(knitr)
 kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
 ## ----eval=FALSE, message=FALSE, warning=FALSE, include=TRUE-------------------
-#  library(finalfit)
-#  explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
-#  dependent = "mort_5yr"
-#  random_effect = "(age.factor | hospital)"
-#  colon_s %>%
-#  	glmmixed(dependent, explanatory, random_effect = random_effect) %>%
-#  	broom.mixed::tidy() -> t
+# library(finalfit)
+# explanatory = c("age.factor", "sex.factor", "obstruct.factor", "perfor.factor")
+# dependent = "mort_5yr"
+# random_effect = "(age.factor | hospital)"
+# colon_s %>%
+# 	glmmixed(dependent, explanatory, random_effect = random_effect) %>%
+# 	broom.mixed::tidy() -> t
 
 ## ----echo=FALSE, eval=FALSE---------------------------------------------------
-#  library(knitr)
-#  kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
+# library(knitr)
+# kable(t, row.names=FALSE, align = c("l", "l", "r", "r", "r", "r", "r", "r"))
 
 ## ----warning=FALSE, message=FALSE---------------------------------------------
 library(finalfit)

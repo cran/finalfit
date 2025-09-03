@@ -98,3 +98,22 @@ Methods (not called directly):
 \link{missing_pairs}.
 }
 
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/ewenharrison/finalfit}
+  \item Report bugs at \url{https://github.com/ewenharrison/finalfit/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Ewen Harrison \email{ewen.harrison@ed.ac.uk}
+
+Authors:
+\itemize{
+  \item Tom Drake
+  \item Riinu Pius
+}
+
+}
+\keyword{internal}
